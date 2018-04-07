@@ -37,9 +37,9 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 ## Supported Algorithms
 
-|Algorithm|Method|Status|
+|Algorithm|Factory Method|Status|
 |----------|----------|----------|
-|A\*|`HeuristicSearch.AStar<TStep>()`|Done|
+|A\*|`AStar<TStep>()`|Done|
 |Best First|`BestFirst<TStep>()`|To be implemented|
 |Recursive Best First Search|`RecursiveBestFirstSearch<TStep>()`|To be implemented|
 |Iterative Deepening A\*|`IterativeDeepeningAStar<TStep>()`|To be implemented|
