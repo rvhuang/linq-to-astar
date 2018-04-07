@@ -34,7 +34,8 @@ The LINQ expression consists of following elements:
 * The `Except()` expression eliminates invalid steps during the process.
 * The `where` clause sets up the boundary, but can also be used for checking invalid steps.
 * The `orderby` clause serves as *_h(n)_* (aka **Heuristic**) that estimates the cost of the cheapest path from n to the goal.
-* If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
+
+If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
 ## Supported Algorithms
 
