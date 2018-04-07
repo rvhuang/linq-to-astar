@@ -1,8 +1,6 @@
-# LINQ To A\*
+# LINQ to A\*
 
-**LINQ To A\*** is an experimental project aimed to incorporate LINQ expressions into A\* as well as other heuristic search algorithms.
-
-We love LINQ because it is the most elegant and beautiful thing in .NET world. Exploring the possibility of collaboration between heuristic search algorithms and LINQ expressions is what we are trying to do in the project.
+**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into A\* as well as other heuristic search algorithms.
 
 ## How It Works
 
@@ -22,18 +20,18 @@ var queryable = from step in astar.Except(GetObstacles())
                 orderby step.GetManhattanDistance(goal)
                 select step;
 
-// The shortest path found by A* algorithm.
+// Each step of the shortest path found by A* algorithm.
 foreach (var step in queryable)
 {
     Console.WriteLine(step);
 }
 ```
 
-The LINQ expression consists of following elements:
+The LINQ expression consists of following clauses:
 
-* The `Except()` expression eliminates invalid steps during the process.
+* The `Except()` eliminates invalid steps during the process.
 * The `where` clause sets up the boundary, but can also be used for checking invalid steps.
-* The `orderby` clause serves as *_h(n)_* (aka **Heuristic**) that estimates the cost of the cheapest path from n to the goal.
+* The `orderby` clause serves as *h(n)* (aka [Heuristic](https://en.wikipedia.org/wiki/Heuristic)) that estimates the cost of the cheapest path from *n* to the goal.
 
 If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
@@ -42,9 +40,9 @@ If path is found, the enumeration returns each step in deferred execution. Other
 |Algorithm|Method|Status|
 |----------|----------|----------|
 |A\*|`HeuristicSearch.AStar<TStep>()`|Done|
-|Best First|--|To be implemented|
-|Recursive Best First Search|--|To be implemented|
-|Iterative Deepening A\*|--|To be implemented|
+|Best First|`BestFirst<TStep>()`|To be implemented|
+|Recursive Best First Search|`RecursiveBestFirstSearch<TStep>()`|To be implemented|
+|Iterative Deepening A\*|`IterativeDeepeningAStar<TStep>()`|To be implemented|
 
 ## Supported LINQ Expressions
 
