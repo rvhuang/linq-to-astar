@@ -1,8 +1,8 @@
 # LINQ to A\*
 
-**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into A\* as well as other heuristic search algorithms.
+**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms.
 
-## How It Works
+## Example
 
 Snippet below shows the LINQ expression used to find shortest path between two positions.
 
@@ -10,9 +10,11 @@ Snippet below shows the LINQ expression used to find shortest path between two p
 // The path to be found between two positions.
 var start = new Vector2(5, 5);
 var goal = new Vector2(35, 35);
+var unit = 1;
 
-// The factory that gets next steps from current step.
-var astar = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(1));
+// The initialization of A* algorithm
+// with the factory that gets possible steps from current step.
+var astar = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
 
 // See description below.
 var queryable = from step in astar.Except(GetObstacles())
@@ -39,10 +41,10 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 |Algorithm|Factory Method|Status|
 |----------|----------|----------|
-|A\*|`AStar<TStep>()`|Done|
-|Best First|`BestFirst<TStep>()`|To be implemented|
-|Recursive Best First Search|`RecursiveBestFirstSearch<TStep>()`|To be implemented|
-|Iterative Deepening A\*|`IterativeDeepeningAStar<TStep>()`|To be implemented|
+|[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|Done|
+|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|To be implemented|
+|Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|To be implemented|
+|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|To be implemented|
 
 ## Supported LINQ Expressions
 

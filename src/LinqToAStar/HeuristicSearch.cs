@@ -17,12 +17,12 @@ namespace LinqToAStar
             return new HeuristicSearchInitial<TStep>(nameof(AStar<TStep, TStep>), from, to, comparer, expander);
         }
 
-        public static HeuristicSearchBase<TStep, TStep> BestFirst<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
+        public static HeuristicSearchBase<TStep, TStep> BestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
         {
             throw new NotImplementedException();
         }
 
-        public static HeuristicSearchBase<TStep, TStep> BestFirst<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
+        public static HeuristicSearchBase<TStep, TStep> BestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
             throw new NotImplementedException();
         }
