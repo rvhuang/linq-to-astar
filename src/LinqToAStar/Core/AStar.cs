@@ -34,14 +34,13 @@ namespace LinqToAStar.Core
             open.Sort(_source.NodeComparer);
             
             var closed = new HashSet<TStep>(_source.Comparer);
-            var init = open.First();
 
             while (open.Count > 0)
             {
-                var current = open.First();
+                var current = open[0];
                 var hasNext = false;
 
-                if (Comparer.Equals(current.Step, _source.To))
+                if (_source.Comparer.Equals(current.Step, _source.To))
                     return current.TracesBack().GetEnumerator();
                 
                 open.RemoveAt(0);
@@ -50,10 +49,11 @@ namespace LinqToAStar.Core
                 foreach (var next in _source.Expands(current.Step, current.Level))
                 {
                     if (closed.Contains(next.Step)) continue;
-                    if (!open.Any(step => _source.Comparer.Equals(next.Step, step.Step)))
+                    if (open.Find(step => _source.Comparer.Equals(next.Step, step.Step)) == null)
                     {
-                        Console.WriteLine($"{current.Step}\t{current.Level} -- {next.Step}\t{next.Level}");
-
+#if DEBUG
+                        Console.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
+#endif
                         next.Previous = current;
                         open.Add(next);
                         hasNext = true;
