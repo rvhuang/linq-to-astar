@@ -34,7 +34,7 @@ namespace LinqToAStar
 
         internal virtual Func<TStep, int, IEnumerable<TResult>> Converter => _converter;
 
-        internal virtual IComparer<Node<TStep, TResult>> NodeComparer => _source != null ? _source.NodeComparer : Comparer<Node<TStep, TResult>>.Default;
+        internal virtual ComparerBase<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
 
         #endregion
 
@@ -88,6 +88,12 @@ namespace LinqToAStar
                     yield return n;
         }
 
+        internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level, Func<TStep, bool> predicate)
+        {
+            foreach (var next in Expander(step, level).Where(predicate))
+                foreach (var n in ConvertAnyway(next, level + 1))
+                    yield return n;
+        }
         internal IEnumerable<Node<TStep, TResult>> ConvertAnyway(TStep step, int level)
         {
             foreach (var r in Converter(step, level))

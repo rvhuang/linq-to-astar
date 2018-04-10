@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace LinqToAStar
@@ -8,19 +9,19 @@ namespace LinqToAStar
     {
         #region Fields
 
-        private IComparer<Node<TStep, TResult>> _nodeComparer;
+        private ComparerBase<TStep, TResult> _nodeComparer;
 
         #endregion
 
         #region Properties
 
-        internal override IComparer<Node<TStep, TResult>> NodeComparer => _nodeComparer;
+        internal override ComparerBase<TStep, TResult> NodeComparer => _nodeComparer;
 
         #endregion
 
         #region Constructors
 
-        internal HeuristicSearchOrderBy(HeuristicSearchBase<TResult, TStep> source, IComparer<Node<TStep, TResult>> nodeComparer) 
+        internal HeuristicSearchOrderBy(HeuristicSearchBase<TResult, TStep> source, ComparerBase<TStep, TResult> nodeComparer) 
             : base(source)
         {
             _nodeComparer = nodeComparer;
@@ -32,10 +33,16 @@ namespace LinqToAStar
 
         public override IEnumerator<TResult> GetEnumerator()
         {
+#if DEBUG
+            Console.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
+#endif
             switch (AlgorithmName)
             {
                 case nameof(AStar<TResult, TStep>): 
                     return new AStar<TResult, TStep>(this).GetEnumerator();
+
+                case nameof(BestFirstSearch<TResult, TStep>): 
+                    return new BestFirstSearch<TResult, TStep>(this).GetEnumerator();
             }
             return base.GetEnumerator();
         }

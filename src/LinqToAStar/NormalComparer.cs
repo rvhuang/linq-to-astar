@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    class NormalComparer<TStep, TResult, TKey> : ComparerBase<Node<TStep, TResult>>
+    class NormalComparer<TStep, TResult, TKey> : ComparerBase<TStep, TResult>
     {
         #region Fields
 
@@ -35,6 +35,11 @@ namespace LinqToAStar
             return DistanceHelper.Int32Comparer.Compare(x.Level, y.Level);
         }
 
+        protected override int OnCompare(TResult x, TResult y)
+        {
+            return _keyComparer.Compare(_keySelector(x), _keySelector(y));
+        }
+        
         #endregion
     }
 }
