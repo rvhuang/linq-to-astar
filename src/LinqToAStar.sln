@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToAStar", "LinqToAStar\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToAStar.Example", "LinqToAStar.Example\LinqToAStar.Example.csproj", "{2A7970EB-AFC3-476E-83B4-EB2175AA26ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToAStar.Example.PathFinding", "LinqToAStar.Example.PathFinding\LinqToAStar.Example.PathFinding.csproj", "{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2A7970EB-AFC3-476E-83B4-EB2175AA26ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A7970EB-AFC3-476E-83B4-EB2175AA26ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A7970EB-AFC3-476E-83B4-EB2175AA26ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
