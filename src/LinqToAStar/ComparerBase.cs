@@ -24,6 +24,9 @@ namespace LinqToAStar
 
         public int Compare(Node<TStep, TResult> x, Node<TStep, TResult> y)
         {
+            if (x == null) return y == null ? 0 : (_descending ? -1 : 1);
+            if (y == null) return x == null ? 0 : (_descending ? 1 :-1);
+
             return _descending ? 0 - OnCompare(x, y) : OnCompare(x, y);
         }
 
@@ -34,6 +37,9 @@ namespace LinqToAStar
 
         public int CompareResultOnly(Node<TStep, TResult> x, Node<TStep, TResult> y)
         {
+            if (x == null) return y == null ? 0 : (_descending ? -1 : 1);
+            if (y == null) return x == null ? 0 : (_descending ? 1 :-1);
+
             return Compare(x.Result, y.Result);
         }
 
