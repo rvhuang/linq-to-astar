@@ -5,10 +5,10 @@ using System.Linq;
 namespace LinqToAStar
 {
     internal class HeuristicSearchSelectMany<TSource, TCollection, TResult, TStep> : HeuristicSearchBase<TResult, TStep>
-    {        
+    {
         #region Fields
 
-        private readonly HeuristicSearchBase<TSource, TStep> _source;  
+        private readonly HeuristicSearchBase<TSource, TStep> _source;
         private readonly Func<TSource, int, IEnumerable<TCollection>> _collectionSelector;
         private readonly Func<TSource, TCollection, TResult> _resultSelector;
 
@@ -24,11 +24,11 @@ namespace LinqToAStar
 
         #region Constructors
 
-        internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source, 
-            Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector) 
+        internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source,
+            Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
             : base(source.From, source.To, source.Comparer, source.Expander)
         {
-            _source = source; 
+            _source = source;
             _collectionSelector = collectionSelector;
             _resultSelector = resultSelector;
         }
@@ -47,7 +47,7 @@ namespace LinqToAStar
         #region Others
 
         private IEnumerable<TResult> Convert(TStep step, int level)
-        { 
+        {
             foreach (var s in _source.Converter(step, level))
                 foreach (var c in _collectionSelector(s, level))
                     yield return _resultSelector(s, c);
@@ -60,7 +60,7 @@ namespace LinqToAStar
     {
         #region Fields
 
-        private readonly HeuristicSearchBase<TSource, TStep> _source;   
+        private readonly HeuristicSearchBase<TSource, TStep> _source;
         private readonly Func<TSource, int, IEnumerable<TResult>> _selector;
 
         #endregion
@@ -75,10 +75,10 @@ namespace LinqToAStar
 
         #region Constructors
 
-        internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TResult>> selector) 
+        internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TResult>> selector)
             : base(source.From, source.To, source.Comparer, source.Expander)
         {
-            _source = source; 
+            _source = source;
             _selector = selector;
         }
 

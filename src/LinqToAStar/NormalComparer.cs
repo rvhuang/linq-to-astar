@@ -39,7 +39,7 @@ namespace LinqToAStar
         {
             return _keyComparer.Compare(_keySelector(x), _keySelector(y));
         }
-        
+
         #endregion
     }
 }

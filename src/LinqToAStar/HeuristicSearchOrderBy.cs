@@ -21,12 +21,12 @@ namespace LinqToAStar
 
         #region Constructors
 
-        internal HeuristicSearchOrderBy(HeuristicSearchBase<TResult, TStep> source, ComparerBase<TStep, TResult> nodeComparer) 
+        internal HeuristicSearchOrderBy(HeuristicSearchBase<TResult, TStep> source, ComparerBase<TStep, TResult> nodeComparer)
             : base(source)
         {
             _nodeComparer = nodeComparer;
         }
-        
+
         #endregion
 
         #region Overrides
@@ -38,10 +38,10 @@ namespace LinqToAStar
 #endif
             switch (AlgorithmName)
             {
-                case nameof(AStar<TResult, TStep>): 
+                case nameof(AStar<TResult, TStep>):
                     return new AStar<TResult, TStep>(this).GetEnumerator();
 
-                case nameof(BestFirstSearch<TResult, TStep>): 
+                case nameof(BestFirstSearch<TResult, TStep>):
                     return new BestFirstSearch<TResult, TStep>(this).GetEnumerator();
             }
             return base.GetEnumerator();

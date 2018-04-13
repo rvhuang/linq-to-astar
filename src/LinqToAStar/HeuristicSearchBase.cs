@@ -5,8 +5,6 @@ using System.Linq;
 
 namespace LinqToAStar
 {
-    using Core;
-
     public abstract class HeuristicSearchBase<TResult, TStep> : IEnumerable<TResult>
     {
         #region Fields
@@ -46,13 +44,13 @@ namespace LinqToAStar
             _source = source;
         }
 
-        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer, 
-            Func<TStep, int, IEnumerable<TStep>> expander) 
+        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,
+            Func<TStep, int, IEnumerable<TStep>> expander)
             : this(from, to, comparer, null, expander)
         {
         }
 
-        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer, 
+        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,
             Func<TStep, int, IEnumerable<TResult>> converter, Func<TStep, int, IEnumerable<TStep>> expander)
         {
             From = from;
@@ -94,6 +92,7 @@ namespace LinqToAStar
                 foreach (var n in ConvertAnyway(next, level + 1))
                     yield return n;
         }
+
         internal IEnumerable<Node<TStep, TResult>> ConvertAnyway(TStep step, int level)
         {
             foreach (var r in Converter(step, level))
