@@ -38,7 +38,7 @@ namespace LinqToAStar.Core
             
             while (counter <= _max)
             {
-                var t = Search(bound, bound, new RecursionState<TResult, TStep>(_source));
+                var t = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
 
                 if (t.Flag == RecursionFlag.Found) 
                     return t.Node.TracesBack().GetEnumerator();
@@ -61,22 +61,25 @@ namespace LinqToAStar.Core
 
         #region Core
 
-        private RecursionResult<TStep, TResult> Search(Node<TStep, TResult> node, Node<TStep, TResult> bound, RecursionState<TResult, TStep> state)
+        private RecursionState<TStep, TResult> Search(Node<TStep, TResult> current, Node<TStep, TResult> bound, ISet<TStep> visited)
         {
-            if (_source.NodeComparer.Compare(node, bound) > 0)
-                return new RecursionResult<TStep, TResult>(RecursionFlag.InProgress, node);
+            if (_source.NodeComparer.Compare(current, bound) > 0)
+                return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
 
-            if (_source.Comparer.Equals(node.Step, _source.To)) 
-                return new RecursionResult<TStep, TResult>(RecursionFlag.Found, node); 
+            if (_source.Comparer.Equals(current.Step, _source.To)) 
+                return new RecursionState<TStep, TResult>(RecursionFlag.Found, current); 
 
             var min = default(Node<TStep, TResult>);
             var hasMin = false;
             
-            foreach (var next in _source.Expands(node.Step, node.Level, state.Visited.Add))
+            foreach (var next in _source.Expands(current.Step, current.Level, visited.Add))
             {
-                next.Previous = node;
+#if DEBUG
+                Console.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
+#endif
+                next.Previous = current;
 
-                var t = Search(next, bound, state);
+                var t = Search(next, bound, visited);
 
                 if (t.Flag == RecursionFlag.Found) return t;
                 if (t.Flag == RecursionFlag.NotFound) continue;
@@ -86,7 +89,7 @@ namespace LinqToAStar.Core
                     hasMin = true;
                 }
             }
-            return new RecursionResult<TStep, TResult>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
+            return new RecursionState<TStep, TResult>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
         }
 
         #endregion 

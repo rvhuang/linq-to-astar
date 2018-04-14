@@ -2,30 +2,7 @@ using System.Collections.Generic;
 
 namespace LinqToAStar.Core
 {
-    internal class RecursionState<TResult, TStep>
-    {
-        private readonly HeuristicSearchBase<TResult, TStep> _owner; 
-        private readonly ISet<TStep> _visited;
-
-        public ISet<TStep> Visited => _visited;
-
-        public RecursionState(HeuristicSearchBase<TResult, TStep> owner)
-        { 
-            _owner = owner; 
-            _visited = new HashSet<TStep>(owner.Comparer);
-        }
-    }
-
-    internal enum RecursionFlag
-    {
-        Found,
-
-        InProgress,
-
-        NotFound,
-    }
-
-    internal struct RecursionResult<TStep, TResult>
+    internal struct RecursionState<TStep, TResult>
     {
         public RecursionFlag Flag
         {
@@ -37,7 +14,7 @@ namespace LinqToAStar.Core
             get; private set;
         }
 
-        public RecursionResult(RecursionFlag flag, Node<TStep, TResult> node)
+        public RecursionState(RecursionFlag flag, Node<TStep, TResult> node)
         {  
             Flag = flag; 
             Node = node;
@@ -47,5 +24,14 @@ namespace LinqToAStar.Core
         {
             return $"{Node.Step} -> {Node.Result} ({Flag})";
         }
+    }
+
+    internal enum RecursionFlag
+    {
+        Found,
+
+        InProgress,
+
+        NotFound,
     } 
 }
