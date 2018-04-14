@@ -63,7 +63,7 @@ namespace LinqToAStar.Core
 
         private RecursionResult<TStep, TResult> Search(Node<TStep, TResult> node, Node<TStep, TResult> bound, RecursionState<TResult, TStep> state)
         {
-            if (_source.NodeComparer.CompareResultOnly(node, bound) > 0)
+            if (_source.NodeComparer.Compare(node, bound) > 0)
                 return new RecursionResult<TStep, TResult>(RecursionFlag.InProgress, node);
 
             if (_source.Comparer.Equals(node.Step, _source.To)) 
@@ -80,7 +80,7 @@ namespace LinqToAStar.Core
 
                 if (t.Flag == RecursionFlag.Found) return t;
                 if (t.Flag == RecursionFlag.NotFound) continue;
-                if (!hasMin || _source.NodeComparer.CompareResultOnly(t.Node, min) < 0)
+                if (!hasMin || _source.NodeComparer.Compare(t.Node, min) < 0)
                 {
                     min = t.Node;
                     hasMin = true;
