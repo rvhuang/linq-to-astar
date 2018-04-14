@@ -9,3 +9,4 @@ install:
 
 script:
 - dotnet build src/LinqToAStar.sln
+- dotnet test src/LinqToAStar.Test/LinqToAStar.Test.csproj -c Release
