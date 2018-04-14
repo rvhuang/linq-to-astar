@@ -43,6 +43,9 @@ namespace LinqToAStar
 
                 case nameof(BestFirstSearch<TResult, TStep>):
                     return new BestFirstSearch<TResult, TStep>(this).GetEnumerator();
+
+                case nameof(IterativeDeepeningAStar<TResult, TStep>): 
+                    return new IterativeDeepeningAStar<TResult, TStep>(this).GetEnumerator();
             }
             return base.GetEnumerator();
         }

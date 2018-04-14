@@ -39,12 +39,12 @@ namespace LinqToAStar
 
         public static HeuristicSearchBase<TStep, TStep> IterativeDeepeningAStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
         {
-            throw new NotImplementedException();
+            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar<TStep, TStep>), from, to, null, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> IterativeDeepeningAStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
-            throw new NotImplementedException();
+            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar<TStep, TStep>), from, to, comparer, expander);
         }
     }
 }
