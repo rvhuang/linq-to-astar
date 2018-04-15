@@ -48,7 +48,7 @@ If path is found, the enumeration returns each step in deferred execution. Other
 |[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|Done|
 |[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|Done|
 |Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|To be implemented|
-|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|Work in progress|
+|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|Done|
 
 ## Supported LINQ Expressions
 
