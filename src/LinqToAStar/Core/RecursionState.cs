@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace LinqToAStar.Core
 {
     internal struct RecursionState<TStep, TResult>
