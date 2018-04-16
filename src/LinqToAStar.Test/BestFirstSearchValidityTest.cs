@@ -1,25 +1,21 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Xunit;
 
-namespace LinqToAStar.Example
+namespace LinqToAStar.Test
 {
-    public class AStarValidityTest
+    public class BestFirstSearchValidityTest
     {
         private readonly IReadOnlyList<Vector2> _path;
         private readonly float _unit = 1f;
         private readonly Vector2 _start = new Vector2(5, 35);
         private readonly Vector2 _goal = new Vector2(35, 5);
 
-        public AStarValidityTest()
+        public BestFirstSearchValidityTest()
         {
-            _start = new Vector2(5, 35);
-            _goal = new Vector2(35, 5);
-            _unit = 1f;
-
-            var astar = HeuristicSearch.AStar(_start, _goal, (step, lv) => step.GetFourDirections(_unit));
+            var astar = HeuristicSearch.BestFirstSearch(_start, _goal, (step, lv) => step.GetFourDirections(_unit));
             var queryable = from step in astar.Except(GetObstacles())
                             where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
                             orderby step.GetManhattanDistance(_goal)
