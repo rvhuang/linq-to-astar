@@ -47,7 +47,7 @@ If path is found, the enumeration returns each step in deferred execution. Other
 |----------|----------|----------|
 |[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|Done|
 |[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|Done|
-|Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|Work in progress|
+|Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|Done|
 |[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|Done|
 
 ## Supported LINQ Expressions
@@ -70,7 +70,7 @@ The project targets .NET Standard 2.0 currently.
 
 ## Dependencies
 
-[System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/)
+[System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/) (>= 4.4.0)
 
 ## License
 
