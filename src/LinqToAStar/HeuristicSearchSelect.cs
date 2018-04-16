@@ -8,7 +8,7 @@ namespace LinqToAStar
     {
         #region Fields
 
-        private readonly HeuristicSearchBase<TSource, TStep> _source; 
+        private readonly HeuristicSearchBase<TSource, TStep> _source;
         private readonly Func<TSource, int, TResult> _selector;
 
         #endregion
@@ -44,8 +44,8 @@ namespace LinqToAStar
         #region Others
 
         private IEnumerable<TResult> Convert(TStep step, int level)
-        { 
-            foreach(var r in _source.Converter(step, level))
+        {
+            foreach (var r in _source.Converter(step, level))
                 yield return _selector(r, level);
         }
 

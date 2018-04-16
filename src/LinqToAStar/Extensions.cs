@@ -77,7 +77,7 @@ namespace LinqToAStar
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
             
-            var comparer = default(IComparer<Node<TStep, TResult>>);
+            var comparer = default(ComparerBase<TStep, TResult>);
 
             switch (Type.GetTypeCode(typeof(TKey)))
             {
@@ -109,7 +109,7 @@ namespace LinqToAStar
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
             
-            var comparer = default(IComparer<Node<TStep, TResult>>);
+            var comparer = default(ComparerBase<TStep, TResult>);
 
             switch (Type.GetTypeCode(typeof(TKey)))
             {

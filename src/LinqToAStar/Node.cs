@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace LinqToAStar
-{ 
+{
     class Node<TStep, TResult> : IEnumerable<TResult>
     {
         public Node<TStep, TResult> Previous
@@ -20,18 +19,18 @@ namespace LinqToAStar
         {
             get; set;
         }
-   
+
         public int Level
         {
             get; private set;
-        } 
+        }
 
         public TResult Result
         {
             get; private set;
         }
 
-        public Node(TStep step, TResult result, int level) 
+        public Node(TStep step, TResult result, int level)
         {
             Step = step;
             Result = result;

@@ -1,6 +1,10 @@
 # LINQ to A\*
 
-**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms.
+[![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar)
+
+**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goal is to improve human-readability and maintainability of conditions that are applied to the algorithm.
+
+Unlike traditional implementations, all supported algorithms in the project are generic. The API can be used to solve any problem as long as the algorithm is applicable.
 
 ## Example
 
@@ -42,9 +46,9 @@ If path is found, the enumeration returns each step in deferred execution. Other
 |Algorithm|Factory Method|Status|
 |----------|----------|----------|
 |[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|Done|
-|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|To be implemented|
-|Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|To be implemented|
-|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|To be implemented|
+|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|Done|
+|Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|Done|
+|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|Done|
 
 ## Supported LINQ Expressions
 
@@ -66,7 +70,7 @@ The project targets .NET Standard 2.0 currently.
 
 ## Dependencies
 
-[System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/)
+[System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/) (>= 4.4.0)
 
 ## License
 

@@ -5,8 +5,6 @@ using System.Linq;
 
 namespace LinqToAStar
 {
-    using Core;
-
     public abstract class HeuristicSearchBase<TResult, TStep> : IEnumerable<TResult>
     {
         #region Fields
@@ -34,7 +32,7 @@ namespace LinqToAStar
 
         internal virtual Func<TStep, int, IEnumerable<TResult>> Converter => _converter;
 
-        internal virtual IComparer<Node<TStep, TResult>> NodeComparer => _source != null ? _source.NodeComparer : Comparer<Node<TStep, TResult>>.Default;
+        internal virtual ComparerBase<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
 
         #endregion
 
@@ -46,13 +44,13 @@ namespace LinqToAStar
             _source = source;
         }
 
-        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer, 
-            Func<TStep, int, IEnumerable<TStep>> expander) 
+        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,
+            Func<TStep, int, IEnumerable<TStep>> expander)
             : this(from, to, comparer, null, expander)
         {
         }
 
-        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer, 
+        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,
             Func<TStep, int, IEnumerable<TResult>> converter, Func<TStep, int, IEnumerable<TStep>> expander)
         {
             From = from;
@@ -84,6 +82,13 @@ namespace LinqToAStar
         internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level)
         {
             foreach (var next in Expander(step, level))
+                foreach (var n in ConvertAnyway(next, level + 1))
+                    yield return n;
+        }
+
+        internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level, Func<TStep, bool> predicate)
+        {
+            foreach (var next in Expander(step, level).Where(predicate))
                 foreach (var n in ConvertAnyway(next, level + 1))
                     yield return n;
         }

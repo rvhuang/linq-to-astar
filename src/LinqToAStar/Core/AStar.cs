@@ -15,7 +15,7 @@ namespace LinqToAStar.Core
 
         #region Constructor
 
-        internal AStar(HeuristicSearchBase<TResult, TStep> source)  
+        internal AStar(HeuristicSearchBase<TResult, TStep> source)
         {
             _source = source;
         }
@@ -25,14 +25,14 @@ namespace LinqToAStar.Core
         #region Override
 
         public IEnumerator<TResult> GetEnumerator()
-        {            
+        {
             var open = new List<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0));
-            
-            if (open.Count == 0) 
+
+            if (open.Count == 0)
                 return Enumerable.Empty<TResult>().GetEnumerator();
-            
+
             open.Sort(_source.NodeComparer);
-            
+
             var closed = new HashSet<TStep>(_source.Comparer);
 
             while (open.Count > 0)
@@ -42,7 +42,7 @@ namespace LinqToAStar.Core
 
                 if (_source.Comparer.Equals(current.Step, _source.To))
                     return current.TracesBack().GetEnumerator();
-                
+
                 open.RemoveAt(0);
                 closed.Add(current.Step);
 
@@ -59,7 +59,7 @@ namespace LinqToAStar.Core
                         hasNext = true;
                     }
                 }
-                if (hasNext) 
+                if (hasNext)
                     open.Sort(_source.NodeComparer);
             }
             return Enumerable.Empty<TResult>().GetEnumerator();

@@ -7,7 +7,7 @@ namespace LinqToAStar
     {
         public static IEnumerable<Vector2> GetFourDirections(this Vector2 a, float unit)
         {
-            return new []
+            return new[]
             {
                 new Vector2(a.X + unit, a.Y), // right 
                 new Vector2(a.X - unit, a.Y), // left 
@@ -18,7 +18,7 @@ namespace LinqToAStar
 
         public static IEnumerable<Vector2> GetEightDirections(this Vector2 a, float unit)
         {
-            return new []
+            return new[]
             {
                 new Vector2(a.X + unit, a.Y), // right 
                 new Vector2(a.X + unit, a.Y + unit), // right - top 

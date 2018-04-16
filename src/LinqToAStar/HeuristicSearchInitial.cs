@@ -21,8 +21,8 @@ namespace LinqToAStar
         #endregion
 
         #region Constructors
-        
-        internal HeuristicSearchInitial(string algorithmName, TStep from, TStep to, IEqualityComparer<TStep> comparer, Func<TStep, int, IEnumerable<TStep>> expander) 
+
+        internal HeuristicSearchInitial(string algorithmName, TStep from, TStep to, IEqualityComparer<TStep> comparer, Func<TStep, int, IEnumerable<TStep>> expander)
             : base(from, to, comparer, EmptyConverter, expander)
         {
             _algorithmName = algorithmName;

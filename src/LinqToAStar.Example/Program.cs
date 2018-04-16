@@ -7,7 +7,7 @@ namespace LinqToAStar.Example
     class Program
     {
         static void Main(string[] args)
-        {  
+        {
             var start = new Vector2(5, 5);
             var goal = new Vector2(35, 35);
             var unit = 1;

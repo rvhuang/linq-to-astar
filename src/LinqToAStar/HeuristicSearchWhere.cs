@@ -14,13 +14,13 @@ namespace LinqToAStar
 
         #region Properties
 
-        internal override Func<TStep, int, IEnumerable<TResult>> Converter => Convert; 
+        internal override Func<TStep, int, IEnumerable<TResult>> Converter => Convert;
 
         #endregion
 
         #region Constructors
 
-        internal HeuristicSearchWhere(HeuristicSearchBase<TResult, TStep> source,  Func<TResult, int, bool> predicate) 
+        internal HeuristicSearchWhere(HeuristicSearchBase<TResult, TStep> source, Func<TResult, int, bool> predicate)
             : base(source)
         {
             _predicate = predicate;
@@ -40,7 +40,7 @@ namespace LinqToAStar
         #region Others
 
         private IEnumerable<TResult> Convert(TStep step, int level)
-        { 
+        {
             return Source.Converter(step, level).Where(_predicate);
         }
 

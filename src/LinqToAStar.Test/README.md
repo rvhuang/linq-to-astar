@@ -1,0 +1,12 @@
+# Test
+
+The file describes the purpose of test project.
+
+## Validity Test
+
+Each test class covers an algorithm and consists of at least two test cases:
+
+1. Test if first step of the solution is equal to `start` and last step is equal to `goal`.
+2. Tests if the solution is continuous. Distance between `X` or distance between `Y` of each two steps must be exactly equal to `unit`.
+
+Validity test does not verify whether the path is best solution.
