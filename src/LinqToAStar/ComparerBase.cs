@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LinqToAStar
 {
@@ -7,15 +6,23 @@ namespace LinqToAStar
     {
         #region Fields
 
-        private readonly bool _descending; 
- 
-        #endregion 
+        private readonly bool _descending;
+        private readonly IComparer<Node<TStep, TResult>> _resultComparer;
+
+        #endregion
+
+        #region Properties
+
+        public IComparer<Node<TStep, TResult>> ResultComparer => _resultComparer;
+
+        #endregion
 
         #region Constructors
 
         public ComparerBase(bool descending)
         {
-            _descending = descending; 
+            _descending = descending;
+            _resultComparer = Comparer<Node<TStep, TResult>>.Create(CompareResultOnly);
         }
 
         #endregion
