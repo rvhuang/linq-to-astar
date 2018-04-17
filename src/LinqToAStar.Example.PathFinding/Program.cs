@@ -129,7 +129,7 @@ namespace LinqToAStar.Example.PathFinding
             var from = default(Vector2);
             var goal = default(Vector2);
             var obstacles = new HashSet<Vector2>();
-            var mapData = File.ReadAllLines("MapData.txt");
+            var mapData = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MapData.txt"));
 
             for (int y = 0; y < mapData.Length; y++)
             {
