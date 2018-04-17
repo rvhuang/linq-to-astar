@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace LinqToAStar.Example
@@ -11,13 +12,13 @@ namespace LinqToAStar.Example
             var start = new Vector2(5, 5);
             var goal = new Vector2(35, 35);
             var unit = 1;
-            var astar = HeuristicSearch.RecursiveBestFirstSearch(start, goal, (step, lv) => step.GetFourDirections(unit));
-            var queryable = from step in astar.Except(GetObstacles())
+            var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable.Except(GetObstacles())
                             where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
                             orderby step.GetManhattanDistance(goal)
                             select step;
 
-            foreach (var step in queryable)
+            foreach (var step in solution)
             {
                 Console.WriteLine(step);
             }

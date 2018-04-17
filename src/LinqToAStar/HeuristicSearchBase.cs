@@ -21,14 +21,14 @@ namespace LinqToAStar
         public TStep From { get; private set; }
 
         public TStep To { get; private set; }
+        
+        public Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
 
         public IEqualityComparer<TStep> Comparer => _comparer;
 
         public virtual string AlgorithmName => _source != null ? _source.AlgorithmName : string.Empty;
 
         internal HeuristicSearchBase<TResult, TStep> Source => _source;
-
-        public Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
 
         internal virtual Func<TStep, int, IEnumerable<TResult>> Converter => _converter;
 
