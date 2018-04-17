@@ -65,5 +65,10 @@ namespace LinqToAStar
         {
             return this.GetEnumerator();
         }
+
+        public override string ToString()
+        {
+            return $"{Step}({Result}) Level: {Level}";
+        }
     }
 }
