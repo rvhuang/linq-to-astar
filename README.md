@@ -18,16 +18,16 @@ var unit = 1;
 
 // The initialization of A* algorithm
 // with the factory that gets possible steps from current step.
-var astar = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
+var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
 
 // See description below.
-var queryable = from step in astar.Except(GetObstacles())
-                where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
-                orderby step.GetManhattanDistance(goal)
-                select step;
+var solution = from step in queryable.Except(GetObstacles())
+               where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
+               orderby step.GetManhattanDistance(goal)
+               select step;
 
 // Each step of the shortest path found by A* algorithm.
-foreach (var step in queryable)
+foreach (var step in solution)
 {
     Console.WriteLine(step);
 }
@@ -41,13 +41,15 @@ The LINQ expression consists of following clauses:
 
 If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
+Complete executable example can be found in [path finding](src/LinqToAStar.Example.PathFinding/) example project (more example projects will be added in future).
+
 ## Supported Algorithms
 
 |Algorithm|Factory Method|Status|
 |----------|----------|----------|
 |[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|Done|
 |[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|Done|
-|Recursive Best-first Search|`RecursiveBestFirstSearch<TStep>()`|Done|
+|[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`|Done|
 |[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|Done|
 
 ## Supported LINQ Expressions
@@ -64,13 +66,21 @@ If path is found, the enumeration returns each step in deferred execution. Other
 |`Except()`|Done|
 |`Contains()`|To be implemented|
 
+## Roadmap
+
+|Milestone|Release Date (NuGet)|
+|----------|----------|
+|1.0.0 Preview|Q2 2018|
+|1.0.0|Q3 2018|
+
 ## Platform
 
 The project targets .NET Standard 2.0 currently.
 
 ## Dependencies
 
-[System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/) (>= 4.4.0)
+* [System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/) (>= 4.4.0)
+* [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/) (to be supported)
 
 ## License
 
