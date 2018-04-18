@@ -37,7 +37,7 @@ namespace LinqToAStar
             Level = level;
         }
 
-        public Node<TStep, TResult> TracesBack()
+        public Node<TStep, TResult> TraceBack()
         {
             var node = this;
 
@@ -63,7 +63,7 @@ namespace LinqToAStar
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public override string ToString()

@@ -24,7 +24,7 @@ namespace LinqToAStar
         #region Constructor
 
         public HeuristicSearchSelect(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, TResult> selector)
-            : base(source.From, source.To, source.Comparer, source.Expander)
+            : base(source.From, source.To, source.StepComparer, source.Expander)
         {
             _source = source;
             _selector = selector;

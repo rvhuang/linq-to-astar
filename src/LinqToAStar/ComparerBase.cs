@@ -42,7 +42,7 @@ namespace LinqToAStar
             return _descending ? 0 - OnCompare(x, y) : OnCompare(x, y);
         }
 
-        public int CompareResultOnly(Node<TStep, TResult> x, Node<TStep, TResult> y)
+        private int CompareResultOnly(Node<TStep, TResult> x, Node<TStep, TResult> y)
         {
             if (x == null) return y == null ? 0 : (_descending ? -1 : 1);
             if (y == null) return x == null ? 0 : (_descending ? 1 :-1);

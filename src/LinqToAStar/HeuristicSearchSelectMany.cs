@@ -26,7 +26,7 @@ namespace LinqToAStar
 
         internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source,
             Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
-            : base(source.From, source.To, source.Comparer, source.Expander)
+            : base(source.From, source.To, source.StepComparer, source.Expander)
         {
             _source = source;
             _collectionSelector = collectionSelector;
@@ -76,7 +76,7 @@ namespace LinqToAStar
         #region Constructors
 
         internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TResult>> selector)
-            : base(source.From, source.To, source.Comparer, source.Expander)
+            : base(source.From, source.To, source.StepComparer, source.Expander)
         {
             _source = source;
             _selector = selector;

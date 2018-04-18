@@ -38,10 +38,10 @@ namespace LinqToAStar.Core
             
             while (counter <= _max)
             {
-                var t = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
+                var t = Search(bound, bound, new HashSet<TStep>(_source.StepComparer));
 
                 if (t.Flag == RecursionFlag.Found) 
-                    return t.Node.TracesBack().GetEnumerator();
+                    return t.Node.TraceBack().GetEnumerator();
                 if (t.Flag == RecursionFlag.NotFound) 
                     return Enumerable.Empty<TResult>().GetEnumerator();
 
@@ -66,7 +66,7 @@ namespace LinqToAStar.Core
             if (_source.NodeComparer.Compare(current, bound) > 0)
                 return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
 
-            if (_source.Comparer.Equals(current.Step, _source.To)) 
+            if (_source.StepComparer.Equals(current.Step, _source.To)) 
                 return new RecursionState<TStep, TResult>(RecursionFlag.Found, current); 
 
             var min = default(Node<TStep, TResult>);

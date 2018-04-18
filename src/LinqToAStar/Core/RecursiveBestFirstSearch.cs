@@ -44,9 +44,9 @@ namespace LinqToAStar.Core
             Array.Sort(inits, _nodeComparer);
 
             var bound = inits[0];
-            var state = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
+            var state = Search(bound, bound, new HashSet<TStep>(_source.StepComparer));
 
-            return state.Node != null ? state.Node.TracesBack().GetEnumerator() : Enumerable.Empty<TResult>().GetEnumerator();
+            return state.Node != null ? state.Node.TraceBack().GetEnumerator() : Enumerable.Empty<TResult>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -63,7 +63,7 @@ namespace LinqToAStar.Core
             if (_nodeComparer.Compare(current, bound) > 0)
                 return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
 
-            if (_source.Comparer.Equals(current.Step, _source.To))
+            if (_source.StepComparer.Equals(current.Step, _source.To))
                 return new RecursionState<TStep, TResult>(RecursionFlag.Found, current);
 
             var nexts = _source.Expands(current.Step, current.Level, visited.Add).ToList();
