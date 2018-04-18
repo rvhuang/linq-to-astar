@@ -41,7 +41,7 @@ namespace LinqToAStar.Core
                 var t = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
 
                 if (t.Flag == RecursionFlag.Found) 
-                    return t.Node.TracesBack().GetEnumerator();
+                    return t.Node.TraceBack().GetEnumerator();
                 if (t.Flag == RecursionFlag.NotFound) 
                     return Enumerable.Empty<TResult>().GetEnumerator();
 

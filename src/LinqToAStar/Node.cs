@@ -37,7 +37,7 @@ namespace LinqToAStar
             Level = level;
         }
 
-        public Node<TStep, TResult> TracesBack()
+        public Node<TStep, TResult> TraceBack()
         {
             var node = this;
 

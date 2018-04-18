@@ -41,7 +41,7 @@ namespace LinqToAStar.Core
                 var hasNext = false;
 
                 if (_source.Comparer.Equals(current.Step, _source.To))
-                    return current.TracesBack().GetEnumerator();
+                    return current.TraceBack().GetEnumerator();
 
                 open.RemoveAt(0);
                 closed.Add(current.Step);

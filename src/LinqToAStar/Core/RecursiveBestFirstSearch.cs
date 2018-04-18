@@ -46,7 +46,7 @@ namespace LinqToAStar.Core
             var bound = inits[0];
             var state = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
 
-            return state.Node != null ? state.Node.TracesBack().GetEnumerator() : Enumerable.Empty<TResult>().GetEnumerator();
+            return state.Node != null ? state.Node.TraceBack().GetEnumerator() : Enumerable.Empty<TResult>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

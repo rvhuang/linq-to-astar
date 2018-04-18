@@ -39,7 +39,7 @@ namespace LinqToAStar.Core
                 var hasNext = false;
 
                 if (_source.Comparer.Equals(best.Step, _source.To))
-                    return best.TracesBack().GetEnumerator();
+                    return best.TraceBack().GetEnumerator();
 
                 nextSteps.RemoveAt(0);
 
