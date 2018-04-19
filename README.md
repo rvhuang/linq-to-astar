@@ -61,8 +61,8 @@ Complete executable example can be found in [path finding](src/LinqToAStar.Examp
 |`Where()`|Done|
 |`OrderBy()`|Done|
 |`OrderByDescending()`|Done|
-|`ThenBy()`|To be implemented|
-|`ThenByDescending()`|To be implemented|
+|`ThenBy()`|Work in progress|
+|`ThenByDescending()`|Work in progress|
 |`Except()`|Done|
 |`Contains()`|To be implemented|
 
