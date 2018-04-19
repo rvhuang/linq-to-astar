@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -38,7 +38,7 @@ namespace LinqToAStar.Core
             
             while (counter <= _max)
             {
-                var t = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
+                var t = Search(bound, bound, new HashSet<TStep>(_source.StepComparer));
 
                 if (t.Flag == RecursionFlag.Found) 
                     return t.Node.TraceBack().GetEnumerator();
@@ -66,17 +66,16 @@ namespace LinqToAStar.Core
             if (_source.NodeComparer.Compare(current, bound) > 0)
                 return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
 
-            if (_source.Comparer.Equals(current.Step, _source.To)) 
+            if (_source.StepComparer.Equals(current.Step, _source.To)) 
                 return new RecursionState<TStep, TResult>(RecursionFlag.Found, current); 
 
             var min = default(Node<TStep, TResult>);
             var hasMin = false;
             
             foreach (var next in _source.Expands(current.Step, current.Level, visited.Add))
-            {
-#if DEBUG
-                Console.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
-#endif
+            { 
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}"); 
+
                 next.Previous = current;
 
                 var t = Search(next, bound, visited);

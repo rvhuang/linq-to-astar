@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -26,34 +26,33 @@ namespace LinqToAStar.Core
 
         public IEnumerator<TResult> GetEnumerator()
         {
-            var nextSteps = new List<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0));
+            var nexts = new List<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0));
 
-            if (nextSteps.Count == 0)
+            if (nexts.Count == 0)
                 return Enumerable.Empty<TResult>().GetEnumerator();
 
-            var visited = new HashSet<TStep>(_source.Comparer);
+            var visited = new HashSet<TStep>(_source.StepComparer);
 
-            while (nextSteps.Count > 0)
+            while (nexts.Count > 0)
             {
-                var best = nextSteps.First();
+                var best = nexts.First();
                 var hasNext = false;
 
-                if (_source.Comparer.Equals(best.Step, _source.To))
+                if (_source.StepComparer.Equals(best.Step, _source.To))
                     return best.TraceBack().GetEnumerator();
 
-                nextSteps.RemoveAt(0);
+                nexts.RemoveAt(0);
 
                 foreach (var next in _source.Expands(best.Step, best.Level, visited.Add))
                 {
-#if DEBUG
-                    Console.WriteLine($"{best.Step}\t{best.Level} -> {next.Step}\t{next.Level}");
-#endif
+                    Debug.WriteLine($"{best.Step}\t{best.Level} -> {next.Step}\t{next.Level}");
+
                     next.Previous = best;
-                    nextSteps.Add(next);
+                    nexts.Add(next);
                     hasNext = true;
                 }
                 if (hasNext)
-                    nextSteps.Sort(_source.NodeComparer.CompareResultOnly);
+                    nexts.Sort(_source.NodeComparer.ResultOnlyComparer);
             }
             return Enumerable.Empty<TResult>().GetEnumerator();
         }

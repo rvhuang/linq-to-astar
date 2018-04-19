@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -33,14 +33,14 @@ namespace LinqToAStar.Core
 
             open.Sort(_source.NodeComparer);
 
-            var closed = new HashSet<TStep>(_source.Comparer);
+            var closed = new HashSet<TStep>(_source.StepComparer);
 
             while (open.Count > 0)
             {
                 var current = open[0];
                 var hasNext = false;
 
-                if (_source.Comparer.Equals(current.Step, _source.To))
+                if (_source.StepComparer.Equals(current.Step, _source.To))
                     return current.TraceBack().GetEnumerator();
 
                 open.RemoveAt(0);
@@ -49,11 +49,10 @@ namespace LinqToAStar.Core
                 foreach (var next in _source.Expands(current.Step, current.Level))
                 {
                     if (closed.Contains(next.Step)) continue;
-                    if (open.Find(step => _source.Comparer.Equals(next.Step, step.Step)) == null)
+                    if (open.Find(step => _source.StepComparer.Equals(next.Step, step.Step)) == null)
                     {
-#if DEBUG
-                        Console.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
-#endif
+                        Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
+
                         next.Previous = current;
                         open.Add(next);
                         hasNext = true;

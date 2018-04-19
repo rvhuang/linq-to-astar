@@ -1,13 +1,13 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    internal class DefaultComparer<TStep, TResult> : INodeComparer<TStep, TResult>
+    class CombinedComparer<TStep, TResult> : INodeComparer<TStep, TResult>
     {
         #region Fields
 
-        private readonly bool _descending;
-        private readonly IComparer<TResult> _resultComparer;
+        private readonly INodeComparer<TStep, TResult> _comparer1;
+        private readonly INodeComparer<TStep, TResult> _comparer2;
         private readonly IComparer<Node<TStep, TResult>> _resultOnlyComparer;
 
         #endregion
@@ -20,20 +20,16 @@ namespace LinqToAStar
 
         #region Constructors
 
-        public DefaultComparer() : this(false) { }
-
-        public DefaultComparer(bool descending) : this(null, false) { }
-
-        public DefaultComparer(IComparer<TResult> resultComparer, bool descending)
+        public CombinedComparer(INodeComparer<TStep, TResult> comparer1, INodeComparer<TStep, TResult> comparer2)
         {
-            _descending = descending;
-            _resultComparer = resultComparer ?? Comparer<TResult>.Default;
+            _comparer1 = comparer1;
+            _comparer2 = comparer2;
             _resultOnlyComparer = Comparer<Node<TStep, TResult>>.Create(CompareResultOnly);
         }
 
         #endregion
 
-        #region Comparisons
+        #region Overrides
 
         public int Compare(Node<TStep, TResult> x, Node<TStep, TResult> y)
         {
@@ -44,7 +40,9 @@ namespace LinqToAStar
 
         public int Compare(TResult x, TResult y)
         {
-            return _descending ? 0 - _resultComparer.Compare(x, y) : _resultComparer.Compare(x, y);
+            var r = _comparer1.Compare(x, y);
+
+            return r != 0 ? r : _comparer2.Compare(x, y);
         }
 
         #endregion

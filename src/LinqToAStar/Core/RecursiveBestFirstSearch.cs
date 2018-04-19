@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -27,7 +28,7 @@ namespace LinqToAStar.Core
         internal RecursiveBestFirstSearch(HeuristicSearchBase<TResult, TStep> source)
         {
             _source = source;
-            _nodeComparer = source.NodeComparer.ResultComparer;
+            _nodeComparer = source.NodeComparer.ResultOnlyComparer;
         }
 
         #endregion
@@ -44,7 +45,7 @@ namespace LinqToAStar.Core
             Array.Sort(inits, _nodeComparer);
 
             var bound = inits[0];
-            var state = Search(bound, bound, new HashSet<TStep>(_source.Comparer));
+            var state = Search(bound, bound, new HashSet<TStep>(_source.StepComparer));
 
             return state.Node != null ? state.Node.TraceBack().GetEnumerator() : Enumerable.Empty<TResult>().GetEnumerator();
         }
@@ -63,7 +64,7 @@ namespace LinqToAStar.Core
             if (_nodeComparer.Compare(current, bound) > 0)
                 return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
 
-            if (_source.Comparer.Equals(current.Step, _source.To))
+            if (_source.StepComparer.Equals(current.Step, _source.To))
                 return new RecursionState<TStep, TResult>(RecursionFlag.Found, current);
 
             var nexts = _source.Expands(current.Step, current.Level, visited.Add).ToList();
@@ -79,9 +80,9 @@ namespace LinqToAStar.Core
             while (nexts.Count > 0 && _nodeComparer.Compare(nexts[0], bound) <= 0)
             {
                 var best = nexts[0];
-#if DEBUG
-                Console.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
-#endif
+ 
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
+ 
                 if (nexts.Count < 2)
                     state = Search(best, bound, visited);
                 else

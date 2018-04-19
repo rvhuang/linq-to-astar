@@ -24,7 +24,7 @@ namespace LinqToAStar
         
         public Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
 
-        public IEqualityComparer<TStep> Comparer => _comparer;
+        public IEqualityComparer<TStep> StepComparer => _comparer;
 
         public virtual string AlgorithmName => _source != null ? _source.AlgorithmName : string.Empty;
 
@@ -32,14 +32,14 @@ namespace LinqToAStar
 
         internal virtual Func<TStep, int, IEnumerable<TResult>> Converter => _converter;
 
-        internal virtual ComparerBase<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
+        internal virtual INodeComparer<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
 
         #endregion
 
         #region Constructors
 
         protected HeuristicSearchBase(HeuristicSearchBase<TResult, TStep> source)
-            : this(source.From, source.To, source.Comparer, source.Converter, source.Expander)
+            : this(source.From, source.To, source.StepComparer, source.Converter, source.Expander)
         {
             _source = source;
         }
