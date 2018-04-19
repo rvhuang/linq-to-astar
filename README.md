@@ -59,7 +59,7 @@ Complete executable example can be found in [path finding](src/LinqToAStar.Examp
 |`Select()`|Done|
 |`SelectMany()`|Done|
 |`Where()`|Done|
-|`OrderBy()`|Done
+|`OrderBy()`|Done|
 |`OrderByDescending()`|Done|
 |`ThenBy()`|Done|
 |`ThenByDescending()`|Done|
