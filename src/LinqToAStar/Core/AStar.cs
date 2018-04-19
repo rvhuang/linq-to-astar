@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -51,9 +51,8 @@ namespace LinqToAStar.Core
                     if (closed.Contains(next.Step)) continue;
                     if (open.Find(step => _source.StepComparer.Equals(next.Step, step.Step)) == null)
                     {
-#if DEBUG
-                        Console.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
-#endif
+                        Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
+
                         next.Previous = current;
                         open.Add(next);
                         hasNext = true;

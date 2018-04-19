@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -73,10 +73,9 @@ namespace LinqToAStar.Core
             var hasMin = false;
             
             foreach (var next in _source.Expands(current.Step, current.Level, visited.Add))
-            {
-#if DEBUG
-                Console.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
-#endif
+            { 
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}"); 
+
                 next.Previous = current;
 
                 var t = Search(next, bound, visited);

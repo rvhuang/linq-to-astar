@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
@@ -27,7 +28,7 @@ namespace LinqToAStar.Core
         internal RecursiveBestFirstSearch(HeuristicSearchBase<TResult, TStep> source)
         {
             _source = source;
-            _nodeComparer = source.NodeComparer.ResultComparer;
+            _nodeComparer = source.NodeComparer.ResultOnlyComparer;
         }
 
         #endregion
@@ -79,9 +80,9 @@ namespace LinqToAStar.Core
             while (nexts.Count > 0 && _nodeComparer.Compare(nexts[0], bound) <= 0)
             {
                 var best = nexts[0];
-#if DEBUG
-                Console.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
-#endif
+ 
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
+ 
                 if (nexts.Count < 2)
                     state = Search(best, bound, visited);
                 else

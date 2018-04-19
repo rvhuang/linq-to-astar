@@ -53,7 +53,7 @@ namespace LinqToAStar
             if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
             if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
 
-            return new HeuristicSearchSelectMany<TSource, TCollection , TResult, TStep>(source, collectionSelector, resultSelector);
+            return new HeuristicSearchSelectMany<TSource, TCollection, TResult, TStep>(source, collectionSelector, resultSelector);
         }
 
         public static HeuristicSearchBase<TResult, TStep> Where<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, bool> predicate)
@@ -72,68 +72,54 @@ namespace LinqToAStar
             return new HeuristicSearchWhere<TResult, TStep>(source, predicate);
         }
 
-        public static HeuristicSearchBase<TResult, TStep> OrderBy<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            
-            var comparer = default(ComparerBase<TStep, TResult>);
-
-            switch (Type.GetTypeCode(typeof(TKey)))
-            {
-                case TypeCode.Boolean:
-                case TypeCode.Byte:
-                case TypeCode.Char:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.SByte:
-                case TypeCode.Single:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                    comparer = new HeuristicComparer<TStep, TResult, TKey>(keySelector, false);
-                    break;
-
-                default:
-                    comparer = new NormalComparer<TStep, TResult, TKey>(keySelector, null, false);
-                    break;
-            }
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, comparer);
+            return OrderBy(source, keySelector, null);
         }
 
-        public static HeuristicSearchBase<TResult, TStep> OrderByDescending<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
-            
-            var comparer = default(ComparerBase<TStep, TResult>);
 
-            switch (Type.GetTypeCode(typeof(TKey)))
-            {
-                case TypeCode.Boolean:
-                case TypeCode.Byte:
-                case TypeCode.Char:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.SByte:
-                case TypeCode.Single:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                    comparer = new HeuristicComparer<TStep, TResult, TKey>(keySelector, true);
-                    break;
+            return new HeuristicSearchOrderBy<TResult, TStep>(source, HeuristicSearch.CreateComparer<TResult, TKey, TStep>(keySelector, comparer, false));
+        }
 
-                default:
-                    comparer = new NormalComparer<TStep, TResult, TKey>(keySelector, null, true);
-                    break;
-            }
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, comparer);
+        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        {
+            return OrderByDescending(source, keySelector, null);
+        }
+
+        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            return new HeuristicSearchOrderBy<TResult, TStep>(source, HeuristicSearch.CreateComparer<TResult, TKey, TStep>(keySelector, comparer, true));
+        }
+
+        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        {
+            return ThenBy(source, keySelector, null);
+        }
+
+        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source)); 
+
+            return source.CreateOrderedEnumerable(keySelector, comparer, false);
+        }
+
+        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        {
+            return ThenByDescending(source, keySelector, null);
+        }
+
+        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source)); 
+
+            return source.CreateOrderedEnumerable(keySelector, comparer, true);
         }
 
         public static HeuristicSearchBase<TResult, TStep> Except<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection)

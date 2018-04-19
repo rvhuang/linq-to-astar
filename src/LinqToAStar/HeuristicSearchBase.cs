@@ -32,7 +32,7 @@ namespace LinqToAStar
 
         internal virtual Func<TStep, int, IEnumerable<TResult>> Converter => _converter;
 
-        internal virtual ComparerBase<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
+        internal virtual INodeComparer<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
 
         #endregion
 
