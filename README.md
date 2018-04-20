@@ -4,7 +4,7 @@
 
 **LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goal is to improve human-readability and maintainability of conditions that are applied to the algorithm.
 
-Unlike traditional implementations, all supported algorithms in the project are generic. The API can be used to solve any problem as long as the algorithm is applicable.
+By taking advantage of power of LINQ and C#, the project is not only about re-implementing, but also giving new ability and flexibility to algorithms.
 
 ## Example
 
@@ -64,7 +64,7 @@ Complete executable example can be found in [path finding](src/LinqToAStar.Examp
 |`ThenBy()`|Done|
 |`ThenByDescending()`|Done|
 |`Except()`|Done|
-|`Contains()`|Work in progress|
+|`Contains()`|Done|
 
 ## Roadmap
 
