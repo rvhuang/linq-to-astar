@@ -12,6 +12,7 @@ namespace LinqToAStar.Test
         private readonly float _unit;
         private readonly Vector2 _start;
         private readonly Vector2 _goal;
+        private readonly ISet<Vector2> _obstacles;
 
         public IterativeDeepeningAStarValidityTest()
         {
@@ -19,6 +20,7 @@ namespace LinqToAStar.Test
 
             _start = mapData.Start;
             _goal = mapData.Goal;
+            _obstacles = mapData.Obstacles;
             _unit = 1f;
 
             var queryable = HeuristicSearch.IterativeDeepeningAStar(_start, _goal, (step, lv) => step.GetFourDirections(_unit));
@@ -43,6 +45,12 @@ namespace LinqToAStar.Test
             var differences = _path.Skip(1).Select((step, i) => step - _path[i]);
 
             Assert.True(differences.All(diff => Math.Abs(diff.X) == _unit ^ Math.Abs(diff.Y) == _unit), "One or more invalid steps are found.");
+        }
+
+        [Fact]
+        public void ObstacleTest()
+        {
+            Assert.DoesNotContain(_path, _obstacles.Contains);
         }
     }
 }
