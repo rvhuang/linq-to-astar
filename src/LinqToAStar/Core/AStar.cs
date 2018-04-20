@@ -34,16 +34,17 @@ namespace LinqToAStar.Core
             open.Sort(_source.NodeComparer);
 
             var closed = new HashSet<TStep>(_source.StepComparer);
+            var sortAt = 0;
 
             while (open.Count > 0)
             {
-                var current = open[0];
+                var current = open[sortAt];
                 var hasNext = false;
 
                 if (_source.StepComparer.Equals(current.Step, _source.To))
                     return current.TraceBack().GetEnumerator();
 
-                open.RemoveAt(0);
+                sortAt++; // open.RemoveAt(0);
                 closed.Add(current.Step);
 
                 foreach (var next in _source.Expands(current.Step, current.Level))
@@ -59,7 +60,7 @@ namespace LinqToAStar.Core
                     }
                 }
                 if (hasNext)
-                    open.Sort(_source.NodeComparer);
+                    open.Sort(sortAt, open.Count - sortAt, _source.NodeComparer);
             }
             return Enumerable.Empty<TResult>().GetEnumerator();
         }
