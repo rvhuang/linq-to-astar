@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace LinqToAStar
 {
@@ -105,7 +104,7 @@ namespace LinqToAStar
 
         public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source)); 
+            if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
@@ -117,7 +116,7 @@ namespace LinqToAStar
 
         public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source)); 
+            if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, comparer, true);
         }
@@ -127,7 +126,7 @@ namespace LinqToAStar
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (collection == null) throw new ArgumentNullException(nameof(collection));
 
-            return new HeuristicSearchWhere<TResult, TStep>(source, (r, i) => !collection.Contains(r));
+            return new HeuristicSearchExcept<TResult, TStep>(source, collection, null);
         }
 
         public static HeuristicSearchBase<TResult, TStep> Except<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection, IEqualityComparer<TResult> comparer)
@@ -135,7 +134,23 @@ namespace LinqToAStar
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (collection == null) throw new ArgumentNullException(nameof(collection));
 
-            return new HeuristicSearchWhere<TResult, TStep>(source, (r, i) => !collection.Contains(r, comparer));
+            return new HeuristicSearchExcept<TResult, TStep>(source, collection, comparer);
+        }
+
+        public static HeuristicSearchBase<TResult, TStep> Contains<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+
+            return new HeuristicSearchContains<TResult, TStep>(source, collection, null);
+        }
+
+        public static HeuristicSearchBase<TResult, TStep> Contains<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection, IEqualityComparer<TResult> comparer)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+
+            return new HeuristicSearchContains<TResult, TStep>(source, collection, comparer);
         }
     }
 }

@@ -14,6 +14,9 @@ namespace LinqToAStar
         private readonly Func<TStep, int, IEnumerable<TResult>> _converter;
         private readonly Func<TStep, int, IEnumerable<TStep>> _expander;
 
+        public readonly static bool IsResultEquatable = typeof(IEquatable<TResult>).IsAssignableFrom(typeof(TResult));        
+        public readonly static bool IsStepEquatable = typeof(IEquatable<TStep>).IsAssignableFrom(typeof(TStep));
+
         #endregion
 
         #region Properties
