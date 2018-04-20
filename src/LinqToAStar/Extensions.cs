@@ -136,5 +136,21 @@ namespace LinqToAStar
 
             return new HeuristicSearchExcept<TResult, TStep>(source, collection, comparer);
         }
+
+        public static HeuristicSearchBase<TResult, TStep> Contains<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+
+            return new HeuristicSearchContains<TResult, TStep>(source, collection, null);
+        }
+
+        public static HeuristicSearchBase<TResult, TStep> Contains<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection, IEqualityComparer<TResult> comparer)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+
+            return new HeuristicSearchContains<TResult, TStep>(source, collection, comparer);
+        }
     }
 }
