@@ -64,7 +64,7 @@ Complete executable example can be found in [path finding](src/LinqToAStar.Examp
 |`ThenBy()`|Done|
 |`ThenByDescending()`|Done|
 |`Except()`|Done|
-|`Contains()`|To be implemented|
+|`Contains()`|Work in progress|
 
 ## Roadmap
 
