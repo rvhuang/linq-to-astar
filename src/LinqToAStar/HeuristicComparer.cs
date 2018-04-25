@@ -38,6 +38,9 @@ namespace LinqToAStar
 
         public int Compare(Node<TStep, TResult> x, Node<TStep, TResult> y)
         {
+            if (x == null) return y == null ? 0 : 1;
+            if (y == null) return -1;
+
             return DistanceHelper.DoubleComparer.Compare(_keySelector(x.Result) + x.Level, _keySelector(y.Result) + y.Level);
         }
 

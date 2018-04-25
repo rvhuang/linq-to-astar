@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,19 +11,19 @@ namespace LinqToAStar.Core
         #region Fields
 
         private readonly HeuristicSearchBase<TResult, TStep> _source;
-        private int _max = 1024;
+        private readonly int _max = 1024;
 
         #endregion
 
         #region Properties
 
-        public int MaxNumberOfLoops => _max; 
+        public int MaxNumberOfLoops => _max;
 
         #endregion
 
         #region Constructor
 
-        internal IterativeDeepeningAStar(HeuristicSearchBase<TResult, TStep> source)  
+        internal IterativeDeepeningAStar(HeuristicSearchBase<TResult, TStep> source)
         {
             _source = source;
         }
@@ -34,15 +35,16 @@ namespace LinqToAStar.Core
         public IEnumerator<TResult> GetEnumerator()
         {
             var counter = 0;
-            var bound = _source.ConvertAnyway(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer).First();
-            
+            var path = new Stack<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
+            var bound = path.Peek();
+
             while (counter <= _max)
             {
-                var t = Search(bound, bound, new HashSet<TStep>(_source.StepComparer));
+                var t = Search(path, bound, new HashSet<TStep>(_source.StepComparer));
 
-                if (t.Flag == RecursionFlag.Found) 
+                if (t.Flag == RecursionFlag.Found)
                     return t.Node.TraceBack().GetEnumerator();
-                if (t.Flag == RecursionFlag.NotFound) 
+                if (t.Flag == RecursionFlag.NotFound)
                     return Enumerable.Empty<TResult>().GetEnumerator();
 
                 // In Progress
@@ -61,32 +63,39 @@ namespace LinqToAStar.Core
 
         #region Core
 
-        private RecursionState<TStep, TResult> Search(Node<TStep, TResult> current, Node<TStep, TResult> bound, ISet<TStep> visited)
+        private RecursionState<TStep, TResult> Search(Stack<Node<TStep, TResult>> path, Node<TStep, TResult> bound, ISet<TStep> visited)
         {
+            var current = path.Peek();
+
             if (_source.NodeComparer.Compare(current, bound) > 0)
                 return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
 
-            if (_source.StepComparer.Equals(current.Step, _source.To)) 
-                return new RecursionState<TStep, TResult>(RecursionFlag.Found, current); 
+            if (_source.StepComparer.Equals(current.Step, _source.To))
+                return new RecursionState<TStep, TResult>(RecursionFlag.Found, current);
 
             var min = default(Node<TStep, TResult>);
             var hasMin = false;
-            
-            foreach (var next in _source.Expands(current.Step, current.Level, visited.Add))
-            { 
-                Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}"); 
+            var nexts = _source.Expands(current.Step, current.Level, visited.Add).ToArray();
+
+            Array.Sort(nexts, _source.NodeComparer);
+            // Array.ForEach(nexts, next => next.Previous = current);
+
+            foreach (var next in nexts)
+            {
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
 
                 next.Previous = current;
+                path.Push(next);
 
-                var t = Search(next, bound, visited);
+                var t = Search(path, bound, visited);
 
-                if (t.Flag == RecursionFlag.Found) return t;
-                if (t.Flag == RecursionFlag.NotFound) continue;
+                if (t.Flag == RecursionFlag.Found) return t; 
                 if (!hasMin || _source.NodeComparer.Compare(t.Node, min) < 0)
                 {
                     min = t.Node;
                     hasMin = true;
                 }
+                path.Pop();
             }
             return new RecursionState<TStep, TResult>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
         }
