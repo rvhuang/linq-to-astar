@@ -78,7 +78,6 @@ namespace LinqToAStar.Core
             var nexts = _source.Expands(current.Step, current.Level, visited.Add).ToArray();
 
             Array.Sort(nexts, _source.NodeComparer);
-            // Array.ForEach(nexts, next => next.Previous = current);
 
             foreach (var next in nexts)
             {
