@@ -75,18 +75,19 @@ namespace LinqToAStar.Core
             nexts.ForEach(next => next.Previous = current);
             nexts.Sort(_nodeComparer);
 
-            var state = new RecursionState<TStep, TResult>(RecursionFlag.InProgress, nexts[0]);
+            var sortAt = 0;
+            var state = new RecursionState<TStep, TResult>(RecursionFlag.InProgress, nexts[sortAt]);
 
-            while (nexts.Count > 0 && _nodeComparer.Compare(nexts[0], bound) <= 0)
+            while (nexts.Count > 0 && _nodeComparer.Compare(nexts[sortAt], bound) <= 0)
             {
-                var best = nexts[0];
- 
+                var best = nexts[sortAt]; // nexts.First();
+
                 Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
  
-                if (nexts.Count < 2)
+                if (nexts.Count - sortAt < 2)
                     state = Search(best, bound, visited);
                 else
-                    state = Search(best, _nodeComparer.Min(nexts[1], bound), visited);
+                    state = Search(best, _nodeComparer.Min(nexts[sortAt + 1], bound), visited);
 
                 switch (state.Flag)
                 {
@@ -94,17 +95,17 @@ namespace LinqToAStar.Core
                         return state;
                     case RecursionFlag.InProgress:
                         nexts.Add(state.Node);
-                        nexts.Sort(_nodeComparer);
+                        nexts.Sort(sortAt, nexts.Count - sortAt, _nodeComparer);
                         break;
                     case RecursionFlag.NotFound:
-                        nexts.RemoveAt(0);
+                        sortAt++; // nexts.RemoveAt(0);
                         break;
                     default:
                         break;
                 }
             }
             return nexts.Count > 0 ?
-                new RecursionState<TStep, TResult>(RecursionFlag.InProgress, nexts[0]) :
+                new RecursionState<TStep, TResult>(RecursionFlag.InProgress, nexts[sortAt]) :
                 new RecursionState<TStep, TResult>(RecursionFlag.NotFound, null);
         }
 
