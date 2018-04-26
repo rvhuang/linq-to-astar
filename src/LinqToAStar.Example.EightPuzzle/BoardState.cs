@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LinqToAStar.Example.EightPuzzle
 {
-    class BoardState : IEquatable<BoardState>
+    sealed class BoardState : IEquatable<BoardState>
     {
         #region Fields
 
@@ -25,8 +25,7 @@ namespace LinqToAStar.Example.EightPuzzle
 
         #endregion
 
-        #region Metods
-
+        #region Methods
 
         public IEnumerable<BoardState> GetNextSteps()
         {
@@ -45,10 +44,10 @@ namespace LinqToAStar.Example.EightPuzzle
 
         private BoardState CreateNextStep(int offsetX, int offsetY)
         {
-            var array = _positions.ToArray(); // create a copy
-            var emptyPos = new Point(_positions[0].X + offsetX, _positions[0].Y + offsetY);
-
-            Swap(array, 0, Array.IndexOf(array, emptyPos));
+            var array = _positions.ToArray(); // create a copy first
+            var empty = new Point(_positions[0].X + offsetX, _positions[0].Y + offsetY);
+            
+            Swap(array, 0, Array.IndexOf(array, empty)); // Swap empty square and target square
 
             return new BoardState(array);
         }
@@ -62,9 +61,9 @@ namespace LinqToAStar.Example.EightPuzzle
 
         public float GetSumOfDistances(BoardState goal)
         {
-            return goal._positions.Select((p, i) => DistanceHelper.GetManhattanDistance(p.X, p.Y, _positions[i].X, _positions[i].Y)).Sum();
+            return goal._positions.Zip(_positions, (a, b) => DistanceHelper.GetManhattanDistance(a.X, a.Y, b.X, b.Y)).Sum();
         }
-        
+
         #endregion
 
         #region Overrides
@@ -111,7 +110,7 @@ namespace LinqToAStar.Example.EightPuzzle
 
         #region Others
 
-        public static void Swap(Point[] array, int indexA, int indexB)
+        private static void Swap(Point[] array, int indexA, int indexB)
         {
             if (array == null)
                 throw new ArgumentNullException("array");

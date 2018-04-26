@@ -37,7 +37,7 @@ namespace LinqToAStar.Example.EightPuzzle
                     new Point(0, 1), // square 8
                 });
 
-                Console.WriteLine("A)-Star Search");
+                Console.WriteLine("A)* Search");
                 Console.WriteLine("B)est-first Search");
                 Console.WriteLine("I)terative Deepening AStar Search");
                 Console.WriteLine("R)ecursive Best-first Search");
@@ -45,23 +45,23 @@ namespace LinqToAStar.Example.EightPuzzle
 
                 var queryable = default(HeuristicSearchBase<BoardState, BoardState>);
 
-                // Initial the engine.
+                // Initialize the algorithm with the callback that gets all valid moves.
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.A:
-                        queryable = HeuristicSearch.AStar(initial, goal, (step, lv) => step.GetNextSteps());
+                        queryable = HeuristicSearch.AStar(initial, goal, (board, lv) => board.GetNextSteps());
                         break;
 
                     case ConsoleKey.B:
-                        queryable = HeuristicSearch.BestFirstSearch(initial, goal, (step, lv) => step.GetNextSteps());
+                        queryable = HeuristicSearch.BestFirstSearch(initial, goal, (board, lv) => board.GetNextSteps());
                         break;
 
                     case ConsoleKey.I:
-                        queryable = HeuristicSearch.IterativeDeepeningAStar(initial, goal, (step, lv) => step.GetNextSteps());
+                        queryable = HeuristicSearch.IterativeDeepeningAStar(initial, goal, (board, lv) => board.GetNextSteps());
                         break;
 
                     case ConsoleKey.R:
-                        queryable = HeuristicSearch.RecursiveBestFirstSearch(initial, goal, (step, lv) => step.GetNextSteps());
+                        queryable = HeuristicSearch.RecursiveBestFirstSearch(initial, goal, (board, lv) => board.GetNextSteps());
                         break;
 
                     default: continue;
@@ -69,10 +69,14 @@ namespace LinqToAStar.Example.EightPuzzle
 
                 Console.WriteLine();
 
+                // GetSumOfDistances() calculates the sum of Manhattan distance 
+                // between each of square and its goal.
+                // -------------------------------------------------
                 var solution = from board in queryable
                                orderby board.GetSumOfDistances(goal)
                                select board;
-
+                // -------------------------------------------------
+                // Print out the solution.
                 foreach (var board in solution)
                     Console.WriteLine(board);
             }
