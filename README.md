@@ -6,6 +6,8 @@
 
 By taking advantage of power of LINQ and C#, the project is not only about re-implementing, but also giving new ability and flexibility to algorithms.
 
+**All feedbacks are greatly appreciated** as the experiment grows.
+
 ## Example
 
 Snippet below shows the LINQ expression used to find shortest path between two positions.
@@ -41,7 +43,10 @@ The LINQ expression consists of following clauses:
 
 If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
-Complete executable example can be found in [path finding](src/LinqToAStar.Example.PathFinding/) example project (more example projects will be added in future).
+### Executable Examples
+
+* [Path Finding](src/LinqToAStar.Example.PathFinding/) 
+* [Solving 8 Puzzle](src/LinqToAStar.Example.EightPuzzle/)
 
 ## Supported Algorithms
 
