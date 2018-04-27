@@ -1,37 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
 {
-    internal class BestFirstSearch<TResult, TStep> : IEnumerable<TResult>
+    internal static class BestFirstSearch
     {
-        #region Fields
-
-        private readonly HeuristicSearchBase<TResult, TStep> _source;
-
-        #endregion
-
-        #region Constructor
-
-        internal BestFirstSearch(HeuristicSearchBase<TResult, TStep> source)
-        {
-            _source = source;
-        }
-
-        #endregion
-
         #region Override
 
-        public IEnumerator<TResult> GetEnumerator()
+        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
         {
-            var nexts = new List<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0));
+            var nexts = new List<Node<TStep, TResult>>(source.ConvertAnyway(source.From, 0));
 
             if (nexts.Count == 0)
-                return Enumerable.Empty<TResult>().GetEnumerator();
+                return Enumerable.Empty<TResult>();
 
-            var visited = new HashSet<TStep>(_source.StepComparer);
+            var visited = new HashSet<TStep>(source.StepComparer);
             var sortAt = 0;
 
             while (nexts.Count > 0)
@@ -39,12 +23,12 @@ namespace LinqToAStar.Core
                 var best = nexts[sortAt]; // nexts.First();
                 var hasNext = false;
 
-                if (_source.StepComparer.Equals(best.Step, _source.To))
-                    return best.TraceBack().GetEnumerator();
+                if (source.StepComparer.Equals(best.Step, source.To))
+                    return best.TraceBack();
 
                 sortAt++; // nexts.RemoveAt(0);
 
-                foreach (var next in _source.Expands(best.Step, best.Level, visited.Add))
+                foreach (var next in source.Expands(best.Step, best.Level, visited.Add))
                 {
                     Debug.WriteLine($"{best.Step}\t{best.Level} -> {next.Step}\t{next.Level}");
 
@@ -53,14 +37,9 @@ namespace LinqToAStar.Core
                     hasNext = true;
                 }
                 if (hasNext)
-                    nexts.Sort(sortAt, nexts.Count - sortAt, _source.NodeComparer.ResultOnlyComparer);
+                    nexts.Sort(sortAt, nexts.Count - sortAt, source.NodeComparer.ResultOnlyComparer);
             }
-            return Enumerable.Empty<TResult>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return Enumerable.Empty<TResult>();
         }
 
         #endregion

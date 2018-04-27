@@ -39,17 +39,17 @@ namespace LinqToAStar
 
             switch (AlgorithmName)
             {
-                case nameof(AStar<TResult, TStep>):
-                    return new AStar<TResult, TStep>(this).GetEnumerator();
+                case nameof(AStar):
+                    return AStar.Run(this).GetEnumerator();
 
-                case nameof(BestFirstSearch<TResult, TStep>):
-                    return new BestFirstSearch<TResult, TStep>(this).GetEnumerator();
+                case nameof(BestFirstSearch):
+                    return BestFirstSearch.Run(this).GetEnumerator();
 
-                case nameof(RecursiveBestFirstSearch<TResult, TStep>):
-                    return new RecursiveBestFirstSearch<TResult, TStep>(this).GetEnumerator();
+                case nameof(RecursiveBestFirstSearch):
+                    return RecursiveBestFirstSearch.Run(this).GetEnumerator();
 
-                case nameof(IterativeDeepeningAStar<TResult, TStep>):
-                    return new IterativeDeepeningAStar<TResult, TStep>(this).GetEnumerator();
+                case nameof(IterativeDeepeningAStar):
+                    return IterativeDeepeningAStar.Run(this).GetEnumerator();
             }
             return base.GetEnumerator();
         }

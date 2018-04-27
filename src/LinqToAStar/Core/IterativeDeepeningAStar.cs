@@ -6,6 +6,14 @@ using System.Linq;
 
 namespace LinqToAStar.Core
 {
+    static class IterativeDeepeningAStar
+    {
+        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
+        {
+            return new IterativeDeepeningAStar<TResult, TStep>(source);
+        }
+    }
+
     internal class IterativeDeepeningAStar<TResult, TStep> : IEnumerable<TResult>
     {
         #region Fields

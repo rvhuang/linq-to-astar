@@ -1,39 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar.Core
 {
-    internal class AStar<TResult, TStep> : IEnumerable<TResult>
+    internal static class AStar
     {
-        #region Fields
-
-        private readonly HeuristicSearchBase<TResult, TStep> _source;
-
-        #endregion
-
-        #region Constructor
-
-        internal AStar(HeuristicSearchBase<TResult, TStep> source)
-        {
-            _source = source;
-        }
-
-        #endregion
-
         #region Override
 
-        public IEnumerator<TResult> GetEnumerator()
+        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
         {
-            var open = new List<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0));
+            var open = new List<Node<TStep, TResult>>(source.ConvertAnyway(source.From, 0));
 
             if (open.Count == 0)
-                return Enumerable.Empty<TResult>().GetEnumerator();
+                return Enumerable.Empty<TResult>();
 
-            open.Sort(_source.NodeComparer);
+            open.Sort(source.NodeComparer);
 
-            var closed = new HashSet<TStep>(_source.StepComparer);
+            var closed = new HashSet<TStep>(source.StepComparer);
             var sortAt = 0;
 
             while (open.Count > 0)
@@ -41,16 +25,16 @@ namespace LinqToAStar.Core
                 var current = open[sortAt];
                 var hasNext = false;
 
-                if (_source.StepComparer.Equals(current.Step, _source.To))
-                    return current.TraceBack().GetEnumerator();
+                if (source.StepComparer.Equals(current.Step, source.To))
+                    return current.TraceBack();
 
                 sortAt++; // open.RemoveAt(0);
                 closed.Add(current.Step);
 
-                foreach (var next in _source.Expands(current.Step, current.Level))
+                foreach (var next in source.Expands(current.Step, current.Level))
                 {
                     if (closed.Contains(next.Step)) continue;
-                    if (open.Find(step => _source.StepComparer.Equals(next.Step, step.Step)) == null)
+                    if (open.Find(step => source.StepComparer.Equals(next.Step, step.Step)) == null)
                     {
                         Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
 
@@ -60,14 +44,9 @@ namespace LinqToAStar.Core
                     }
                 }
                 if (hasNext)
-                    open.Sort(sortAt, open.Count - sortAt, _source.NodeComparer);
+                    open.Sort(sortAt, open.Count - sortAt, source.NodeComparer);
             }
-            return Enumerable.Empty<TResult>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return Enumerable.Empty<TResult>();
         }
 
         #endregion
