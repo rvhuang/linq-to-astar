@@ -23,9 +23,9 @@ var unit = 1;
 var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
 
 // See description below.
-var solution = from step in queryable.Except(GetObstacles())
-               where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
-               orderby step.GetManhattanDistance(goal)
+var solution = from step in queryable.Except(GetObstacles())                      // 1.
+               where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40   // 2.
+               orderby step.GetManhattanDistance(goal)                            // 3.
                select step;
 
 // Each step of the shortest path found by A* algorithm.
@@ -37,9 +37,9 @@ foreach (var step in solution)
 
 The LINQ expression consists of following clauses:
 
-* The `Except()` eliminates invalid steps during the process.
-* The `where` clause sets up the boundary, but can also be used for checking invalid steps.
-* The `orderby` clause serves as *h(n)* (aka [Heuristic](https://en.wikipedia.org/wiki/Heuristic)) that estimates the cost of the cheapest path from *n* to the goal.
+1. The `Except()` eliminates invalid steps during the process.
+2. The `where` clause sets up the boundary but can also be used for checking invalid steps.
+3. The `orderby` clause serves as *h(n)* (aka [Heuristic](https://en.wikipedia.org/wiki/Heuristic)) that estimates the cost of the cheapest path from *n* (current step) to the goal.
 
 If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
