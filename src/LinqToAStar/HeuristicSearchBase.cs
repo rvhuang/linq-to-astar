@@ -13,10 +13,7 @@ namespace LinqToAStar
         private readonly HeuristicSearchBase<TResult, TStep> _source;
         private readonly Func<TStep, int, IEnumerable<TResult>> _converter;
         private readonly Func<TStep, int, IEnumerable<TStep>> _expander;
-
-        public readonly static bool IsResultEquatable = typeof(IEquatable<TResult>).IsAssignableFrom(typeof(TResult));        
-        public readonly static bool IsStepEquatable = typeof(IEquatable<TStep>).IsAssignableFrom(typeof(TStep));
-
+        
         #endregion
 
         #region Properties
@@ -41,7 +38,7 @@ namespace LinqToAStar
 
         #region Constructors
 
-        protected HeuristicSearchBase(HeuristicSearchBase<TResult, TStep> source)
+        internal HeuristicSearchBase(HeuristicSearchBase<TResult, TStep> source)
             : this(source.From, source.To, source.StepComparer, source.Converter, source.Expander)
         {
             _source = source;
@@ -85,18 +82,18 @@ namespace LinqToAStar
         internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level)
         {
             foreach (var next in Expander(step, level))
-                foreach (var n in ConvertAnyway(next, level + 1))
+                foreach (var n in ConvertToNodes(next, level + 1))
                     yield return n;
         }
 
         internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level, Func<TStep, bool> predicate)
         {
             foreach (var next in Expander(step, level).Where(predicate))
-                foreach (var n in ConvertAnyway(next, level + 1))
+                foreach (var n in ConvertToNodes(next, level + 1))
                     yield return n;
         }
 
-        internal IEnumerable<Node<TStep, TResult>> ConvertAnyway(TStep step, int level)
+        internal IEnumerable<Node<TStep, TResult>> ConvertToNodes(TStep step, int level)
         {
             foreach (var r in Converter(step, level))
                 yield return new Node<TStep, TResult>(step, r, level);

@@ -45,7 +45,7 @@ namespace LinqToAStar.Core
 
         public IEnumerator<TResult> GetEnumerator()
         {
-            var inits = _source.ConvertAnyway(_source.From, 0).ToArray();
+            var inits = _source.ConvertToNodes(_source.From, 0).ToArray();
 
             if (inits.Length == 0)
                 return Enumerable.Empty<TResult>().GetEnumerator();

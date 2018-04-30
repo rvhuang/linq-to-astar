@@ -10,7 +10,7 @@ namespace LinqToAStar.Core
 
         public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
         {
-            var nexts = new List<Node<TStep, TResult>>(source.ConvertAnyway(source.From, 0));
+            var nexts = new List<Node<TStep, TResult>>(source.ConvertToNodes(source.From, 0));
 
             if (nexts.Count == 0)
                 return Enumerable.Empty<TResult>();

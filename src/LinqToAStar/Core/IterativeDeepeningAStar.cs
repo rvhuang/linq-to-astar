@@ -43,7 +43,7 @@ namespace LinqToAStar.Core
         public IEnumerator<TResult> GetEnumerator()
         {
             var counter = 0;
-            var path = new Stack<Node<TStep, TResult>>(_source.ConvertAnyway(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
+            var path = new Stack<Node<TStep, TResult>>(_source.ConvertToNodes(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
             var bound = path.Peek();
 
             while (counter <= _max)
