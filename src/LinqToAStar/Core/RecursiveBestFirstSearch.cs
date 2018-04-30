@@ -6,6 +6,14 @@ using System.Linq;
 
 namespace LinqToAStar.Core
 {
+    static class RecursiveBestFirstSearch
+    {
+        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
+        {
+            return new RecursiveBestFirstSearch<TResult, TStep>(source);
+        }
+    }
+
     class RecursiveBestFirstSearch<TResult, TStep> : IEnumerable<TResult>
     {
         #region Fields

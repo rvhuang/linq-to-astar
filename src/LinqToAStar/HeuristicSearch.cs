@@ -9,42 +9,42 @@ namespace LinqToAStar
     {
         public static HeuristicSearchBase<TStep, TStep> AStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(AStar<TStep, TStep>), from, to, null, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(AStar), from, to, null, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> AStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(AStar<TStep, TStep>), from, to, comparer, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(AStar), from, to, comparer, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> BestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(BestFirstSearch<TStep, TStep>), from, to, null, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(BestFirstSearch), from, to, null, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> BestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(BestFirstSearch<TStep, TStep>), from, to, comparer, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(BestFirstSearch), from, to, comparer, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> RecursiveBestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(RecursiveBestFirstSearch<TStep, TStep>), from, to, null, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(RecursiveBestFirstSearch), from, to, null, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> RecursiveBestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(RecursiveBestFirstSearch<TStep, TStep>), from, to, comparer, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(RecursiveBestFirstSearch), from, to, comparer, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> IterativeDeepeningAStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar<TStep, TStep>), from, to, null, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar), from, to, null, expander);
         }
 
         public static HeuristicSearchBase<TStep, TStep> IterativeDeepeningAStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
-            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar<TStep, TStep>), from, to, comparer, expander);
+            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar), from, to, comparer, expander);
         }
 
         internal static INodeComparer<TStep, TResult> CreateComparer<TResult, TKey, TStep>(Func<TResult, TKey> keySelector, IComparer<TKey> keyComparer, bool descending)
