@@ -2,11 +2,14 @@
 
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar)
 
-**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goal is to improve human-readability and maintainability of conditions that are applied to the algorithm.
+**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goals are:
 
-By taking advantage of power of LINQ and C#, the project is not only about re-implementing, but also giving new ability and flexibility to algorithms.
+* Better human-readability and maintainability of algorithm using.
+* A unified programming model for various heuristic algorithms.
 
-**All feedbacks are greatly appreciated** as the experiment grows.
+By taking advantage of the power of LINQ, the project is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
+
+**All feedbacks are greatly appreciated** as the experiment is growing rapidly.
 
 ## Example
 
