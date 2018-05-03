@@ -25,7 +25,7 @@ namespace LinqToAStar
         public NormalComparer(Func<TResult, TKey> keySelector, IComparer<TKey> keyComparer, bool descending)
         {
             _descending = descending;
-            _keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
+            _keySelector = keySelector;
             _keyComparer = keyComparer ?? Comparer<TKey>.Default;
             _resultOnlyComparer = Comparer<Node<TStep, TResult>>.Create(CompareResultOnly);
         }
@@ -36,14 +36,19 @@ namespace LinqToAStar
 
         public int Compare(Node<TStep, TResult> x, Node<TStep, TResult> y)
         {
-            var r = CompareResultOnly(x, y);
+            if (x == null) return y == null ? 0 : 1;
+            if (y == null) return -1;
+
+            var r = Compare(x, y);
 
             return r != 0 ? r : DistanceHelper.Int32Comparer.Compare(x.Level, y.Level);
         }
 
         public int Compare(TResult x, TResult y)
         {
-            return _keyComparer.Compare(_keySelector(x), _keySelector(y));
+            var r = _keyComparer.Compare(_keySelector(x), _keySelector(y));
+
+            return _descending ? 0 - r : r;
         }
 
         #endregion
