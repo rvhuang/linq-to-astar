@@ -88,7 +88,7 @@ The project targets .NET Standard 2.0 currently.
 ## Dependencies
 
 * [System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/) (>= 4.4.0)
-* [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/) (to be supported)
+* [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/) (>= 4.3.0)
 
 ## License
 
