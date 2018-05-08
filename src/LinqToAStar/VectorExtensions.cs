@@ -40,6 +40,5 @@ namespace LinqToAStar
         {
             return DistanceHelper.GetChebyshevDistance(a.X, a.Y, b.X, b.Y);
         }
-
     }
 }

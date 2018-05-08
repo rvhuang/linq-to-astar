@@ -2,10 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageProjectUrl />
+    <RepositoryUrl>https://github.com/rvhuang/linq-to-astar/</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>Robert Vandenberg Huang</Authors>
+    <Product>Linq To A*</Product>
+    <PackageLicenseUrl>https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Numerics.Vectors" Version="4.4.0" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
