@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl />
-    <RepositoryUrl>https://github.com/rvhuang/linq-to-astar/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/rvhuang/linq-to-astar.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Authors>Robert Vandenberg Huang</Authors>
     <Product>Linq To A*</Product>
