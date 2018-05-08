@@ -18,6 +18,11 @@ namespace LinqToAStar
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2);
         }
 
+        public static int GetManhattanDistance(int x1, int y1, int x2, int y2)
+        {
+            return Math.Abs(x1 - x2) + Math.Abs(y1 - y2);
+        }
+
         #endregion
 
         #region Chebyshev Distance
@@ -25,6 +30,25 @@ namespace LinqToAStar
         public static float GetChebyshevDistance(float x1, float y1, float x2, float y2)
         {
             return Math.Max(Math.Abs(x1 - x2), Math.Abs(y1 - y2));
+        }
+
+        public static int GetChebyshevDistance(int x1, int y1, int x2, int y2)
+        {
+            return Math.Max(Math.Abs(x1 - x2), Math.Abs(y1 - y2));
+        }
+
+        #endregion
+
+        #region Chebyshev Distance
+
+        public static double GetEuclideanDistance(float x1, float y1, float x2, float y2)
+        {
+            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
+        }
+         
+        public static double GetEuclideanDistance(int x1, int y1, int x2, int y2)
+        {
+            return Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
         }
 
         #endregion
