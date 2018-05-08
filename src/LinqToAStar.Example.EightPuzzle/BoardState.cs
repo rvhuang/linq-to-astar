@@ -61,7 +61,7 @@ namespace LinqToAStar.Example.EightPuzzle
 
         public float GetSumOfDistances(BoardState goal)
         {
-            return goal._positions.Zip(_positions, (a, b) => DistanceHelper.GetManhattanDistance(a.X, a.Y, b.X, b.Y)).Sum();
+            return goal._positions.Zip(_positions, PointExtensions.GetManhattanDistance).Sum();
         }
 
         #endregion
