@@ -57,12 +57,12 @@ namespace LinqToAStar
             };
         }
 
-        public static float GetManhattanDistance(this Point a, Point b)
+        public static int GetManhattanDistance(this Point a, Point b)
         {
             return DistanceHelper.GetManhattanDistance(a.X, a.Y, b.X, b.Y);
         }
 
-        public static float GetChebyshevDistance(this Point a, Point b)
+        public static int GetChebyshevDistance(this Point a, Point b)
         {
             return DistanceHelper.GetChebyshevDistance(a.X, a.Y, b.X, b.Y);
         }
