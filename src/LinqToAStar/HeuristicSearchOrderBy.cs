@@ -11,19 +11,19 @@ namespace LinqToAStar
     {
         #region Fields
 
-        private INodeComparer<TStep, TResult> _nodeComparer;
+        private INodeComparer<TResult, TStep> _nodeComparer;
 
         #endregion
 
         #region Properties
 
-        internal override INodeComparer<TStep, TResult> NodeComparer => _nodeComparer;
+        internal override INodeComparer<TResult, TStep> NodeComparer => _nodeComparer;
 
         #endregion
 
         #region Constructors
 
-        internal HeuristicSearchOrderBy(HeuristicSearchBase<TResult, TStep> source, INodeComparer<TStep, TResult> nodeComparer)
+        internal HeuristicSearchOrderBy(HeuristicSearchBase<TResult, TStep> source, INodeComparer<TResult, TStep> nodeComparer)
             : base(source)
         {
             _nodeComparer = nodeComparer;
@@ -65,7 +65,7 @@ namespace LinqToAStar
             var comparer1 = _nodeComparer;
             var comparer2 = HeuristicSearch.CreateComparer<TResult, TKey, TStep>(keySelector, comparer, descending);
 
-            _nodeComparer = new CombinedComparer<TStep, TResult>(comparer1, comparer2);
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
 
             return this;
         }

@@ -43,7 +43,7 @@ namespace LinqToAStar.Core
         public IEnumerator<TResult> GetEnumerator()
         {
             var counter = 0;
-            var path = new Stack<Node<TStep, TResult>>(_source.ConvertToNodes(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
+            var path = new Stack<Node<TResult, TStep>>(_source.ConvertToNodes(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
             var bound = path.Peek();
 
             while (counter <= _max)
@@ -71,17 +71,17 @@ namespace LinqToAStar.Core
 
         #region Core
 
-        private RecursionState<TStep, TResult> Search(Stack<Node<TStep, TResult>> path, Node<TStep, TResult> bound, ISet<TStep> visited)
+        private RecursionState<TResult, TStep> Search(Stack<Node<TResult, TStep>> path, Node<TResult, TStep> bound, ISet<TStep> visited)
         {
             var current = path.Peek();
 
             if (_source.NodeComparer.Compare(current, bound) > 0)
-                return new RecursionState<TStep, TResult>(RecursionFlag.InProgress, current);
+                return new RecursionState<TResult, TStep>(RecursionFlag.InProgress, current);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TStep, TResult>(RecursionFlag.Found, current);
+                return new RecursionState<TResult, TStep>(RecursionFlag.Found, current);
 
-            var min = default(Node<TStep, TResult>);
+            var min = default(Node<TResult, TStep>);
             var hasMin = false;
             var nexts = _source.Expands(current.Step, current.Level, visited.Add).ToArray();
 
@@ -104,7 +104,7 @@ namespace LinqToAStar.Core
                 }
                 path.Pop();
             }
-            return new RecursionState<TStep, TResult>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
+            return new RecursionState<TResult, TStep>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
         }
 
         #endregion 
