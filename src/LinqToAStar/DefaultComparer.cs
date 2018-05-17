@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    internal class DefaultComparer<TStep, TResult> : INodeComparer<TStep, TResult>
+    internal class DefaultComparer<TResult, TStep> : INodeComparer<TResult, TStep>
     {
         #region Fields
 
         private readonly bool _descending;
         private readonly IComparer<TResult> _resultComparer;
-        private readonly IComparer<Node<TStep, TResult>> _resultOnlyComparer;
+        private readonly IComparer<Node<TResult, TStep>> _resultOnlyComparer;
 
         #endregion
 
         #region Properties
 
-        public IComparer<Node<TStep, TResult>> ResultOnlyComparer => _resultOnlyComparer;
+        public IComparer<Node<TResult, TStep>> ResultOnlyComparer => _resultOnlyComparer;
 
         #endregion
 
@@ -28,14 +28,14 @@ namespace LinqToAStar
         {
             _descending = descending;
             _resultComparer = resultComparer ?? Comparer<TResult>.Default;
-            _resultOnlyComparer = Comparer<Node<TStep, TResult>>.Create(CompareResultOnly);
+            _resultOnlyComparer = Comparer<Node<TResult, TStep>>.Create(CompareResultOnly);
         }
 
         #endregion
 
         #region Comparisons
 
-        public int Compare(Node<TStep, TResult> x, Node<TStep, TResult> y)
+        public int Compare(Node<TResult, TStep> x, Node<TResult, TStep> y)
         {
             var r = CompareResultOnly(x, y);
 
@@ -51,7 +51,7 @@ namespace LinqToAStar
 
         #region Others
 
-        private int CompareResultOnly(Node<TStep, TResult> x, Node<TStep, TResult> y)
+        private int CompareResultOnly(Node<TResult, TStep> x, Node<TResult, TStep> y)
         {
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;

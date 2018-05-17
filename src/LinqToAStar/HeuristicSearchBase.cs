@@ -32,7 +32,7 @@ namespace LinqToAStar
 
         internal virtual Func<TStep, int, IEnumerable<TResult>> Converter => _converter;
 
-        internal virtual INodeComparer<TStep, TResult> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TStep, TResult>();
+        internal virtual INodeComparer<TResult, TStep> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TResult, TStep>();
 
         #endregion
 
@@ -79,24 +79,24 @@ namespace LinqToAStar
 
         #region Others
 
-        internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level)
+        internal IEnumerable<Node<TResult, TStep>> Expands(TStep step, int level)
         {
             foreach (var next in Expander(step, level))
                 foreach (var n in ConvertToNodes(next, level + 1))
                     yield return n;
         }
 
-        internal IEnumerable<Node<TStep, TResult>> Expands(TStep step, int level, Func<TStep, bool> predicate)
+        internal IEnumerable<Node<TResult, TStep>> Expands(TStep step, int level, Func<TStep, bool> predicate)
         {
             foreach (var next in Expander(step, level).Where(predicate))
                 foreach (var n in ConvertToNodes(next, level + 1))
                     yield return n;
         }
 
-        internal IEnumerable<Node<TStep, TResult>> ConvertToNodes(TStep step, int level)
+        internal IEnumerable<Node<TResult, TStep>> ConvertToNodes(TStep step, int level)
         {
             foreach (var r in Converter(step, level))
-                yield return new Node<TStep, TResult>(step, r, level);
+                yield return new Node<TResult, TStep>(step, r, level);
         }
 
         #endregion

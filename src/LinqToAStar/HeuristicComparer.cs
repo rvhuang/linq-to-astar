@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    class HeuristicComparer<TStep, TResult, TKey> : INodeComparer<TStep, TResult>
+    class HeuristicComparer<TStep, TResult, TKey> : INodeComparer<TResult, TStep>
     {
         #region Fields
 
         private readonly Func<TResult, double> _keySelector;
-        private readonly IComparer<Node<TStep, TResult>> _resultOnyComparer;
+        private readonly IComparer<Node<TResult, TStep>> _resultOnyComparer;
 
         #endregion
 
         #region Properties
 
-        public IComparer<Node<TStep, TResult>> ResultOnlyComparer => _resultOnyComparer;
+        public IComparer<Node<TResult, TStep>> ResultOnlyComparer => _resultOnyComparer;
 
         #endregion
 
@@ -29,14 +29,14 @@ namespace LinqToAStar
             else
                 _keySelector = s => Convert.ToDouble(keySelector(s));
 
-            _resultOnyComparer = Comparer<Node<TStep, TResult>>.Create(CompareResultOnly);
+            _resultOnyComparer = Comparer<Node<TResult, TStep>>.Create(CompareResultOnly);
         }
 
         #endregion
 
         #region Methods
 
-        public int Compare(Node<TStep, TResult> x, Node<TStep, TResult> y)
+        public int Compare(Node<TResult, TStep> x, Node<TResult, TStep> y)
         {
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;
@@ -53,7 +53,7 @@ namespace LinqToAStar
 
         #region Others
 
-        private int CompareResultOnly(Node<TStep, TResult> x, Node<TStep, TResult> y)
+        private int CompareResultOnly(Node<TResult, TStep> x, Node<TResult, TStep> y)
         {
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;

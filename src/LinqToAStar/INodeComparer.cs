@@ -2,8 +2,8 @@
 
 namespace LinqToAStar
 {
-    interface INodeComparer<TStep, TResult> : IComparer<Node<TStep, TResult>>, IComparer<TResult>
+    interface INodeComparer<TResult, TStep> : IComparer<Node<TResult, TStep>>, IComparer<TResult>
     {
-        IComparer<Node<TStep, TResult>> ResultOnlyComparer { get; }
+        IComparer<Node<TResult, TStep>> ResultOnlyComparer { get; }
     }
 }

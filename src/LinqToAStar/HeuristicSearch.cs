@@ -47,11 +47,11 @@ namespace LinqToAStar
             return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar), from, to, comparer, expander);
         }
 
-        internal static INodeComparer<TStep, TResult> CreateComparer<TResult, TKey, TStep>(Func<TResult, TKey> keySelector, IComparer<TKey> keyComparer, bool descending)
+        internal static INodeComparer<TResult, TStep> CreateComparer<TResult, TKey, TStep>(Func<TResult, TKey> keySelector, IComparer<TKey> keyComparer, bool descending)
         {
             if (keyComparer != null) return new NormalComparer<TStep, TResult, TKey>(keySelector, keyComparer, descending);
 
-            var comparer = default(INodeComparer<TStep, TResult>);
+            var comparer = default(INodeComparer<TResult, TStep>);
             
             switch (Type.GetTypeCode(typeof(TKey)))
             {

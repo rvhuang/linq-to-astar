@@ -2,12 +2,12 @@
 
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar)
 
-**LINQ to A\*** is an experimental project aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goals are:
+**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goals are:
 
 * Better human-readability and maintainability of algorithm using.
 * A unified programming model for various heuristic algorithms.
 
-By taking advantage of the power of LINQ, the project is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
+By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
 **All feedbacks are greatly appreciated** as the experiment is growing rapidly.
 
@@ -53,26 +53,26 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 ## Supported Algorithms
 
-|Algorithm|Factory Method|Status|
-|----------|----------|----------|
-|[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|Done|
-|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|Done|
-|[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`|Done|
-|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|Done|
-
-## Supported LINQ Expressions
-
-|Expression|Status|
+|Algorithm|Factory Method|
 |----------|----------|
-|`Select()`|Done|
-|`SelectMany()`|Done|
-|`Where()`|Done|
-|`OrderBy()`|Done|
-|`OrderByDescending()`|Done|
-|`ThenBy()`|Done|
-|`ThenByDescending()`|Done|
-|`Except()`|Done|
-|`Contains()`|Done|
+|[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|
+|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|
+|[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`|
+|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|
+
+## Supported LINQ Clauses
+
+|Clause|
+|----------|
+|`Select()`|
+|`SelectMany()`|
+|`Where()`|
+|`OrderBy()`|
+|`OrderByDescending()`|
+|`ThenBy()`|
+|`ThenByDescending()`|
+|`Except()`|
+|`Contains()`|
 
 ## Roadmap
 
@@ -83,7 +83,7 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 ## Platform
 
-The project targets .NET Standard 2.0 currently.
+The library targets [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/api/?view=netstandard-2.0) currently.
 
 ## Dependencies
 
@@ -92,4 +92,4 @@ The project targets .NET Standard 2.0 currently.
 
 ## License
 
-The project is licensed under MIT. Feel free to copy and use in your algorithm homework (grades not guaranteed).
+The library is licensed under MIT. Feel free to copy and use in your algorithm homework (grades not guaranteed).
