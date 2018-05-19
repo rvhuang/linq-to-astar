@@ -5,7 +5,7 @@
 **LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goals are:
 
 * Better human-readability and maintainability of algorithm using.
-* A unified programming model for various heuristic algorithms.
+* A structural, object-oriented, unified programming model for various heuristic algorithms.
 
 By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
@@ -49,7 +49,7 @@ If path is found, the enumeration returns each step in deferred execution. Other
 ### Executable Examples
 
 * [Path Finding](src/LinqToAStar.Example.PathFinding/) 
-* [Solving 8 Puzzle](src/LinqToAStar.Example.EightPuzzle/)
+* [Solving 8-Puzzle](src/LinqToAStar.Example.EightPuzzle/)
 
 ## Supported Algorithms
 
@@ -62,17 +62,18 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 ## Supported LINQ Clauses
 
-|Clause|
-|----------|
-|`Select()`|
-|`SelectMany()`|
-|`Where()`|
-|`OrderBy()`|
-|`OrderByDescending()`|
-|`ThenBy()`|
-|`ThenByDescending()`|
-|`Except()`|
-|`Contains()`|
+|Clause|Remarks|
+|----------|----------|
+|`Select()`||
+|`SelectMany()`||
+|`Where()`||
+|`OrderBy()`||
+|`OrderByDescending()`||
+|`ThenBy()`||
+|`ThenByDescending()`||
+|`Except()`||
+|`Contains()`||
+|`Reverse()`|To be implemented|
 
 ## Roadmap
 
