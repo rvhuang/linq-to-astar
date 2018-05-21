@@ -63,7 +63,7 @@ namespace LinqToAStar
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
             var comparer1 = _nodeComparer;
-            var comparer2 = HeuristicSearch.CreateComparer<TResult, TKey, TStep>(keySelector, comparer, descending);
+            var comparer2 = ComparerExtensions.CreateComparer<TResult, TKey, TStep>(keySelector, comparer, descending);
 
             _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
 
