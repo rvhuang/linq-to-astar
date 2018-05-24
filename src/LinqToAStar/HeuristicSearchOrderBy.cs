@@ -58,12 +58,144 @@ namespace LinqToAStar
 
         #region IOrderedEnumerable<TResult>
 
-        public HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable<TKey>(Func<TResult, TKey> keySelector, IComparer<TKey> comparer, bool descending)
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, float> keySelector, bool descending)
         {
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
             var comparer1 = _nodeComparer;
-            var comparer2 = ComparerExtensions.CreateComparer<TResult, TKey, TStep>(keySelector, comparer, descending);
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, double> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, decimal> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, byte> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, sbyte> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, short> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, ushort> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, int> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, uint> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, long> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable(Func<TResult, ulong> keySelector, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new HeuristicComparer<TResult, TStep>(keySelector, descending);
+
+            _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
+
+            return this;
+        }
+
+        internal HeuristicSearchOrderBy<TResult, TStep> CreateOrderedEnumerable<TKey>(Func<TResult, TKey> keySelector, IComparer<TKey> comparer, bool descending)
+        {
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+
+            var comparer1 = _nodeComparer;
+            var comparer2 = new NormalComparer<TResult, TKey, TStep>(keySelector, null, descending);
 
             _nodeComparer = new CombinedComparer<TResult, TStep>(comparer1, comparer2);
 

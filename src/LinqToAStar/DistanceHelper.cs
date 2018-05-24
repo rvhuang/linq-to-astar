@@ -7,9 +7,17 @@ namespace LinqToAStar
     {
         public static readonly IEqualityComparer<long> Int64EqualityComparer = EqualityComparer<long>.Default;
         public static readonly IEqualityComparer<int> Int32EqualityComparer = EqualityComparer<int>.Default;
-        public static readonly IComparer<long> Int64Comparer = Comparer<long>.Default;
+        public static readonly IComparer<byte> ByteComparer = Comparer<byte>.Default;
+        public static readonly IComparer<ushort> UInt16Comparer = Comparer<ushort>.Default;
+        public static readonly IComparer<uint> UInt32Comparer = Comparer<uint>.Default;
+        public static readonly IComparer<ulong> UInt64Comparer = Comparer<ulong>.Default;
+        public static readonly IComparer<sbyte> SByteComparer = Comparer<sbyte>.Default;
+        public static readonly IComparer<short> Int16Comparer = Comparer<short>.Default;
         public static readonly IComparer<int> Int32Comparer = Comparer<int>.Default;
+        public static readonly IComparer<long> Int64Comparer = Comparer<long>.Default;
+        public static readonly IComparer<float> SingleComparer = Comparer<float>.Default;
         public static readonly IComparer<double> DoubleComparer = Comparer<double>.Default;
+        public static readonly IComparer<decimal> DecimalComparer = Comparer<decimal>.Default;
 
         #region Manhattan Distance
 

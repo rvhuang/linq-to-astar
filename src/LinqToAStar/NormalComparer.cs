@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    class NormalComparer<TStep, TResult, TKey> : INodeComparer<TResult, TStep>
+    class NormalComparer<TResult, TKey, TStep> : INodeComparer<TResult, TStep>
     {
         #region Fields
 
