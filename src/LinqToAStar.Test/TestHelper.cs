@@ -11,10 +11,10 @@ namespace LinqToAStar.Test
         const char StartSymbol = 'S';
         const char GoalSymbol = 'G';
 
-        public static (Vector2 Start, Vector2 Goal, ISet<Vector2> Obstacles) LoadMapData()
+        public static (List<Vector2> Starts, List<Vector2> Goals, HashSet<Vector2> Obstacles) LoadMapData()
         {
-            var from = default(Vector2);
-            var goal = default(Vector2);
+            var froms = new List<Vector2>();
+            var goals = new List<Vector2>();
             var obstacles = new HashSet<Vector2>();
             var mapData = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MapData.txt"));
 
@@ -25,11 +25,11 @@ namespace LinqToAStar.Test
                     switch (mapData[y][x])
                     {
                         case StartSymbol:
-                            from = new Vector2(x, y);
+                            froms.Add(new Vector2(x, y));
                             break;
 
                         case GoalSymbol:
-                            goal = new Vector2(x, y);
+                            goals.Add(new Vector2(x, y));
                             break;
 
                         case ObstacleSymbol:
@@ -38,7 +38,7 @@ namespace LinqToAStar.Test
                     }
                 }
             }
-            return (from, goal, obstacles);
+            return (froms, goals, obstacles);
         }
     }
 }

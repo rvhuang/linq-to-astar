@@ -9,7 +9,7 @@ namespace LinqToAStar
             if (a == null) return b;
             if (b == null) return a;
 
-            return (comparer != null ? comparer : Comparer<T>.Default).Compare(a, b) < 0 ? a : b;
+            return (comparer ?? Comparer<T>.Default).Compare(a, b) < 0 ? a : b;
         }
 
         public static T Max<T>(this IComparer<T> comparer, T a, T b)
@@ -17,7 +17,7 @@ namespace LinqToAStar
             if (a == null) return b;
             if (b == null) return a;
 
-            return (comparer != null ? comparer : Comparer<T>.Default).Compare(a, b) > 0 ? a : b;
+            return (comparer ?? Comparer<T>.Default).Compare(a, b) > 0 ? a : b;
         }
     }
 }

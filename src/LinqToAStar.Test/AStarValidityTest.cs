@@ -6,51 +6,30 @@ using Xunit;
 
 namespace LinqToAStar.Test
 {
-    public class AStarValidityTest
+    public class AStarValidityTest  
     {
-        private readonly IReadOnlyList<Vector2> _path;
-        private readonly float _unit;
-        private readonly Vector2 _start;
-        private readonly Vector2 _goal;
-        private readonly ISet<Vector2> _obstacles;
-
-        public AStarValidityTest()
+        [Theory]
+        [ClassData(typeof(AStarTestData))]
+        public void StartAndGoalTest(Vector2 start, Vector2 goal, IReadOnlyList<Vector2> solution)
         {
-            var mapData = TestHelper.LoadMapData();
-
-            _start = mapData.Start;
-            _goal = mapData.Goal;
-            _obstacles = mapData.Obstacles;
-            _unit = 1f;
-
-            var queryable = HeuristicSearch.AStar(_start, _goal, (step, lv) => step.GetFourDirections(_unit));
-            var solution = from step in queryable.Except(mapData.Obstacles)
-                            where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
-                            orderby step.GetManhattanDistance(_goal)
-                            select step;
-
-            _path = solution.ToList();
+            Assert.True(start == solution.First(), "First step is not equal to start.");
+            Assert.True(goal == solution.Last(), "Last step is not equal to goal.");
         }
 
-        [Fact]
-        public void StartAndGoalTest()
+        [Theory]
+        [ClassData(typeof(AStarTestData))]
+        public void PathValidityTest(Vector2 start, Vector2 goal, IReadOnlyList<Vector2> solution)
         {
-            Assert.True(_start == _path.First(), "First step is not equal to start.");
-            Assert.True(_goal == _path.Last(), "Last step is not equal to goal.");
+            var differences = solution.Skip(1).Select((step, i) => step - solution[i]);
+
+            Assert.True(differences.All(diff => Math.Abs(diff.X) == MapDataFixture.Unit ^ Math.Abs(diff.Y) == MapDataFixture.Unit), "One or more invalid steps are found.");
         }
 
-        [Fact]
-        public void PathValidityTest()
+        [Theory]
+        [ClassData(typeof(AStarTestData))]
+        public void ObstacleTest(Vector2 start, Vector2 goal, IReadOnlyList<Vector2> solution)
         {
-            var differences = _path.Skip(1).Select((step, i) => step - _path[i]);
-
-            Assert.True(differences.All(diff => Math.Abs(diff.X) == _unit ^ Math.Abs(diff.Y) == _unit), "One or more invalid steps are found.");
-        }
-
-        [Fact]
-        public void ObstacleTest()
-        {
-            Assert.DoesNotContain(_path, _obstacles.Contains);
+            Assert.DoesNotContain(solution, MapDataFixture._obstacles.Contains);
         }
     }
 }
