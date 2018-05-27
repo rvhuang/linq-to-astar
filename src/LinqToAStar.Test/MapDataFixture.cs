@@ -10,17 +10,25 @@ namespace LinqToAStar.Test
     {
         public const float Unit = 1f;
 
-        public static readonly ICollection<Vector2> _starts;
-        public static readonly ICollection<Vector2> _goals;
-        public static readonly ICollection<Vector2> _obstacles;
+        public static readonly ICollection<Vector2> Starts;
+        public static readonly ICollection<Vector2> Goals;
+        public static readonly ICollection<Vector2> Obstacles;
 
         static MapDataFixture()
         {
             var mapData = TestHelper.LoadMapData();
 
-            _obstacles = mapData.Obstacles;
-            _starts = mapData.Starts;
-            _goals = mapData.Goals;
+            Obstacles = mapData.Obstacles;
+            Starts = mapData.Starts;
+            Goals = mapData.Goals;
+        }
+
+        public static IEnumerable<(Vector2 Start, Vector2 Goal)> GetStartGoalCombinations()
+        {
+            // Combination of all start-goal pairs 
+            return from start in MapDataFixture.Starts
+                   from goal in MapDataFixture.Goals
+                   select ValueTuple.Create(start, goal);
         }
     }
 
@@ -28,17 +36,12 @@ namespace LinqToAStar.Test
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            // Combination of all start-goal pairs 
-            var settings = from start in MapDataFixture._starts
-                           from goal in MapDataFixture._goals
-                           select ValueTuple.Create(start, goal);
-
-            foreach (var setting in settings)
+            foreach (var setting in MapDataFixture.GetStartGoalCombinations())
             {
-                var start = setting.Item1;
-                var goal = setting.Item2;
+                var start = setting.Start;
+                var goal = setting.Goal;
                 var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(MapDataFixture.Unit));
-                var solution = from step in queryable.Except(MapDataFixture._obstacles)
+                var solution = from step in queryable.Except(MapDataFixture.Obstacles)
                                where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
                                orderby step.GetManhattanDistance(goal)
                                select step;
@@ -54,17 +57,12 @@ namespace LinqToAStar.Test
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            // Combination of all start-goal pairs 
-            var settings = from start in MapDataFixture._starts
-                           from goal in MapDataFixture._goals
-                           select ValueTuple.Create(start, goal);
-
-            foreach (var setting in settings)
+            foreach (var setting in MapDataFixture.GetStartGoalCombinations())
             {
-                var start = setting.Item1;
-                var goal = setting.Item2;
+                var start = setting.Start;
+                var goal = setting.Goal;
                 var queryable = HeuristicSearch.BestFirstSearch(start, goal, (step, lv) => step.GetFourDirections(MapDataFixture.Unit));
-                var solution = from step in queryable.Except(MapDataFixture._obstacles)
+                var solution = from step in queryable.Except(MapDataFixture.Obstacles)
                                where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
                                orderby step.GetManhattanDistance(goal)
                                select step;
@@ -80,17 +78,12 @@ namespace LinqToAStar.Test
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            // Combination of all start-goal pairs 
-            var settings = from start in MapDataFixture._starts
-                           from goal in MapDataFixture._goals
-                           select ValueTuple.Create(start, goal);
-
-            foreach (var setting in settings)
+            foreach (var setting in MapDataFixture.GetStartGoalCombinations())
             {
-                var start = setting.Item1;
-                var goal = setting.Item2;
+                var start = setting.Start;
+                var goal = setting.Goal;
                 var queryable = HeuristicSearch.IterativeDeepeningAStar(start, goal, (step, lv) => step.GetFourDirections(MapDataFixture.Unit));
-                var solution = from step in queryable.Except(MapDataFixture._obstacles)
+                var solution = from step in queryable.Except(MapDataFixture.Obstacles)
                                where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
                                orderby step.GetManhattanDistance(goal)
                                select step;
@@ -106,17 +99,12 @@ namespace LinqToAStar.Test
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            // Combination of all start-goal pairs 
-            var settings = from start in MapDataFixture._starts
-                           from goal in MapDataFixture._goals
-                           select ValueTuple.Create(start, goal);
-
-            foreach (var setting in settings)
+            foreach (var setting in MapDataFixture.GetStartGoalCombinations())
             {
-                var start = setting.Item1;
-                var goal = setting.Item2;
+                var start = setting.Start;
+                var goal = setting.Goal;
                 var queryable = HeuristicSearch.RecursiveBestFirstSearch(start, goal, (step, lv) => step.GetFourDirections(MapDataFixture.Unit));
-                var solution = from step in queryable.Except(MapDataFixture._obstacles)
+                var solution = from step in queryable.Except(MapDataFixture.Obstacles)
                                where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
                                orderby step.GetManhattanDistance(goal)
                                select step;

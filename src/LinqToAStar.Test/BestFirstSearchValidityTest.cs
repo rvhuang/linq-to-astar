@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable xUnit1026
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -29,7 +31,7 @@ namespace LinqToAStar.Test
         [ClassData(typeof(BFSTestData))]
         public void ObstacleTest(Vector2 start, Vector2 goal, IReadOnlyList<Vector2> solution)
         {
-            Assert.DoesNotContain(solution, MapDataFixture._obstacles.Contains);
+            Assert.DoesNotContain(solution, MapDataFixture.Obstacles.Contains);
         }
     }
 }
