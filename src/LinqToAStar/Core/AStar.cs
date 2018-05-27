@@ -8,12 +8,12 @@ namespace LinqToAStar.Core
     {
         #region Override
 
-        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
+        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
-            var open = new List<Node<TResult, TStep>>(source.ConvertToNodes(source.From, 0));
+            var open = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
 
             if (open.Count == 0)
-                return Enumerable.Empty<TResult>();
+                return Enumerable.Empty<TFactor>();
 
             open.Sort(source.NodeComparer);
 
@@ -46,7 +46,7 @@ namespace LinqToAStar.Core
                 if (hasNext)
                     open.Sort(sortAt, open.Count - sortAt, source.NodeComparer);
             }
-            return Enumerable.Empty<TResult>();
+            return Enumerable.Empty<TFactor>();
         }
 
         #endregion

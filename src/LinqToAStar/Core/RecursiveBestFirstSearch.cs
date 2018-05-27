@@ -8,24 +8,24 @@ namespace LinqToAStar.Core
 {
     static class RecursiveBestFirstSearch
     {
-        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
+        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
-            return new RecursiveBestFirstSearch<TResult, TStep>(source);
+            return new RecursiveBestFirstSearch<TFactor, TStep>(source);
         }
     }
 
-    class RecursiveBestFirstSearch<TResult, TStep> : IEnumerable<TResult>
+    class RecursiveBestFirstSearch<TFactor, TStep> : IEnumerable<TFactor>
     {
         #region Fields
 
-        private readonly HeuristicSearchBase<TResult, TStep> _source;
-        private readonly IComparer<Node<TResult, TStep>> _nodeComparer;
+        private readonly HeuristicSearchBase<TFactor, TStep> _source;
+        private readonly IComparer<Node<TFactor, TStep>> _nodeComparer;
 
         #endregion
 
         #region Constructor
 
-        internal RecursiveBestFirstSearch(HeuristicSearchBase<TResult, TStep> source)
+        internal RecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source)
         {
             _source = source;
             _nodeComparer = source.NodeComparer.ResultOnlyComparer;
@@ -35,19 +35,19 @@ namespace LinqToAStar.Core
 
         #region Override
 
-        public IEnumerator<TResult> GetEnumerator()
+        public IEnumerator<TFactor> GetEnumerator()
         {
             var inits = _source.ConvertToNodes(_source.From, 0).ToArray();
 
             if (inits.Length == 0)
-                return Enumerable.Empty<TResult>().GetEnumerator();
+                return Enumerable.Empty<TFactor>().GetEnumerator();
 
             Array.Sort(inits, _nodeComparer);
 
             var best = inits[0];
             var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
 
-            return state.Flag == RecursionFlag.Found ? state.Node.TraceBack().GetEnumerator() : Enumerable.Empty<TResult>().GetEnumerator();
+            return state.Flag == RecursionFlag.Found ? state.Node.TraceBack().GetEnumerator() : Enumerable.Empty<TFactor>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -59,23 +59,23 @@ namespace LinqToAStar.Core
 
         #region Core
 
-        private RecursionState<TResult, TStep> Search(Node<TResult, TStep> current, Node<TResult, TStep> bound, ISet<TStep> visited)
+        private RecursionState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             visited.Add(current.Step);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TResult, TStep>(RecursionFlag.Found, current);
+                return new RecursionState<TFactor, TStep>(RecursionFlag.Found, current);
 
             var nexts = _source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
 
             if (nexts.Length == 0)
-                return new RecursionState<TResult, TStep>(RecursionFlag.NotFound, current);
+                return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, current);
 
             Array.ForEach(nexts, next => next.Previous = current);
             Array.Sort(nexts, _nodeComparer);
 
             var sortAt = 0;
-            var state = default(RecursionState<TResult, TStep>);
+            var state = default(RecursionState<TFactor, TStep>);
 
             while (nexts.Length - sortAt > 0)
             {
@@ -84,7 +84,7 @@ namespace LinqToAStar.Core
                 Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
                  
                 if (_nodeComparer.Compare(best, bound) > 0)
-                    return new RecursionState<TResult, TStep>(RecursionFlag.NotFound, best);
+                    return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, best);
 
                 if (nexts.Length - sortAt < 2)
                     state = Search(best, null, visited);
@@ -101,7 +101,7 @@ namespace LinqToAStar.Core
                         break;
                 }
             }
-            return new RecursionState<TResult, TStep>(RecursionFlag.NotFound, null);
+            return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, null);
         }
 
         #endregion 

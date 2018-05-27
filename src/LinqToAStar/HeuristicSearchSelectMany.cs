@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace LinqToAStar
 {
-    internal class HeuristicSearchSelectMany<TSource, TCollection, TResult, TStep> : HeuristicSearchBase<TResult, TStep>
+    internal class HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep> : HeuristicSearchBase<TFactor, TStep>
     {
         #region Fields
 
         private readonly HeuristicSearchBase<TSource, TStep> _source;
         private readonly Func<TSource, int, IEnumerable<TCollection>> _collectionSelector;
-        private readonly Func<TSource, TCollection, TResult> _resultSelector;
+        private readonly Func<TSource, TCollection, TFactor> _resultSelector;
 
         #endregion
 
@@ -18,14 +18,14 @@ namespace LinqToAStar
 
         public override string AlgorithmName => _source.AlgorithmName;
 
-        internal override Func<TStep, int, IEnumerable<TResult>> Converter => Convert;
+        internal override Func<TStep, int, IEnumerable<TFactor>> Converter => Convert;
 
         #endregion
 
         #region Constructors
 
         internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source,
-            Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
+            Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> resultSelector)
             : base(source.From, source.To, source.StepComparer, source.Expander)
         {
             _source = source;
@@ -37,7 +37,7 @@ namespace LinqToAStar
 
         #region Overrides
 
-        public override IEnumerator<TResult> GetEnumerator()
+        public override IEnumerator<TFactor> GetEnumerator()
         {
             return _source.AsEnumerable().SelectMany(_collectionSelector, _resultSelector).GetEnumerator();
         }
@@ -46,7 +46,7 @@ namespace LinqToAStar
 
         #region Others
 
-        private IEnumerable<TResult> Convert(TStep step, int level)
+        private IEnumerable<TFactor> Convert(TStep step, int level)
         {
             foreach (var s in _source.Converter(step, level))
                 foreach (var c in _collectionSelector(s, level))
@@ -56,12 +56,12 @@ namespace LinqToAStar
         #endregion
     }
 
-    internal class HeuristicSearchSelectMany<TSource, TResult, TStep> : HeuristicSearchBase<TResult, TStep>
+    internal class HeuristicSearchSelectMany<TSource, TFactor, TStep> : HeuristicSearchBase<TFactor, TStep>
     {
         #region Fields
 
         private readonly HeuristicSearchBase<TSource, TStep> _source;
-        private readonly Func<TSource, int, IEnumerable<TResult>> _selector;
+        private readonly Func<TSource, int, IEnumerable<TFactor>> _selector;
 
         #endregion
 
@@ -69,13 +69,13 @@ namespace LinqToAStar
 
         public override string AlgorithmName => _source.AlgorithmName;
 
-        internal override Func<TStep, int, IEnumerable<TResult>> Converter => Convert;
+        internal override Func<TStep, int, IEnumerable<TFactor>> Converter => Convert;
 
         #endregion
 
         #region Constructors
 
-        internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TResult>> selector)
+        internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TFactor>> selector)
             : base(source.From, source.To, source.StepComparer, source.Expander)
         {
             _source = source;
@@ -86,7 +86,7 @@ namespace LinqToAStar
 
         #region Overrides
 
-        public override IEnumerator<TResult> GetEnumerator()
+        public override IEnumerator<TFactor> GetEnumerator()
         {
             return _source.AsEnumerable().SelectMany(_selector).GetEnumerator();
         }
@@ -95,7 +95,7 @@ namespace LinqToAStar
 
         #region Others
 
-        private IEnumerable<TResult> Convert(TStep step, int level)
+        private IEnumerable<TFactor> Convert(TStep step, int level)
         {
             foreach (var s in _source.Converter(step, level))
                 foreach (var r in _selector(s, level))

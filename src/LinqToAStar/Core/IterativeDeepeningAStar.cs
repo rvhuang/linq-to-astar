@@ -8,17 +8,17 @@ namespace LinqToAStar.Core
 {
     static class IterativeDeepeningAStar
     {
-        public static IEnumerable<TResult> Run<TResult, TStep>(HeuristicSearchBase<TResult, TStep> source)
+        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
-            return new IterativeDeepeningAStar<TResult, TStep>(source);
+            return new IterativeDeepeningAStar<TFactor, TStep>(source);
         }
     }
 
-    internal class IterativeDeepeningAStar<TResult, TStep> : IEnumerable<TResult>
+    internal class IterativeDeepeningAStar<TFactor, TStep> : IEnumerable<TFactor>
     {
         #region Fields
 
-        private readonly HeuristicSearchBase<TResult, TStep> _source;
+        private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly int _max = 1024;
 
         #endregion
@@ -31,7 +31,7 @@ namespace LinqToAStar.Core
 
         #region Constructor
 
-        internal IterativeDeepeningAStar(HeuristicSearchBase<TResult, TStep> source)
+        internal IterativeDeepeningAStar(HeuristicSearchBase<TFactor, TStep> source)
         {
             _source = source;
         }
@@ -40,10 +40,10 @@ namespace LinqToAStar.Core
 
         #region Override
 
-        public IEnumerator<TResult> GetEnumerator()
+        public IEnumerator<TFactor> GetEnumerator()
         {
             var counter = 0;
-            var path = new Stack<Node<TResult, TStep>>(_source.ConvertToNodes(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
+            var path = new Stack<Node<TFactor, TStep>>(_source.ConvertToNodes(_source.From, 0).OrderBy(n => n.Result, _source.NodeComparer));
             var bound = path.Peek();
 
             while (counter <= _max)
@@ -53,13 +53,13 @@ namespace LinqToAStar.Core
                 if (t.Flag == RecursionFlag.Found)
                     return t.Node.TraceBack().GetEnumerator();
                 if (t.Flag == RecursionFlag.NotFound)
-                    return Enumerable.Empty<TResult>().GetEnumerator();
+                    return Enumerable.Empty<TFactor>().GetEnumerator();
 
                 // In Progress
                 bound = t.Node;
                 counter++;
             }
-            return Enumerable.Empty<TResult>().GetEnumerator();
+            return Enumerable.Empty<TFactor>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -71,17 +71,17 @@ namespace LinqToAStar.Core
 
         #region Core
 
-        private RecursionState<TResult, TStep> Search(Stack<Node<TResult, TStep>> path, Node<TResult, TStep> bound, ISet<TStep> visited)
+        private RecursionState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             var current = path.Peek();
 
             if (_source.NodeComparer.Compare(current, bound) > 0)
-                return new RecursionState<TResult, TStep>(RecursionFlag.InProgress, current);
+                return new RecursionState<TFactor, TStep>(RecursionFlag.InProgress, current);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TResult, TStep>(RecursionFlag.Found, current);
+                return new RecursionState<TFactor, TStep>(RecursionFlag.Found, current);
 
-            var min = default(Node<TResult, TStep>);
+            var min = default(Node<TFactor, TStep>);
             var hasMin = false;
             var nexts = _source.Expands(current.Step, current.Level, visited.Add).ToArray();
 
@@ -104,7 +104,7 @@ namespace LinqToAStar.Core
                 }
                 path.Pop();
             }
-            return new RecursionState<TResult, TStep>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
+            return new RecursionState<TFactor, TStep>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
         }
 
         #endregion 

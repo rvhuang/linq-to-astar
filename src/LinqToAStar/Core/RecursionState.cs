@@ -1,18 +1,18 @@
 namespace LinqToAStar.Core
 {
-    internal struct RecursionState<TResult, TStep>
+    internal struct RecursionState<TFactor, TStep>
     {
         public RecursionFlag Flag
         {
             get; private set;
         }
 
-        public Node<TResult, TStep> Node
+        public Node<TFactor, TStep> Node
         {
             get; private set;
         }
 
-        public RecursionState(RecursionFlag flag, Node<TResult, TStep> node)
+        public RecursionState(RecursionFlag flag, Node<TFactor, TStep> node)
         {  
             Flag = flag; 
             Node = node;

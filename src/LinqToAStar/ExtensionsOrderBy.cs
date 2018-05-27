@@ -7,302 +7,302 @@ namespace LinqToAStar
     {
         #region OrderBy
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, float> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, float> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, double> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, double> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, decimal> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, decimal> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, byte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, byte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, sbyte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, sbyte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, short> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, short> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, ushort> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, ushort> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, int> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, int> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, uint> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, uint> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, long> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, long> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, ulong> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, ulong> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TKey, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, TKey> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new NormalComparer<TResult, TKey, TStep>(keySelector, null, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new NormalComparer<TFactor, TKey, TStep>(keySelector, null, false));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderBy<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderBy<TFactor, TKey, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, TKey> keySelector, IComparer<TKey> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new NormalComparer<TResult, TKey, TStep>(keySelector, comparer, false));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new NormalComparer<TFactor, TKey, TStep>(keySelector, comparer, false));
         }
 
         #endregion
 
         #region OrderByDescending
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, float> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, float> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, double> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, double> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, decimal> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, decimal> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, byte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, byte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, sbyte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, sbyte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, short> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, short> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, ushort> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, ushort> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, int> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, int> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, uint> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, uint> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, long> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, long> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, ulong> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, ulong> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new HeuristicComparer<TResult, TStep>(keySelector, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new HeuristicComparer<TFactor, TStep>(keySelector, true));
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TKey, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, TKey> keySelector)
         {
             return OrderByDescending(source, keySelector, null);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> OrderByDescending<TResult, TKey, TStep>(this HeuristicSearchBase<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        public static HeuristicSearchOrderBy<TFactor, TStep> OrderByDescending<TFactor, TKey, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, TKey> keySelector, IComparer<TKey> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TResult, TStep>(source, new NormalComparer<TResult,  TKey, TStep>(keySelector, null, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new NormalComparer<TFactor,  TKey, TStep>(keySelector, null, true));
         }
 
         #endregion
 
         #region ThenBy
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, float> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, float> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, double> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, double> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, decimal> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, decimal> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, byte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, byte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, sbyte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, sbyte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, short> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, short> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, ushort> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, ushort> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, int> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, int> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, uint> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, uint> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, long> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, long> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, ulong> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, ulong> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, false);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TKey, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, TKey> keySelector)
         {
             return ThenBy(source, keySelector, null);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenBy<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenBy<TFactor, TKey, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, TKey> keySelector, IComparer<TKey> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
@@ -313,89 +313,89 @@ namespace LinqToAStar
 
         #region ThenByDescending
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, float> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, float> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, double> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, double> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, decimal> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, decimal> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, byte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, byte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, sbyte> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, sbyte> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, short> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, short> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, ushort> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, ushort> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, int> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, int> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, uint> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, uint> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, long> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, long> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, ulong> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, ulong> keySelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 
             return source.CreateOrderedEnumerable(keySelector, true);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TKey, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, TKey> keySelector)
         {
             return ThenByDescending(source, keySelector, null);
         }
 
-        public static HeuristicSearchOrderBy<TResult, TStep> ThenByDescending<TResult, TKey, TStep>(this HeuristicSearchOrderBy<TResult, TStep> source, Func<TResult, TKey> keySelector, IComparer<TKey> comparer)
+        public static HeuristicSearchOrderBy<TFactor, TStep> ThenByDescending<TFactor, TKey, TStep>(this HeuristicSearchOrderBy<TFactor, TStep> source, Func<TFactor, TKey> keySelector, IComparer<TKey> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
 

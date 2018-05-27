@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    class Node<TResult, TStep> : IEnumerable<TResult>
+    class Node<TFactor, TStep> : IEnumerable<TFactor>
     {
-        public Node<TResult, TStep> Previous
+        public Node<TFactor, TStep> Previous
         {
             get; set;
         }
@@ -15,7 +15,7 @@ namespace LinqToAStar
             get; private set;
         }
 
-        public Node<TResult, TStep> Next
+        public Node<TFactor, TStep> Next
         {
             get; set;
         }
@@ -25,19 +25,19 @@ namespace LinqToAStar
             get; private set;
         }
 
-        public TResult Result
+        public TFactor Result
         {
             get; private set;
         }
 
-        public Node(TStep step, TResult result, int level)
+        public Node(TStep step, TFactor result, int level)
         {
             Step = step;
             Result = result;
             Level = level;
         }
 
-        public Node<TResult, TStep> TraceBack()
+        public Node<TFactor, TStep> TraceBack()
         {
             var node = this;
 
@@ -49,7 +49,7 @@ namespace LinqToAStar
             return node;
         }
 
-        public IEnumerator<TResult> GetEnumerator()
+        public IEnumerator<TFactor> GetEnumerator()
         {
             var node = this;
 

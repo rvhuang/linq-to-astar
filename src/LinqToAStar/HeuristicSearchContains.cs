@@ -3,26 +3,26 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    class HeuristicSearchContains<TResult, TStep> : HeuristicSearchBase<TResult, TStep>
+    class HeuristicSearchContains<TFactor, TStep> : HeuristicSearchBase<TFactor, TStep>
     {
         #region Fields
 
-        private readonly IEnumerable<TResult> _collection;
-        private readonly IEqualityComparer<TResult> _comparer;
+        private readonly IEnumerable<TFactor> _collection;
+        private readonly IEqualityComparer<TFactor> _comparer;
 
-        private ISet<TResult> _set;
+        private ISet<TFactor> _set;
 
         #endregion
 
         #region Properties
 
-        internal override Func<TStep, int, IEnumerable<TResult>> Converter => Convert;
+        internal override Func<TStep, int, IEnumerable<TFactor>> Converter => Convert;
 
         #endregion
 
         #region Constructors
 
-        internal HeuristicSearchContains(HeuristicSearchBase<TResult, TStep> source, IEnumerable<TResult> collection, IEqualityComparer<TResult> comparer)
+        internal HeuristicSearchContains(HeuristicSearchBase<TFactor, TStep> source, IEnumerable<TFactor> collection, IEqualityComparer<TFactor> comparer)
             : base(source)
         {
             _collection = collection;
@@ -33,7 +33,7 @@ namespace LinqToAStar
 
         #region Overrides
 
-        public override IEnumerator<TResult> GetEnumerator()
+        public override IEnumerator<TFactor> GetEnumerator()
         {
             return EnumerateFromSource().GetEnumerator();
         }
@@ -42,20 +42,20 @@ namespace LinqToAStar
 
         #region Others
 
-        private IEnumerable<TResult> EnumerateFromSource()
+        private IEnumerable<TFactor> EnumerateFromSource()
         {
             if (_set == null)
-                _set = new HashSet<TResult>(_collection, _comparer);
+                _set = new HashSet<TFactor>(_collection, _comparer);
 
             foreach (var r in Source)
                 if (_set.Contains(r))
                     yield return r;
         }
 
-        private IEnumerable<TResult> Convert(TStep step, int level)
+        private IEnumerable<TFactor> Convert(TStep step, int level)
         {
             if (_set == null)
-                _set = new HashSet<TResult>(_collection, _comparer);
+                _set = new HashSet<TFactor>(_collection, _comparer);
 
             foreach (var r in Source.Converter(step, level))
                 if (_set.Contains(r))
