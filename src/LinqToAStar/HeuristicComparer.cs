@@ -8,13 +8,13 @@ namespace LinqToAStar
         #region Fields
         
         private readonly Comparison<Node<TFactor, TStep>> _comparisonN;
-        private readonly Comparison<TFactor> _comparisonR;
+        private readonly Comparison<TFactor> _comparisonF;
 
         #endregion
 
         #region Properties
 
-        public IComparer<Node<TFactor, TStep>> ResultOnlyComparer { get; private set; }
+        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer { get; private set; }
 
         #endregion
 
@@ -25,14 +25,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.ByteComparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.ByteComparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, ushort> keySelector, bool descending)
@@ -40,14 +40,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.UInt16Comparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt16Comparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, uint> keySelector, bool descending)
@@ -55,14 +55,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.UInt32Comparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt32Comparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, ulong> keySelector, bool descending)
@@ -70,14 +70,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x.Result) + (ulong)x.Level, 0 - keySelector(y.Result) + (ulong)y.Level);
-                _comparisonR = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(x.Result) + (ulong)x.Level, keySelector(y.Result) + (ulong)y.Level);
-                _comparisonR = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, sbyte> keySelector, bool descending)
@@ -85,14 +85,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.SByteComparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.SByteComparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, short> keySelector, bool descending)
@@ -100,14 +100,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int16Comparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int16Comparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, int> keySelector, bool descending)
@@ -115,14 +115,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, long> keySelector, bool descending)
@@ -130,14 +130,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, float> keySelector, bool descending)
@@ -145,14 +145,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, double> keySelector, bool descending)
@@ -160,14 +160,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         public HeuristicComparer(Func<TFactor, decimal> keySelector, bool descending)
@@ -175,14 +175,14 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
                 _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
-                _comparisonR = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(x), keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(x), keySelector(y));
             }
-            ResultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         #endregion
@@ -199,19 +199,19 @@ namespace LinqToAStar
 
         public int Compare(TFactor x, TFactor y)
         {
-            return _comparisonR(x, y);
+            return _comparisonF(x, y);
         }
 
         #endregion
 
         #region Others
 
-        private int CompareResultOnly(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
+        private int CompareFactorOnly(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
         {
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;
 
-            return _comparisonR(x.Result, y.Result);
+            return _comparisonF(x.Result, y.Result);
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace LinqToAStar.Core
         internal RecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source)
         {
             _source = source;
-            _nodeComparer = source.NodeComparer.ResultOnlyComparer;
+            _nodeComparer = source.NodeComparer.FactorOnlyComparer;
         }
 
         #endregion

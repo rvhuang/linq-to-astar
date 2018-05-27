@@ -37,7 +37,7 @@ namespace LinqToAStar.Core
                     hasNext = true;
                 }
                 if (hasNext)
-                    nexts.Sort(sortAt, nexts.Count - sortAt, source.NodeComparer.ResultOnlyComparer);
+                    nexts.Sort(sortAt, nexts.Count - sortAt, source.NodeComparer.FactorOnlyComparer);
             }
             return Enumerable.Empty<TFactor>();
         }

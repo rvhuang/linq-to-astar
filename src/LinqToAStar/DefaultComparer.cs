@@ -8,13 +8,13 @@ namespace LinqToAStar
 
         private readonly bool _descending;
         private readonly IComparer<TFactor> _resultComparer;
-        private readonly IComparer<Node<TFactor, TStep>> _resultOnlyComparer;
+        private readonly IComparer<Node<TFactor, TStep>> _factorOnlyComparer;
 
         #endregion
 
         #region Properties
 
-        public IComparer<Node<TFactor, TStep>> ResultOnlyComparer => _resultOnlyComparer;
+        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer => _factorOnlyComparer;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace LinqToAStar
         {
             _descending = descending;
             _resultComparer = resultComparer ?? Comparer<TFactor>.Default;
-            _resultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            _factorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         #endregion
@@ -37,7 +37,7 @@ namespace LinqToAStar
 
         public int Compare(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
         {
-            var r = CompareResultOnly(x, y);
+            var r = CompareFactorOnly(x, y);
 
             return r != 0 ? r : DistanceHelper.Int32Comparer.Compare(x.Level, y.Level);
         }
@@ -51,7 +51,7 @@ namespace LinqToAStar
 
         #region Others
 
-        private int CompareResultOnly(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
+        private int CompareFactorOnly(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
         {
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;

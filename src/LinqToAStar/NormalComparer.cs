@@ -16,7 +16,7 @@ namespace LinqToAStar
 
         #region Properties
 
-        public IComparer<Node<TFactor, TStep>> ResultOnlyComparer => _resultOnlyComparer;
+        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer => _resultOnlyComparer;
 
         #endregion
 
