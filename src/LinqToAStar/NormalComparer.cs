@@ -10,13 +10,13 @@ namespace LinqToAStar
         private readonly bool _descending;
         private readonly Func<TFactor, TKey> _keySelector;
         private readonly IComparer<TKey> _keyComparer;
-        private readonly IComparer<Node<TFactor, TStep>> _resultOnlyComparer;
+        private readonly IComparer<Node<TFactor, TStep>> _factorOnlyComparer;
 
         #endregion
 
         #region Properties
 
-        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer => _resultOnlyComparer;
+        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer => _factorOnlyComparer;
 
         #endregion
 
@@ -27,7 +27,7 @@ namespace LinqToAStar
             _descending = descending;
             _keySelector = keySelector;
             _keyComparer = keyComparer ?? Comparer<TKey>.Default;
-            _resultOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareResultOnly);
+            _factorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         #endregion
@@ -55,12 +55,12 @@ namespace LinqToAStar
 
         #region Others
 
-        private int CompareResultOnly(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
+        private int CompareFactorOnly(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
         {
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;
 
-            return Compare(x.Result, y.Result);
+            return Compare(x.Fector, y.Fector);
         }
 
         #endregion

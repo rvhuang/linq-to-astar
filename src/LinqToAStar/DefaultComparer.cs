@@ -7,7 +7,7 @@ namespace LinqToAStar
         #region Fields
 
         private readonly bool _descending;
-        private readonly IComparer<TFactor> _resultComparer;
+        private readonly IComparer<TFactor> _factorComparer;
         private readonly IComparer<Node<TFactor, TStep>> _factorOnlyComparer;
 
         #endregion
@@ -24,10 +24,10 @@ namespace LinqToAStar
 
         public DefaultComparer(bool descending) : this(null, false) { }
 
-        public DefaultComparer(IComparer<TFactor> resultComparer, bool descending)
+        public DefaultComparer(IComparer<TFactor> factorComparer, bool descending)
         {
             _descending = descending;
-            _resultComparer = resultComparer ?? Comparer<TFactor>.Default;
+            _factorComparer = factorComparer ?? Comparer<TFactor>.Default;
             _factorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
@@ -44,7 +44,7 @@ namespace LinqToAStar
 
         public int Compare(TFactor x, TFactor y)
         {
-            return _descending ? 0 - _resultComparer.Compare(x, y) : _resultComparer.Compare(x, y);
+            return _descending ? 0 - _factorComparer.Compare(x, y) : _factorComparer.Compare(x, y);
         }
 
         #endregion
@@ -56,7 +56,7 @@ namespace LinqToAStar
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;
 
-            return Compare(x.Result, y.Result);
+            return Compare(x.Fector, y.Fector);
         }
 
         #endregion

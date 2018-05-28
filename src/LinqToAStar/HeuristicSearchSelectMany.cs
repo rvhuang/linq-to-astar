@@ -10,7 +10,7 @@ namespace LinqToAStar
 
         private readonly HeuristicSearchBase<TSource, TStep> _source;
         private readonly Func<TSource, int, IEnumerable<TCollection>> _collectionSelector;
-        private readonly Func<TSource, TCollection, TFactor> _resultSelector;
+        private readonly Func<TSource, TCollection, TFactor> _factorSelector;
 
         #endregion
 
@@ -25,12 +25,12 @@ namespace LinqToAStar
         #region Constructors
 
         internal HeuristicSearchSelectMany(HeuristicSearchBase<TSource, TStep> source,
-            Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> resultSelector)
+            Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> factorSelector)
             : base(source.From, source.To, source.StepComparer, source.Expander)
         {
             _source = source;
             _collectionSelector = collectionSelector;
-            _resultSelector = resultSelector;
+            _factorSelector = factorSelector;
         }
 
         #endregion
@@ -39,7 +39,7 @@ namespace LinqToAStar
 
         public override IEnumerator<TFactor> GetEnumerator()
         {
-            return _source.AsEnumerable().SelectMany(_collectionSelector, _resultSelector).GetEnumerator();
+            return _source.AsEnumerable().SelectMany(_collectionSelector, _factorSelector).GetEnumerator();
         }
 
         #endregion
@@ -50,7 +50,7 @@ namespace LinqToAStar
         {
             foreach (var s in _source.Converter(step, level))
                 foreach (var c in _collectionSelector(s, level))
-                    yield return _resultSelector(s, c);
+                    yield return _factorSelector(s, c);
         }
 
         #endregion

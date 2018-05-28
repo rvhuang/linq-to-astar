@@ -54,7 +54,7 @@ namespace LinqToAStar
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;
 
-            return Compare(x.Result, y.Result);
+            return Compare(x.Fector, y.Fector);
         }
 
         #endregion

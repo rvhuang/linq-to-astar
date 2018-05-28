@@ -24,12 +24,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.ByteComparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -39,12 +39,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.UInt16Comparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -54,12 +54,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.UInt32Comparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -69,12 +69,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x.Result) + (ulong)x.Level, 0 - keySelector(y.Result) + (ulong)y.Level);
+                _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x.Fector) + (ulong)x.Level, 0 - keySelector(y.Fector) + (ulong)y.Level);
                 _comparisonF = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(x.Result) + (ulong)x.Level, keySelector(y.Result) + (ulong)y.Level);
+                _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(x.Fector) + (ulong)x.Level, keySelector(y.Fector) + (ulong)y.Level);
                 _comparisonF = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -84,12 +84,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.SByteComparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -99,12 +99,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int16Comparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -114,12 +114,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -129,12 +129,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -144,12 +144,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -159,12 +159,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -174,12 +174,12 @@ namespace LinqToAStar
         {
             if (descending)
             {
-                _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x.Result) + x.Level, 0 - keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
             }
             else
             {
-                _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(x.Result) + x.Level, keySelector(y.Result) + y.Level);
+                _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(x.Fector) + x.Level, keySelector(y.Fector) + y.Level);
                 _comparisonF = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(x), keySelector(y));
             }
             FactorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
@@ -211,7 +211,7 @@ namespace LinqToAStar
             if (x == null) return y == null ? 0 : 1;
             if (y == null) return -1;
 
-            return _comparisonF(x.Result, y.Result);
+            return _comparisonF(x.Fector, y.Fector);
         }
 
         #endregion

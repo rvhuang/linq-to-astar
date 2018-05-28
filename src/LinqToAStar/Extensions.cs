@@ -37,22 +37,22 @@ namespace LinqToAStar
             return new HeuristicSearchSelectMany<TSource, TFactor, TStep>(source, selector);
         }
 
-        public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TCollection, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> resultSelector)
+        public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TCollection, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> factorSelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (factorSelector == null) throw new ArgumentNullException(nameof(factorSelector));
 
-            return new HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep>(source, (s, i) => collectionSelector(s), resultSelector);
+            return new HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep>(source, (s, i) => collectionSelector(s), factorSelector);
         }
 
-        public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TCollection, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> resultSelector)
+        public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TCollection, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> factorSelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (collectionSelector == null) throw new ArgumentNullException(nameof(collectionSelector));
-            if (resultSelector == null) throw new ArgumentNullException(nameof(resultSelector));
+            if (factorSelector == null) throw new ArgumentNullException(nameof(factorSelector));
 
-            return new HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep>(source, collectionSelector, resultSelector);
+            return new HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep>(source, collectionSelector, factorSelector);
         }
 
         public static HeuristicSearchBase<TFactor, TStep> Where<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, bool> predicate)

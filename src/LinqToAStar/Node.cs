@@ -25,15 +25,15 @@ namespace LinqToAStar
             get; private set;
         }
 
-        public TFactor Result
+        public TFactor Fector
         {
             get; private set;
         }
 
-        public Node(TStep step, TFactor result, int level)
+        public Node(TStep step, TFactor factor, int level)
         {
             Step = step;
-            Result = result;
+            Fector = factor;
             Level = level;
         }
 
@@ -55,7 +55,7 @@ namespace LinqToAStar
 
             do
             {
-                yield return node.Result;
+                yield return node.Fector;
                 node = node.Next;
             }
             while (node != null);
@@ -68,7 +68,7 @@ namespace LinqToAStar
 
         public override string ToString()
         {
-            return $"{Step}({Result}) Level: {Level}";
+            return $"{Step}({Fector}) Level: {Level}";
         }
     }
 }

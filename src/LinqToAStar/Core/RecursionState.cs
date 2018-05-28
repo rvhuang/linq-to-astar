@@ -20,7 +20,7 @@ namespace LinqToAStar.Core
 
         public override string ToString()
         {
-            return $"{Node.Step} -> {Node.Result} ({Flag})";
+            return $"{Node.Step} -> {Node.Fector} ({Flag})";
         }
     }
 
