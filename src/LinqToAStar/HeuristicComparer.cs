@@ -6,7 +6,7 @@ namespace LinqToAStar
     class HeuristicComparer<TFactor, TStep> : INodeComparer<TFactor, TStep>
     {
         #region Fields
-        
+
         private readonly Comparison<Node<TFactor, TStep>> _comparisonN;
         private readonly Comparison<TFactor> _comparisonF;
 
@@ -25,7 +25,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.ByteComparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -40,7 +40,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt16Comparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -55,7 +55,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt32Comparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -70,7 +70,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x.Fector) + (ulong)x.Level, 0 - keySelector(y.Fector) + (ulong)y.Level);
-                _comparisonF = (x, y) => DistanceHelper.UInt64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.UInt64Comparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -85,7 +85,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.SByteComparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -100,7 +100,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int16Comparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -115,7 +115,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int32Comparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -130,7 +130,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.Int64Comparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -145,7 +145,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.SingleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.SingleComparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -160,7 +160,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.DoubleComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.DoubleComparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
@@ -175,7 +175,7 @@ namespace LinqToAStar
             if (descending)
             {
                 _comparisonN = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x.Fector) + x.Level, 0 - keySelector(y.Fector) + y.Level);
-                _comparisonF = (x, y) => DistanceHelper.DecimalComparer.Compare(0 - keySelector(x), 0 - keySelector(y));
+                _comparisonF = (x, y) => DistanceHelper.DecimalComparer.Compare(keySelector(y), keySelector(x));
             }
             else
             {
