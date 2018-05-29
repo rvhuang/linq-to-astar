@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace LinqToAStar.Core
 {
     internal static class AStar
     {
-        #region Override
-
-        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             var open = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
 
             if (open.Count == 0)
-                return Enumerable.Empty<TFactor>();
+                return null;
 
             open.Sort(source.NodeComparer);
 
@@ -26,7 +23,7 @@ namespace LinqToAStar.Core
                 var hasNext = false;
 
                 if (source.StepComparer.Equals(current.Step, source.To))
-                    return current.TraceBack();
+                    return current;
 
                 sortAt++; // open.RemoveAt(0);
                 closed.Add(current.Step);
@@ -46,9 +43,7 @@ namespace LinqToAStar.Core
                 if (hasNext)
                     open.Sort(sortAt, open.Count - sortAt, source.NodeComparer);
             }
-            return Enumerable.Empty<TFactor>();
+            return null;
         }
-
-        #endregion
     }
 }

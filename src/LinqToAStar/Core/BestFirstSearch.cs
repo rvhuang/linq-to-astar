@@ -1,19 +1,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace LinqToAStar.Core
 {
     internal static class BestFirstSearch
     {
-        #region Override
-
-        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             var nexts = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
 
             if (nexts.Count == 0)
-                return Enumerable.Empty<TFactor>();
+                return null;
 
             var visited = new HashSet<TStep>(source.StepComparer);
             var sortAt = 0;
@@ -24,7 +21,7 @@ namespace LinqToAStar.Core
                 var hasNext = false;
 
                 if (source.StepComparer.Equals(best.Step, source.To))
-                    return best.TraceBack();
+                    return best;
 
                 sortAt++; // nexts.RemoveAt(0);
 
@@ -39,9 +36,7 @@ namespace LinqToAStar.Core
                 if (hasNext)
                     nexts.Sort(sortAt, nexts.Count - sortAt, source.NodeComparer.FactorOnlyComparer);
             }
-            return Enumerable.Empty<TFactor>();
+            return null;
         }
-
-        #endregion
     }
 }

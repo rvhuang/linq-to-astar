@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,13 +7,13 @@ namespace LinqToAStar.Core
 {
     static class IterativeDeepeningAStar
     {
-        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
-            return new IterativeDeepeningAStar<TFactor, TStep>(source);
+            return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
         }
     }
 
-    internal class IterativeDeepeningAStar<TFactor, TStep> : IEnumerable<TFactor>
+    class IterativeDeepeningAStar<TFactor, TStep>
     {
         #region Fields
 
@@ -40,7 +39,7 @@ namespace LinqToAStar.Core
 
         #region Override
 
-        public IEnumerator<TFactor> GetEnumerator()
+        public Node<TFactor, TStep> Run()
         {
             var counter = 0;
             var path = new Stack<Node<TFactor, TStep>>(_source.ConvertToNodes(_source.From, 0).OrderBy(n => n.Factor, _source.NodeComparer));
@@ -51,20 +50,15 @@ namespace LinqToAStar.Core
                 var t = Search(path, bound, new HashSet<TStep>(_source.StepComparer));
 
                 if (t.Flag == RecursionFlag.Found)
-                    return t.Node.TraceBack().GetEnumerator();
+                    return t.Node;
                 if (t.Flag == RecursionFlag.NotFound)
-                    return Enumerable.Empty<TFactor>().GetEnumerator();
+                    return null;
 
                 // In Progress
                 bound = t.Node;
                 counter++;
             }
-            return Enumerable.Empty<TFactor>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return null;
         }
 
         #endregion
@@ -96,7 +90,7 @@ namespace LinqToAStar.Core
 
                 var t = Search(path, bound, visited);
 
-                if (t.Flag == RecursionFlag.Found) return t; 
+                if (t.Flag == RecursionFlag.Found) return t;
                 if (!hasMin || _source.NodeComparer.Compare(t.Node, min) < 0)
                 {
                     min = t.Node;
