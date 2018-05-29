@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    class Node<TFactor, TStep> : IEnumerable<TFactor>
+    public class Node<TFactor, TStep> : IEnumerable<TFactor>
     {
         public Node<TFactor, TStep> Previous
         {
@@ -25,7 +25,7 @@ namespace LinqToAStar
             get; private set;
         }
 
-        public TFactor Fector
+        public TFactor Factor
         {
             get; private set;
         }
@@ -33,7 +33,7 @@ namespace LinqToAStar
         public Node(TStep step, TFactor factor, int level)
         {
             Step = step;
-            Fector = factor;
+            Factor = factor;
             Level = level;
         }
 
@@ -49,13 +49,25 @@ namespace LinqToAStar
             return node;
         }
 
+        public IEnumerable<Node<TFactor, TStep>> GenerateNodeSequence()
+        {
+            var node = this;
+
+            do
+            {
+                yield return node;
+                node = node.Next;
+            }
+            while (node != null);
+        }
+
         public IEnumerator<TFactor> GetEnumerator()
         {
             var node = this;
 
             do
             {
-                yield return node.Fector;
+                yield return node.Factor;
                 node = node.Next;
             }
             while (node != null);
@@ -68,7 +80,7 @@ namespace LinqToAStar
 
         public override string ToString()
         {
-            return $"{Step}({Fector}) Level: {Level}";
+            return $"{Step}({Factor}) Level: {Level}";
         }
     }
 }

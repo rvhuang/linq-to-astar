@@ -17,7 +17,7 @@ namespace LinqToAStar
 
         #region Properties
 
-        internal override INodeComparer<TFactor, TStep> NodeComparer => _nodeComparer;
+        public override INodeComparer<TFactor, TStep> NodeComparer => _nodeComparer;
 
         #endregion
 
