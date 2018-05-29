@@ -17,7 +17,7 @@ namespace LinqToAStar
 
         #region Properties
 
-        internal override INodeComparer<TFactor, TStep> NodeComparer => _nodeComparer;
+        public override INodeComparer<TFactor, TStep> NodeComparer => _nodeComparer;
 
         #endregion
 
@@ -37,21 +37,34 @@ namespace LinqToAStar
         {
             Debug.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
 
+            var lastNode = default(Node<TFactor, TStep>);
+
             switch (AlgorithmName)
             {
                 case nameof(AStar):
-                    return AStar.Run(this).GetEnumerator();
+                    lastNode = AStar.Run(this);
+                    break;
 
                 case nameof(BestFirstSearch):
-                    return BestFirstSearch.Run(this).GetEnumerator();
-
-                case nameof(RecursiveBestFirstSearch):
-                    return RecursiveBestFirstSearch.Run(this).GetEnumerator();
+                    lastNode = BestFirstSearch.Run(this);
+                    break;
 
                 case nameof(IterativeDeepeningAStar):
-                    return IterativeDeepeningAStar.Run(this).GetEnumerator();
+                    lastNode = IterativeDeepeningAStar.Run(this);
+                    break;
+
+                case nameof(RecursiveBestFirstSearch):
+                    lastNode = RecursiveBestFirstSearch.Run(this);
+                    break;
+
+                default:
+                    lastNode = HeuristicSearch.RegisteredAlgorithms[AlgorithmName](AlgorithmName).Run(this);
+                    break;
             }
-            return base.GetEnumerator();
+            if (lastNode == null) // Solution not found
+                return Enumerable.Empty<TFactor>().GetEnumerator();
+            else
+                return lastNode.TraceBack().GetEnumerator();
         }
 
         #endregion

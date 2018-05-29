@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,13 +7,13 @@ namespace LinqToAStar.Core
 {
     static class RecursiveBestFirstSearch
     {
-        public static IEnumerable<TFactor> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
-            return new RecursiveBestFirstSearch<TFactor, TStep>(source);
+            return new RecursiveBestFirstSearch<TFactor, TStep>(source).Run();
         }
     }
 
-    class RecursiveBestFirstSearch<TFactor, TStep> : IEnumerable<TFactor>
+    class RecursiveBestFirstSearch<TFactor, TStep>
     {
         #region Fields
 
@@ -35,24 +34,19 @@ namespace LinqToAStar.Core
 
         #region Override
 
-        public IEnumerator<TFactor> GetEnumerator()
+        public Node<TFactor, TStep> Run()
         {
             var inits = _source.ConvertToNodes(_source.From, 0).ToArray();
 
             if (inits.Length == 0)
-                return Enumerable.Empty<TFactor>().GetEnumerator();
+                return null;
 
             Array.Sort(inits, _nodeComparer);
 
             var best = inits[0];
             var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
 
-            return state.Flag == RecursionFlag.Found ? state.Node.TraceBack().GetEnumerator() : Enumerable.Empty<TFactor>().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return state.Flag == RecursionFlag.Found ? state.Node : null;
         }
 
         #endregion
@@ -82,7 +76,7 @@ namespace LinqToAStar.Core
                 var best = nexts[sortAt]; // nexts.First();
 
                 Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
-                 
+
                 if (_nodeComparer.Compare(best, bound) > 0)
                     return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, best);
 
@@ -95,7 +89,7 @@ namespace LinqToAStar.Core
                 {
                     case RecursionFlag.Found:
                         return state;
-                        
+
                     case RecursionFlag.NotFound:
                         sortAt++; // nexts.RemoveAt(0);
                         break;

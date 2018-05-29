@@ -22,17 +22,17 @@ namespace LinqToAStar
 
         public TStep To { get; private set; }
         
-        public Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
-
         public IEqualityComparer<TStep> StepComparer => _comparer;
 
         public virtual string AlgorithmName => _source != null ? _source.AlgorithmName : string.Empty;
 
+        public virtual INodeComparer<TFactor, TStep> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TFactor, TStep>();
+
+        internal Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
+
         internal HeuristicSearchBase<TFactor, TStep> Source => _source;
 
         internal virtual Func<TStep, int, IEnumerable<TFactor>> Converter => _converter;
-
-        internal virtual INodeComparer<TFactor, TStep> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TFactor, TStep>();
 
         #endregion
 
