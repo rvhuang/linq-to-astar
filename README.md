@@ -2,10 +2,13 @@
 
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar)
 
-**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. The goals are:
+**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to read solution found by the algorithm. 
+
+Goals of the experiment are:
 
 * Better human-readability and maintainability of algorithm using.
-* A structural, object-oriented, unified programming model for various heuristic algorithms.
+* Structural, object-oriented, unified programming model for various heuristic algorithms.
+* Flexible APIs that can be applied to any problem as long as the problem can be solved with the algorithm.
 
 By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
@@ -59,6 +62,25 @@ If path is found, the enumeration returns each step in deferred execution. Other
 |[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|
 |[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`|
 |[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|
+
+### User-defined Algorithm
+
+You are able to provide and use your customized algorithm with following steps:
+
+1. Create a type that implements `IAlgorithm` interface.
+2. Register the type and name of the algorithm with `HeuristicSearch.Register<TAlgorithm>()`.
+3. Apply LINQ expressions to your algorithm by calling `HeuristicSearch.Use()` method.
+
+```csharp
+// MyAlgorithmClass has to implement IAlgorithm interface.
+HeuristicSearch.Register<MyAlgorithmClass>("MyAlgorithm");
+
+var queryable = HeuristicSearch.Use("MyAlgorithm", start, goal, getFourDirections);
+var solution = from step in queryable.Except(GetObstacles())
+               where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
+               orderby step.GetManhattanDistance(goal)
+               select step;
+```
 
 ## Supported LINQ Clauses
 
