@@ -49,7 +49,7 @@ namespace LinqToAStar
             return node;
         }
 
-        public IEnumerable<Node<TFactor, TStep>> GenerateNodeSequence()
+        public IEnumerable<Node<TFactor, TStep>> CreateNodeSequence()
         {
             var node = this;
 

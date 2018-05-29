@@ -50,8 +50,10 @@ namespace LinqToAStar
 
                 case nameof(IterativeDeepeningAStar):
                     return IterativeDeepeningAStar.Run(this).GetEnumerator();
+
+                default:
+                    return HeuristicSearch.RegisteredAlgorithms[AlgorithmName](AlgorithmName).Run(this).GetEnumerator();
             }
-            return base.GetEnumerator();
         }
 
         #endregion
