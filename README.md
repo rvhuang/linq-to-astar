@@ -89,13 +89,13 @@ var solution = from step in queryable.Except(GetObstacles())
 |`Select()`||
 |`SelectMany()`||
 |`Where()`||
-|`OrderBy()`||
-|`OrderByDescending()`||
-|`ThenBy()`||
-|`ThenByDescending()`||
+|`OrderBy()`|Serves as heuristic function.|
+|`OrderByDescending()`|Serves as reverse heuristic function.|
+|`ThenBy()`|Serves as heuristic function but only be referred when previous one evaluates two nodes as equal.|
+|`ThenByDescending()`|Serves as reverse heuristic function but only be referred when previous one evaluates two nodes as equal.|
 |`Except()`||
 |`Contains()`||
-|`Reverse()`|To be implemented|
+|`Reverse()`|Inverts the order of solution from `start` -> `goal` to `goal` -> `start`.|
 
 ## Roadmap
 
