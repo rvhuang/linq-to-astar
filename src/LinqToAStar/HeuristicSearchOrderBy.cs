@@ -63,8 +63,11 @@ namespace LinqToAStar
             }
             if (lastNode == null) // Solution not found
                 return Enumerable.Empty<TFactor>().GetEnumerator();
+
+            if (IsReversed)
+                return lastNode.EnumerateReverseFactors().GetEnumerator();
             else
-                return lastNode.TraceBack().GetEnumerator();
+                return lastNode.TraceBack().EnumerateFactors().GetEnumerator();
         }
 
         #endregion

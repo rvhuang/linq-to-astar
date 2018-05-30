@@ -8,7 +8,7 @@ namespace LinqToAStar
     public abstract class HeuristicSearchBase<TFactor, TStep> : IEnumerable<TFactor>
     {
         #region Fields
-
+        
         private readonly IEqualityComparer<TStep> _comparer;
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly Func<TStep, int, IEnumerable<TFactor>> _converter;
@@ -28,12 +28,14 @@ namespace LinqToAStar
 
         public virtual INodeComparer<TFactor, TStep> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TFactor, TStep>();
 
+        internal bool IsReversed { get; set; }
+
         internal Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
 
         internal HeuristicSearchBase<TFactor, TStep> Source => _source;
 
         internal virtual Func<TStep, int, IEnumerable<TFactor>> Converter => _converter;
-
+        
         #endregion
 
         #region Constructors
