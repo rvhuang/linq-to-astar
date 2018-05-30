@@ -65,7 +65,7 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 ### User-defined Algorithm
 
-You are able to provide and use your customized algorithm with following steps:
+You are able to implement and use your customized algorithm with following steps:
 
 1. Create a type that implements `IAlgorithm` interface.
 2. Register the type and name of the algorithm with `HeuristicSearch.Register<TAlgorithm>()`.
@@ -91,8 +91,8 @@ var solution = from step in queryable.Except(GetObstacles())
 |`Where()`||
 |`OrderBy()`|Serves as heuristic function.|
 |`OrderByDescending()`|Serves as reverse heuristic function.|
-|`ThenBy()`|Serves as heuristic function but only be referred when previous one evaluates two nodes as equal.|
-|`ThenByDescending()`|Serves as reverse heuristic function but only be referred when previous one evaluates two nodes as equal.|
+|`ThenBy()`|Serves as heuristic function but will only be referred when previous one evaluates two nodes as equal.|
+|`ThenByDescending()`|Serves as reverse heuristic function but will only be referred when previous one evaluates two nodes as equal.|
 |`Except()`||
 |`Contains()`||
 |`Reverse()`|Inverts the order of solution from `start` -> `goal` to `goal` -> `start`.|
