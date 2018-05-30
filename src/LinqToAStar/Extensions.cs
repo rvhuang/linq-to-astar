@@ -102,5 +102,14 @@ namespace LinqToAStar
 
             return new HeuristicSearchContains<TFactor, TStep>(source, collection, comparer);
         }
+
+        public static HeuristicSearchBase<TFactor, TStep> Reverse<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            source.IsReversed = !source.IsReversed;
+
+            return source;
+        }
     }
 }

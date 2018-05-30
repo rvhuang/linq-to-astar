@@ -1,11 +1,18 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
 namespace LinqToAStar
 {
-    public class Node<TFactor, TStep> : IEnumerable<TFactor>
+    public class Node<TFactor, TStep>
     {
+        #region Properties
+
         public Node<TFactor, TStep> Previous
+        {
+            get; set;
+        }
+
+        public Node<TFactor, TStep> Next
         {
             get; set;
         }
@@ -13,11 +20,6 @@ namespace LinqToAStar
         public TStep Step
         {
             get; private set;
-        }
-
-        public Node<TFactor, TStep> Next
-        {
-            get; set;
         }
 
         public int Level
@@ -30,38 +32,22 @@ namespace LinqToAStar
             get; private set;
         }
 
-        public Node(TStep step, TFactor factor, int level)
+        #endregion
+
+        #region Constructor
+
+        internal Node(TStep step, TFactor factor, int level)
         {
             Step = step;
             Factor = factor;
             Level = level;
         }
 
-        public Node<TFactor, TStep> TraceBack()
-        {
-            var node = this;
+        #endregion
 
-            while (node.Previous != null)
-            {
-                node.Previous.Next = node;
-                node = node.Previous;
-            }
-            return node;
-        }
+        #region Methods
 
-        public IEnumerable<Node<TFactor, TStep>> CreateNodeSequence()
-        {
-            var node = this;
-
-            do
-            {
-                yield return node;
-                node = node.Next;
-            }
-            while (node != null);
-        }
-
-        public IEnumerator<TFactor> GetEnumerator()
+        internal IEnumerable<TFactor> EnumerateFactors()
         {
             var node = this;
 
@@ -73,14 +59,54 @@ namespace LinqToAStar
             while (node != null);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        internal Node<TFactor, TStep> TraceBack()
         {
-            return GetEnumerator();
+            var node = this;
+
+            while (node.Previous != null)
+            {
+                node.Previous.Next = node;
+                node = node.Previous;
+            }
+            return node;
         }
+
+        internal IEnumerable<TFactor> EnumerateReverseFactors()
+        {
+            var node = this;
+
+            yield return node.Factor;
+
+            while (node.Previous != null)
+            {
+                node.Previous.Next = node;
+                node = node.Previous;
+
+                yield return node.Factor;
+            }
+        }
+
+        #endregion
+
+        #region Overrides 
 
         public override string ToString()
         {
             return $"{Step}({Factor}) Level: {Level}";
         }
+
+        #endregion
+
+        #region Other
+
+        public static Node<TFactor, TStep> Create(TStep step, TFactor factor, int level)
+        {
+            if (step == null) throw new ArgumentNullException(nameof(step));
+            if (level < 0) throw new ArgumentOutOfRangeException(nameof(level));
+
+            return new Node<TFactor, TStep>(step, factor, level);
+        }
+
+        #endregion
     }
 }
