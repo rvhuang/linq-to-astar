@@ -28,15 +28,6 @@ namespace LinqToAStar
 
         #endregion
 
-        #region Overrides
-
-        public override IEnumerator<TFactor> GetEnumerator()
-        {
-            return Source.AsEnumerable().Where(_predicate).GetEnumerator();
-        }
-
-        #endregion
-
         #region Others
 
         private IEnumerable<TFactor> Convert(TStep step, int level)

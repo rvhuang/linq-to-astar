@@ -31,47 +31,6 @@ namespace LinqToAStar
 
         #endregion
 
-        #region Overrides
-
-        public override IEnumerator<TFactor> GetEnumerator()
-        {
-            Debug.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
-
-            var lastNode = default(Node<TFactor, TStep>);
-
-            switch (AlgorithmName)
-            {
-                case nameof(AStar):
-                    lastNode = AStar.Run(this);
-                    break;
-
-                case nameof(BestFirstSearch):
-                    lastNode = BestFirstSearch.Run(this);
-                    break;
-
-                case nameof(IterativeDeepeningAStar):
-                    lastNode = IterativeDeepeningAStar.Run(this);
-                    break;
-
-                case nameof(RecursiveBestFirstSearch):
-                    lastNode = RecursiveBestFirstSearch.Run(this);
-                    break;
-
-                default:
-                    lastNode = HeuristicSearch.RegisteredAlgorithms[AlgorithmName](AlgorithmName).Run(this);
-                    break;
-            }
-            if (lastNode == null) // Solution not found
-                return Enumerable.Empty<TFactor>().GetEnumerator();
-
-            if (IsReversed)
-                return lastNode.EnumerateReverseFactors().GetEnumerator();
-            else
-                return lastNode.TraceBack().EnumerateFactors().GetEnumerator();
-        }
-
-        #endregion
-
         #region IOrderedEnumerable<TFactor>
 
         internal HeuristicSearchOrderBy<TFactor, TStep> CreateOrderedEnumerable(Func<TFactor, float> keySelector, bool descending)

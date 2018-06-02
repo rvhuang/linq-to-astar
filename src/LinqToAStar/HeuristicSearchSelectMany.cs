@@ -35,15 +35,6 @@ namespace LinqToAStar
 
         #endregion
 
-        #region Overrides
-
-        public override IEnumerator<TFactor> GetEnumerator()
-        {
-            return _source.AsEnumerable().SelectMany(_collectionSelector, _factorSelector).GetEnumerator();
-        }
-
-        #endregion
-
         #region Others
 
         private IEnumerable<TFactor> Convert(TStep step, int level)
@@ -80,15 +71,6 @@ namespace LinqToAStar
         {
             _source = source;
             _selector = selector;
-        }
-
-        #endregion
-
-        #region Overrides
-
-        public override IEnumerator<TFactor> GetEnumerator()
-        {
-            return _source.AsEnumerable().SelectMany(_selector).GetEnumerator();
         }
 
         #endregion
