@@ -44,7 +44,7 @@ namespace LinqToAStar
 
         public int Compare(TFactor x, TFactor y)
         {
-            return _descending ? 0 - _factorComparer.Compare(x, y) : _factorComparer.Compare(x, y);
+            return _descending ? _factorComparer.Compare(y, x) : _factorComparer.Compare(x, y);
         }
 
         #endregion

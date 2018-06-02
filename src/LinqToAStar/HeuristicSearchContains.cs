@@ -33,25 +33,6 @@ namespace LinqToAStar
 
         #region Overrides
 
-        public override IEnumerator<TFactor> GetEnumerator()
-        {
-            return EnumerateFromSource().GetEnumerator();
-        }
-
-        #endregion
-
-        #region Others
-
-        private IEnumerable<TFactor> EnumerateFromSource()
-        {
-            if (_set == null)
-                _set = new HashSet<TFactor>(_collection, _comparer);
-
-            foreach (var r in Source)
-                if (_set.Contains(r))
-                    yield return r;
-        }
-
         private IEnumerable<TFactor> Convert(TStep step, int level)
         {
             if (_set == null)

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace LinqToAStar
 {
+    using Core;
+
     public abstract class HeuristicSearchBase<TFactor, TStep> : IEnumerable<TFactor>
     {
         #region Fields
@@ -65,37 +68,69 @@ namespace LinqToAStar
 
         #endregion
 
-        #region IEnumerable Members
+        #region IEnumerable Members 
 
-        public virtual IEnumerator<TFactor> GetEnumerator()
+        public IEnumerator<TFactor> GetEnumerator()
         {
-            return (_source ?? Enumerable.Empty<TFactor>()).GetEnumerator();
-        }
+            Debug.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            var lastNode = default(Node<TFactor, TStep>);
+
+            switch (AlgorithmName)
+            {
+                case nameof(AStar):
+                    lastNode = AStar.Run(this);
+                    break;
+
+                case nameof(BestFirstSearch):
+                    lastNode = BestFirstSearch.Run(this); 
+                    break;
+
+                case nameof(IterativeDeepeningAStar):
+                    lastNode = IterativeDeepeningAStar.Run(this);
+                    break;
+
+                case nameof(RecursiveBestFirstSearch):
+                    lastNode = RecursiveBestFirstSearch.Run(this);
+                    break;
+
+                default:
+                    lastNode = HeuristicSearch.RegisteredAlgorithms[AlgorithmName](AlgorithmName).Run(this);
+                    break;
+            }
+            if (lastNode == null) // Solution not found
+                return Enumerable.Empty<TFactor>().GetEnumerator();
+
+            if (IsReversed)
+                return lastNode.EnumerateReverseFactors().GetEnumerator();
+            else
+                return lastNode.TraceBack().EnumerateFactors().GetEnumerator();
+        } 
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
 
         #region Others
 
-        internal IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level)
+        public IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level)
         {
             foreach (var next in Expander(step, level))
                 foreach (var n in ConvertToNodes(next, level + 1))
                     yield return n;
         }
 
-        internal IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level, Func<TStep, bool> predicate)
+        public IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level, Func<TStep, bool> predicate)
         {
-            foreach (var next in Expander(step, level).Where(predicate))
-                foreach (var n in ConvertToNodes(next, level + 1))
-                    yield return n;
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+
+            foreach (var next in Expander(step, level))
+                if (predicate(next))
+                    foreach (var n in ConvertToNodes(next, level + 1))
+                        yield return n;
         }
 
-        internal IEnumerable<Node<TFactor, TStep>> ConvertToNodes(TStep step, int level)
+        public IEnumerable<Node<TFactor, TStep>> ConvertToNodes(TStep step, int level)
         {
             foreach (var r in Converter(step, level))
                 yield return new Node<TFactor, TStep>(step, r, level);
