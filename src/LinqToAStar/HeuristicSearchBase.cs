@@ -11,7 +11,9 @@ namespace LinqToAStar
     public abstract class HeuristicSearchBase<TFactor, TStep> : IEnumerable<TFactor>
     {
         #region Fields
-        
+
+        internal static readonly bool IsFactorComparable = typeof(IComparable<TFactor>).IsAssignableFrom(typeof(TFactor));
+
         private readonly IEqualityComparer<TStep> _comparer;
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly Func<TStep, int, IEnumerable<TFactor>> _converter;
@@ -70,7 +72,7 @@ namespace LinqToAStar
 
         #region IEnumerable Members 
 
-        public IEnumerator<TFactor> GetEnumerator()
+        public virtual IEnumerator<TFactor> GetEnumerator()
         {
             Debug.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
 

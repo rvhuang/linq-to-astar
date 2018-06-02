@@ -36,5 +36,14 @@ namespace LinqToAStar
         }
 
         #endregion
+
+        #region Override
+
+        public override string ToString()
+        {
+            return string.Join(" -> ", Source == null ? "(Initial)" : Source.ToString(), base.ToString());
+        }
+
+        #endregion
     }
 }

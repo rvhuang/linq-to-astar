@@ -7,6 +7,8 @@ namespace LinqToAStar.Core
     {
         public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
+            Debug.WriteLine("LINQ Expression Stack: {0}", source);
+
             var open = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
 
             if (open.Count == 0)

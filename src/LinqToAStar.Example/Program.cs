@@ -14,9 +14,10 @@ namespace LinqToAStar.Example
             var unit = 1;
             var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
             var solution = from step in queryable.Except(GetObstacles())
-                            where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
-                            orderby step.GetManhattanDistance(goal)
-                            select step;
+                           where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
+                           let distance = step.GetManhattanDistance(goal)
+                           orderby distance
+                           select step;
 
             foreach (var step in solution)
             {

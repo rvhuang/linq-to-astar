@@ -41,5 +41,19 @@ namespace LinqToAStar
         }
 
         #endregion
+
+        #region Override
+
+        public sealed override IEnumerator<TFactor> GetEnumerator()
+        {
+            return _source.AsEnumerable().Select(_selector).GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" -> ", _source.ToString(), base.ToString());
+        }
+
+        #endregion
     }
 }

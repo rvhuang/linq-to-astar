@@ -45,6 +45,20 @@ namespace LinqToAStar
         }
 
         #endregion
+
+        #region Override
+
+        public sealed override IEnumerator<TFactor> GetEnumerator()
+        {
+            return _source.AsEnumerable().SelectMany(_collectionSelector, _factorSelector).GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" -> ", _source.ToString(), base.ToString());
+        }
+
+        #endregion
     }
 
     internal class HeuristicSearchSelectMany<TSource, TFactor, TStep> : HeuristicSearchBase<TFactor, TStep>
@@ -82,6 +96,20 @@ namespace LinqToAStar
             foreach (var s in _source.Converter(step, level))
                 foreach (var r in _selector(s, level))
                     yield return r;
+        }
+
+        #endregion
+
+        #region Override
+
+        public sealed override IEnumerator<TFactor> GetEnumerator()
+        {
+            return _source.AsEnumerable().SelectMany(_selector).GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" -> ", _source.ToString(), base.ToString());
         }
 
         #endregion

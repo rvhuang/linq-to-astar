@@ -9,6 +9,8 @@ namespace LinqToAStar.Core
     {
         public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
+            Debug.WriteLine("LINQ Expression Stack: {0}", source);
+
             return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
         }
     }
