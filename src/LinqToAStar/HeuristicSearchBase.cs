@@ -18,7 +18,7 @@ namespace LinqToAStar
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly Func<TStep, int, IEnumerable<TFactor>> _converter;
         private readonly Func<TStep, int, IEnumerable<TStep>> _expander;
-        
+
         #endregion
 
         #region Properties
@@ -26,7 +26,7 @@ namespace LinqToAStar
         public TStep From { get; private set; }
 
         public TStep To { get; private set; }
-        
+
         public IEqualityComparer<TStep> StepComparer => _comparer;
 
         public virtual string AlgorithmName => _source != null ? _source.AlgorithmName : string.Empty;
@@ -40,7 +40,7 @@ namespace LinqToAStar
         internal HeuristicSearchBase<TFactor, TStep> Source => _source;
 
         internal virtual Func<TStep, int, IEnumerable<TFactor>> Converter => _converter;
-        
+
         #endregion
 
         #region Constructors
@@ -85,7 +85,7 @@ namespace LinqToAStar
                     break;
 
                 case nameof(BestFirstSearch):
-                    lastNode = BestFirstSearch.Run(this); 
+                    lastNode = BestFirstSearch.Run(this);
                     break;
 
                 case nameof(IterativeDeepeningAStar):
@@ -107,7 +107,7 @@ namespace LinqToAStar
                 return lastNode.EnumerateReverseFactors().GetEnumerator();
             else
                 return lastNode.TraceBack().EnumerateFactors().GetEnumerator();
-        } 
+        }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

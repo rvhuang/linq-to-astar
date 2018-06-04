@@ -46,8 +46,8 @@ namespace LinqToAStar
 
         public int Compare(TFactor x, TFactor y)
         {
-            return _descending ? 
-                _keyComparer.Compare(_keySelector(y), _keySelector(x)) : 
+            return _descending ?
+                _keyComparer.Compare(_keySelector(y), _keySelector(x)) :
                 _keyComparer.Compare(_keySelector(x), _keySelector(y));
         }
 

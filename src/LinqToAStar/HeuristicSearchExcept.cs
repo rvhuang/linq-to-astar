@@ -32,7 +32,7 @@ namespace LinqToAStar
         #endregion
 
         #region Others
-        
+
         private IEnumerable<TFactor> Convert(TStep step, int level)
         {
             if (_set == null)

@@ -213,7 +213,7 @@ namespace LinqToAStar
             if (source == null) throw new ArgumentNullException(nameof(source));
             if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
 
-            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new NormalComparer<TFactor,  TKey, TStep>(keySelector, null, true));
+            return new HeuristicSearchOrderBy<TFactor, TStep>(source, new NormalComparer<TFactor, TKey, TStep>(keySelector, null, true));
         }
 
         #endregion

@@ -13,8 +13,8 @@ namespace LinqToAStar.Core
         }
 
         public RecursionState(RecursionFlag flag, Node<TFactor, TStep> node)
-        {  
-            Flag = flag; 
+        {
+            Flag = flag;
             Node = node;
         }
 
@@ -31,5 +31,5 @@ namespace LinqToAStar.Core
         InProgress,
 
         NotFound,
-    } 
+    }
 }

@@ -46,7 +46,7 @@ namespace LinqToAStar.Example.EightPuzzle
         {
             var array = _positions.ToArray(); // create a copy first
             var empty = new Point(_positions[0].X + offsetX, _positions[0].Y + offsetY);
-            
+
             Swap(array, 0, Array.IndexOf(array, empty)); // Swap empty square and target square
 
             return new BoardState(array);

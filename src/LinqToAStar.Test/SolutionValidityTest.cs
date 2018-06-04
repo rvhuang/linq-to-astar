@@ -8,7 +8,7 @@ using Xunit;
 
 namespace LinqToAStar.Test
 {
-    public class SolutionValidityTest  
+    public class SolutionValidityTest
     {
         [Theory]
         [ClassData(typeof(AStarTestData))]

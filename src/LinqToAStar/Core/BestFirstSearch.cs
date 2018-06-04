@@ -6,7 +6,7 @@ namespace LinqToAStar.Core
     internal static class BestFirstSearch
     {
         public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
-        {            
+        {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
             var nexts = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
