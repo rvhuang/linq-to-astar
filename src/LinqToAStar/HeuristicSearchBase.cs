@@ -8,6 +8,11 @@ namespace LinqToAStar
 {
     using Core;
 
+    /// <summary>
+    /// Defines the instance that allows LINQ expressions to be applied to heuristic algorithms.
+    /// </summary>
+    /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+    /// <typeparam name="TStep">The type of step of the problem.</typeparam>
     public abstract class HeuristicSearchBase<TFactor, TStep> : IEnumerable<TFactor>
     {
         #region Fields
@@ -23,14 +28,29 @@ namespace LinqToAStar
 
         #region Properties
 
+        /// <summary>
+        /// Gets the initial state of the problem.
+        /// </summary>
         public TStep From { get; private set; }
 
+        /// <summary>
+        /// Gets the goal state of the problem.
+        /// </summary>
         public TStep To { get; private set; }
 
+        /// <summary>
+        /// Gets the comparer used to test if two <typeparamref name="TStep"/> instances are equal.
+        /// </summary>
         public IEqualityComparer<TStep> StepComparer => _comparer;
 
+        /// <summary>
+        /// Gets the algorithm name.
+        /// </summary>
         public virtual string AlgorithmName => _source != null ? _source.AlgorithmName : string.Empty;
 
+        /// <summary>
+        /// Gets the comparer used to compare two <see cref="Node{TFactor, TStep}"/> instances.
+        /// </summary>
         public virtual INodeComparer<TFactor, TStep> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TFactor, TStep>();
 
         internal bool IsReversed { get; set; }
@@ -72,6 +92,10 @@ namespace LinqToAStar
 
         #region IEnumerable Members 
 
+        /// <summary>
+        /// Enumerates each step of the solution found by the algorithm.
+        /// </summary>
+        /// <returns>Each step of the solution.</returns>
         public virtual IEnumerator<TFactor> GetEnumerator()
         {
             Debug.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
@@ -115,6 +139,12 @@ namespace LinqToAStar
 
         #region Others
 
+        /// <summary>
+        /// Gets available nodes from specific step. 
+        /// </summary>
+        /// <param name="step">The specific step.</param>
+        /// <param name="level">The corresponding level of <paramref name="step"/>.</param>
+        /// <returns>Available nodes from specific step.</returns>
         public IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level)
         {
             foreach (var next in Expander(step, level))
@@ -122,6 +152,13 @@ namespace LinqToAStar
                     yield return n;
         }
 
+        /// <summary>
+        /// Gets available nodes from specific step. 
+        /// </summary>
+        /// <param name="step">The specific step.</param>
+        /// <param name="level">The corresponding level of <paramref name="step"/>.</param>
+        /// <param name="predicate">A callback that </param>
+        /// <returns>A function to test each step for a condition.</returns>
         public IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level, Func<TStep, bool> predicate)
         {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));
@@ -132,6 +169,12 @@ namespace LinqToAStar
                         yield return n;
         }
 
+        /// <summary>
+        /// Converts specific step to one or more nodes.
+        /// </summary>
+        /// <param name="step">The specific step.</param>
+        /// <param name="level">The corresponding level of <paramref name="step"/>.</param>
+        /// <returns>Corresponding nodes of specific step.</returns>
         public IEnumerable<Node<TFactor, TStep>> ConvertToNodes(TStep step, int level)
         {
             foreach (var r in Converter(step, level))
