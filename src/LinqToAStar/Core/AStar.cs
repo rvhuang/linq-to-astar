@@ -19,7 +19,7 @@ namespace LinqToAStar.Core
             var closed = new HashSet<TStep>(source.StepComparer);
             var sortAt = 0;
 
-            while (open.Count > 0)
+            while (open.Count - sortAt > 0)
             {
                 var current = open[sortAt];
                 var hasNext = false;
