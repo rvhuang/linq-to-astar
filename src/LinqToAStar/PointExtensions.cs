@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace LinqToAStar
 {
+    /// <summary>
+    /// Defines a set of static methods for <see cref="Point"/> and <see cref="PointF"/> structures.
+    /// </summary>
     public static class PointExtensions
     {
         public static IEnumerable<Point> GetFourDirections(this Point a, int unit)

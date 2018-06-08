@@ -85,7 +85,7 @@ namespace LinqToAStar
 
             _comparer = comparer ?? EqualityComparer<TStep>.Default;
             _converter = converter;
-            _expander = expander;
+            _expander = expander ?? throw new ArgumentNullException(nameof(expander));
         }
 
         #endregion
@@ -159,6 +159,7 @@ namespace LinqToAStar
         /// <param name="level">The corresponding level of <paramref name="step"/>.</param>
         /// <param name="predicate">A callback that </param>
         /// <returns>A function to test each step for a condition.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is null.</exception>
         public IEnumerable<Node<TFactor, TStep>> Expands(TStep step, int level, Func<TStep, bool> predicate)
         {
             if (predicate == null) throw new ArgumentNullException(nameof(predicate));

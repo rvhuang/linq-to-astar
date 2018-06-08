@@ -1,8 +1,9 @@
 ﻿namespace LinqToAStar
 {
     /// <summary>
-    /// Defines members of an algorithm.
+    /// Represents an algorithm.
     /// </summary>
+    /// <seealso cref="HeuristicSearch.Register{TAlgorithm}(string)"/>
     public interface IAlgorithm
     {
         /// <summary>

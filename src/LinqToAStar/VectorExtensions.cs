@@ -3,6 +3,9 @@ using System.Numerics;
 
 namespace LinqToAStar
 {
+    /// <summary>
+    /// Defines a set of static methods for <see cref="Vector2"/> structure.
+    /// </summary>
     public static class VectorExtensions
     {
         public static IEnumerable<Vector2> GetFourDirections(this Vector2 a, float unit)
