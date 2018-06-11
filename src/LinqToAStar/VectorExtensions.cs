@@ -8,6 +8,12 @@ namespace LinqToAStar
     /// </summary>
     public static class VectorExtensions
     {
+        /// <summary>
+        /// Gets nearby four <see cref="Vector2"/> instances.
+        /// </summary>
+        /// <param name="a">Current instance.</param>
+        /// <param name="unit">The distance between current and nearby instances.</param>
+        /// <returns>A collection of <see cref="Vector2"/> instances in four direction respectively.</returns>
         public static IEnumerable<Vector2> GetFourDirections(this Vector2 a, float unit)
         {
             return new[]
@@ -19,6 +25,12 @@ namespace LinqToAStar
             };
         }
 
+        /// <summary>
+        /// Gets nearby eight <see cref="Vector2"/> instances.
+        /// </summary>
+        /// <param name="a">Current instance.</param>
+        /// <param name="unit">The distance between current and nearby instances on x or y axis.</param>
+        /// <returns>A collection of <see cref="Vector2"/> instances in eight direction respectively.</returns>
         public static IEnumerable<Vector2> GetEightDirections(this Vector2 a, float unit)
         {
             return new[]
@@ -34,11 +46,23 @@ namespace LinqToAStar
             };
         }
 
+        /// <summary>
+        /// Calculate the Manhattan distance between two <see cref="Vector2"/> instances. 
+        /// </summary>
+        /// <param name="a">The first instance.</param>
+        /// <param name="b">The second instance.</param> 
+        /// <returns>The Manhattan Distance between two instances.</returns>
         public static float GetManhattanDistance(this Vector2 a, Vector2 b)
         {
             return DistanceHelper.GetManhattanDistance(a.X, a.Y, b.X, b.Y);
         }
 
+        /// <summary>
+        /// Calculate the Chebyshev distance between two <see cref="Vector2"/> instances. 
+        /// </summary>
+        /// <param name="a">The first instance.</param>
+        /// <param name="b">The second instance.</param> 
+        /// <returns>The Manhattan Distance between two instances.</returns>
         public static float GetChebyshevDistance(this Vector2 a, Vector2 b)
         {
             return DistanceHelper.GetChebyshevDistance(a.X, a.Y, b.X, b.Y);

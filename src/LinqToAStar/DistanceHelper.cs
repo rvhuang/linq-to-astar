@@ -23,7 +23,7 @@ namespace LinqToAStar
         #region Manhattan Distance
 
         /// <summary>
-        /// Calculate the Manhattan Distance between two positions. 
+        /// Calculate the Manhattan distance between two positions. 
         /// </summary>
         /// <param name="x1">The x-coordinate of first position.</param>
         /// <param name="y1">The y-coordinate of first position.</param>
@@ -36,7 +36,7 @@ namespace LinqToAStar
         }
 
         /// <summary>
-        /// Calculate the Manhattan Distance between two positions. 
+        /// Calculate the Manhattan distance between two positions. 
         /// </summary>
         /// <param name="x1">The x-coordinate of first position.</param>
         /// <param name="y1">The y-coordinate of first position.</param>
@@ -53,7 +53,7 @@ namespace LinqToAStar
         #region Chebyshev Distance
 
         /// <summary>
-        /// Calculate the Chebyshev Distance between two positions. 
+        /// Calculate the Chebyshev distance between two positions. 
         /// </summary>
         /// <param name="x1">The x-coordinate of first position.</param>
         /// <param name="y1">The y-coordinate of first position.</param>
@@ -66,7 +66,7 @@ namespace LinqToAStar
         }
 
         /// <summary>
-        /// Calculate the Chebyshev Distance between two positions. 
+        /// Calculate the Chebyshev distance between two positions. 
         /// </summary>
         /// <param name="x1">The x-coordinate of first position.</param>
         /// <param name="y1">The y-coordinate of first position.</param>
@@ -80,10 +80,10 @@ namespace LinqToAStar
 
         #endregion
 
-        #region Chebyshev Distance
+        #region Euclidean Distance
 
         /// <summary>
-        /// Calculate the Euclidean Distance between two positions. 
+        /// Calculate the Euclidean distance between two positions. 
         /// </summary>
         /// <param name="x1">The x-coordinate of first position.</param>
         /// <param name="y1">The y-coordinate of first position.</param>
@@ -96,7 +96,7 @@ namespace LinqToAStar
         }
 
         /// <summary>
-        /// Calculate the Euclidean Distance between two positions. 
+        /// Calculate the Euclidean distance between two positions. 
         /// </summary>
         /// <param name="x1">The x-coordinate of first position.</param>
         /// <param name="y1">The y-coordinate of first position.</param>
