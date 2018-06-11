@@ -4,6 +4,11 @@ using System.Linq;
 
 namespace LinqToAStar
 {
+    /// <summary>
+    /// Defines the instance that is applied with heuristic function.
+    /// </summary>
+    /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+    /// <typeparam name="TStep">The type of step of the problem.</typeparam>
     public class HeuristicSearchOrderBy<TFactor, TStep> : HeuristicSearchBase<TFactor, TStep>, IOrderedEnumerable<TFactor>
     {
         #region Fields
@@ -14,6 +19,9 @@ namespace LinqToAStar
 
         #region Properties
 
+        /// <summary>
+        /// Gets the comparer used to compare two <see cref="Node{TFactor, TStep}"/> instances.
+        /// </summary>
         public override INodeComparer<TFactor, TStep> NodeComparer => _nodeComparer;
 
         #endregion
@@ -183,6 +191,11 @@ namespace LinqToAStar
 
         #region Override
 
+        /// <summary>
+        /// Gets the string that represents current instance.
+        /// </summary>
+        /// <returns>The string that represents current instance.</returns>
+        /// <remarks>This will print out LINQ expression stack from inital to current instance.</remarks>
         public override string ToString()
         {
             return string.Join(" -> ", Source == null ? "(Initial)" : Source.ToString(), base.ToString());
