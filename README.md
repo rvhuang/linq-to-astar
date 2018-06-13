@@ -97,6 +97,13 @@ var solution = from step in queryable.Except(GetObstacles())
 |`Contains()`||
 |`Reverse()`|Inverts the order of solution from `start` -> `goal` to `goal` -> `start`.|
 
+### Planning LINQ Clauses
+
+|Clause|Remarks|
+|----------|----------|
+|`Intersect()`|Planning|
+|`Join()`|Evaluating, may be canceled|
+
 ## Roadmap
 
 |Milestone|Release Date (NuGet)|
