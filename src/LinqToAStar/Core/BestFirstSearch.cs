@@ -17,7 +17,7 @@ namespace LinqToAStar.Core
             var visited = new HashSet<TStep>(source.StepComparer);
             var sortAt = 0;
 
-            while (nexts.Count > 0)
+            while (nexts.Count - sortAt > 0)
             {
                 var best = nexts[sortAt]; // nexts.First();
                 var hasNext = false;

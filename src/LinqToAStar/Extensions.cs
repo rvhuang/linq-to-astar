@@ -3,8 +3,21 @@ using System.Collections.Generic;
 
 namespace LinqToAStar
 {
+    /// <summary>
+    /// Provide a set of LINQ clauses to <see cref="HeuristicSearchBase{TFactor, TStep}"/> class.
+    /// </summary>
     public static partial class Extensions
     {
+        /// <summary>
+        /// Select the factor used to evaluate with heuristic functions.
+        /// </summary>
+        /// <typeparam name="TSource">The source type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="selector">The selector to select factor from current instance.</param>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Select<TSource, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, TFactor> selector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -13,6 +26,16 @@ namespace LinqToAStar
             return new HeuristicSearchSelect<TSource, TFactor, TStep>(source, (s, i) => selector(s));
         }
 
+        /// <summary>
+        /// Select the factor used to evaluate with heuristic functions.
+        /// </summary>
+        /// <typeparam name="TSource">The source type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="selector">The selector with index argument to select factor from current instance.</param>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Select<TSource, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, TFactor> selector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -21,6 +44,17 @@ namespace LinqToAStar
             return new HeuristicSearchSelect<TSource, TFactor, TStep>(source, selector);
         }
 
+        /// <summary>
+        /// Select one or more factors used to evaluate with heuristic functions.
+        /// </summary>
+        /// <typeparam name="TSource">The source type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="selector">The selector to select factor from current instance.</param>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
+        /// <remarks>Only the factor with lowest cost estimated by heuristic function will be considerd.</remarks>
         public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, IEnumerable<TFactor>> selector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -29,6 +63,17 @@ namespace LinqToAStar
             return new HeuristicSearchSelectMany<TSource, TFactor, TStep>(source, (s, i) => selector(s));
         }
 
+        /// <summary>
+        /// Select one or more factors used to evaluate with heuristic functions.
+        /// </summary>
+        /// <typeparam name="TSource">The source type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="selector">The selector with index argument to select factor from current instance.</param>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="selector"/> is null.</exception>
+        /// <remarks>Only the factor with lowest cost estimated by heuristic function will be considerd.</remarks>
         public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TFactor>> selector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -37,6 +82,19 @@ namespace LinqToAStar
             return new HeuristicSearchSelectMany<TSource, TFactor, TStep>(source, selector);
         }
 
+        /// <summary>
+        /// Select one or more factors used to evaluate with heuristic functions.
+        /// </summary>
+        /// <typeparam name="TSource">The source type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TCollection">The type of the intermediate elements collected by the function represented by <paramref name="collectionSelector"/>.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="collectionSelector">A projection function to apply to each element of the source.</param>
+        /// <param name="factorSelector">The selector to select factor from current instance.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="collectionSelector"/> or <paramref name="factorSelector"/> is null.</exception>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <remarks>Only the factor with lowest cost estimated by heuristic function will be considerd.</remarks>
         public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TCollection, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> factorSelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -46,6 +104,19 @@ namespace LinqToAStar
             return new HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep>(source, (s, i) => collectionSelector(s), factorSelector);
         }
 
+        /// <summary>
+        /// Select one or more factors used to evaluate with heuristic functions.
+        /// </summary>
+        /// <typeparam name="TSource">The source type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TCollection">The type of the intermediate elements collected by the function represented by <paramref name="collectionSelector"/>.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="collectionSelector">A projection function to apply to each element of the source.</param>
+        /// <param name="factorSelector">The selector to select factor from current instance.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="collectionSelector"/> or <paramref name="factorSelector"/> is null.</exception>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <remarks>Only the factor with lowest cost estimated by heuristic function will be considerd.</remarks>
         public static HeuristicSearchBase<TFactor, TStep> SelectMany<TSource, TCollection, TFactor, TStep>(this HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TFactor> factorSelector)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -55,6 +126,15 @@ namespace LinqToAStar
             return new HeuristicSearchSelectMany<TSource, TCollection, TFactor, TStep>(source, collectionSelector, factorSelector);
         }
 
+        /// <summary>
+        /// Apply filter to current instance. 
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="predicate">A function to test each source element for a condition.</param>
+        /// <returns>The instance with appied filter.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="predicate"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Where<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, bool> predicate)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -63,6 +143,15 @@ namespace LinqToAStar
             return new HeuristicSearchWhere<TFactor, TStep>(source, (r, i) => predicate(r));
         }
 
+        /// <summary>
+        /// Apply filter to current instance. 
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="predicate">A function to test each source element and its index for a condition.</param>
+        /// <returns>The instance with appied filter.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="predicate"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Where<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, Func<TFactor, int, bool> predicate)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -71,6 +160,15 @@ namespace LinqToAStar
             return new HeuristicSearchWhere<TFactor, TStep>(source, predicate);
         }
 
+        /// <summary>
+        /// Apply black-listing filter to current instance by giving a <typeparamref name="TStep"/> collection.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="collection">The collection as filter condition.</param>
+        /// <returns>The instance with appied filter.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="collection"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Except<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, IEnumerable<TFactor> collection)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -79,6 +177,16 @@ namespace LinqToAStar
             return new HeuristicSearchExcept<TFactor, TStep>(source, collection, null);
         }
 
+        /// <summary>
+        /// Apply black-listing  filter to current instance by giving a <typeparamref name="TStep"/> collection and specific comparer.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="collection">The collection as filter condition.</param>
+        /// <param name="comparer">The specific comparer.</param>
+        /// <returns>The instance with appied filter.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="collection"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Except<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, IEnumerable<TFactor> collection, IEqualityComparer<TFactor> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -87,6 +195,15 @@ namespace LinqToAStar
             return new HeuristicSearchExcept<TFactor, TStep>(source, collection, comparer);
         }
 
+        /// <summary>
+        /// Apply white-listing filter to current instance by giving a <typeparamref name="TStep"/> collection.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="collection">The collection as filter condition.</param>
+        /// <returns>The instance with appied filter.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="collection"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Contains<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, IEnumerable<TFactor> collection)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -95,6 +212,16 @@ namespace LinqToAStar
             return new HeuristicSearchContains<TFactor, TStep>(source, collection, null);
         }
 
+        /// <summary>
+        /// Apply white-listing  filter to current instance by giving a <typeparamref name="TStep"/> collection and specific comparer.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <param name="collection">The collection as filter condition.</param>
+        /// <param name="comparer">The specific comparer.</param>
+        /// <returns>The instance with appied filter.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> or <paramref name="collection"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Contains<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source, IEnumerable<TFactor> collection, IEqualityComparer<TFactor> comparer)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -103,6 +230,15 @@ namespace LinqToAStar
             return new HeuristicSearchContains<TFactor, TStep>(source, collection, comparer);
         }
 
+        /// <summary>
+        /// Inverts the order of solution from <see cref="HeuristicSearchBase{TFactor, TStep}.From"/> to <see cref="HeuristicSearchBase{TFactor, TStep}.To"/> 
+        /// to <see cref="HeuristicSearchBase{TFactor, TStep}.To"/> to <see cref="HeuristicSearchBase{TFactor, TStep}.From"/>.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>An instance with type <typeparamref name="TFactor"/> as factor.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static HeuristicSearchBase<TFactor, TStep> Reverse<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
