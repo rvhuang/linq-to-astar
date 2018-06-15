@@ -21,8 +21,9 @@ Snippet below shows the LINQ expression used to find shortest path between two p
 
 ```csharp
 // The path to be found between two positions.
-var start = new Vector2(5, 5);
-var goal = new Vector2(35, 35);
+var start = new Point(5, 5);
+var goal = new Point(35, 35);
+var boundary = new Rectangle(0, 0, 40, 40);
 var unit = 1;
 
 // The initialization of A* algorithm
@@ -30,9 +31,9 @@ var unit = 1;
 var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
 
 // See description below.
-var solution = from step in queryable.Except(GetObstacles())                      // 1.
-               where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40   // 2.
-               orderby step.GetManhattanDistance(goal)                            // 3.
+var solution = from step in queryable.Except(GetObstacles()) // 1.
+               where boundary.Contains(step)                 // 2.
+               orderby step.GetManhattanDistance(goal)       // 3.
                select step;
 
 // Each step of the shortest path found by A* algorithm.
@@ -78,7 +79,7 @@ HeuristicSearch.Register<MyAlgorithmClass>("MyAlgorithm");
 
 var queryable = HeuristicSearch.Use("MyAlgorithm", start, goal, getFourDirections);
 var solution = from step in queryable.Except(GetObstacles())
-               where step.X >= 0 && step.Y >= 0 && step.X <= 40 && step.Y <= 40
+               where boundary.Contains(step)
                orderby step.GetManhattanDistance(goal)
                select step;
 ```
