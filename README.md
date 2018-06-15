@@ -1,6 +1,7 @@
 # LINQ to A\*
 
-[![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) 
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/)
 
 **LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to read solution found by the algorithm. 
 
