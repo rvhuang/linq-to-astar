@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Numerics;
 
 namespace LinqToAStar.Example.PathFinding
 {
@@ -19,12 +19,14 @@ namespace LinqToAStar.Example.PathFinding
 
         static void Main(string[] args)
         {
-            var queryable = default(HeuristicSearchBase<Vector2, Vector2>);
-            var distance = default(Func<Vector2, Vector2, float>);
+            var boundary = new Rectangle(0, 0, MapWidth, MapWidth);
             var presentation = new char[MapHeight][];
 
             while (true)
             {
+                var queryable = default(HeuristicSearchBase<Point, Point>);
+                var solution = default(HeuristicSearchBase<Point, Point>);
+                var counter = 0;
                 var mapData = LoadMapData();
 
                 for (var y = 0; y < MapHeight; y++)
@@ -34,7 +36,7 @@ namespace LinqToAStar.Example.PathFinding
 
                     for (var x = 0; x < MapWidth; x++)
                     {
-                        var point = new Vector2(x, y);
+                        var point = new Point(x, y);
 
                         if (mapData.Obstacles.Contains(point))
                             presentation[y][x] = ObstacleSymbol;
@@ -85,26 +87,29 @@ namespace LinqToAStar.Example.PathFinding
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.C:
-                        distance = VectorExtensions.GetChebyshevDistance;
+                        solution = from step in queryable.Except(mapData.Obstacles)
+                                   where boundary.Contains(step)
+                                   orderby step.GetChebyshevDistance(mapData.Goal)
+                                   select step;
                         break;
 
                     case ConsoleKey.E:
-                        distance = Vector2.Distance;
+                        solution = from step in queryable.Except(mapData.Obstacles)
+                                   where boundary.Contains(step)
+                                   orderby step.GetEuclideanDistance(mapData.Goal)
+                                   select step;
                         break;
 
                     case ConsoleKey.M:
-                        distance = VectorExtensions.GetManhattanDistance;
+                        solution = from step in queryable.Except(mapData.Obstacles)
+                                   where boundary.Contains(step)
+                                   orderby step.GetManhattanDistance(mapData.Goal)
+                                   select step;
                         break;
 
                     default: continue;
                 }
                 Console.WriteLine();
-
-                var solution = from step in queryable.Except(mapData.Obstacles)
-                               where step.X >= 0 && step.Y >= 0 && step.X < MapWidth && step.Y < MapHeight
-                               orderby distance(step, mapData.Goal)
-                               select step;
-                var counter = 0;
 
                 foreach (var step in solution)
                 {
@@ -119,16 +124,16 @@ namespace LinqToAStar.Example.PathFinding
             }
         }
 
-        public static IEnumerable<Vector2> GetNextSteps(Vector2 current, int level)
+        public static IEnumerable<Point> GetNextSteps(Point current, int level)
         {
             return current.GetFourDirections(Unit);
         }
 
-        public static (Vector2 Start, Vector2 Goal, ISet<Vector2> Obstacles) LoadMapData()
+        public static (Point Start, Point Goal, ISet<Point> Obstacles) LoadMapData()
         {
-            var from = default(Vector2);
-            var goal = default(Vector2);
-            var obstacles = new HashSet<Vector2>();
+            var from = default(Point);
+            var goal = default(Point);
+            var obstacles = new HashSet<Point>();
             var mapData = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MapData.txt"));
 
             for (int y = 0; y < mapData.Length; y++)
@@ -138,15 +143,15 @@ namespace LinqToAStar.Example.PathFinding
                     switch (mapData[y][x])
                     {
                         case StartSymbol:
-                            from = new Vector2(x, y);
+                            from = new Point(x, y);
                             break;
 
                         case GoalSymbol:
-                            goal = new Vector2(x, y);
+                            goal = new Point(x, y);
                             break;
 
                         case ObstacleSymbol:
-                            obstacles.Add(new Vector2(x, y));
+                            obstacles.Add(new Point(x, y));
                             break;
                     }
                 }
