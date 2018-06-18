@@ -69,6 +69,7 @@ namespace LinqToAStar
             : this(source.From, source.To, source.StepComparer, source.Converter, source.Expander)
         {
             _source = source;
+            IsReversed = source.IsReversed;
         }
 
         internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,

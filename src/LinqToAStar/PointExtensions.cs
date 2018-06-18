@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace LinqToAStar
@@ -82,6 +83,22 @@ namespace LinqToAStar
                 new PointF(a.X, a.Y - unit), // bottom 
                 new PointF(a.X, a.Y + unit), // top
             };
+        }
+
+        /// <summary>
+        /// Enumerates all available points from an <see cref="Rectangle" /> instance.
+        /// </summary>
+        /// <param name="rect">Current instnace.</param>
+        /// <param name="unit">The distance between each point.</param>
+        /// <returns>A collection of available points.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="unit"/> is lower or equal than zero.</exception>
+        public static IEnumerable<Point> GetAvailablePoints(this Rectangle rect, int unit)
+        {
+            if (unit <= 0) throw new ArgumentOutOfRangeException(nameof(unit), "Value must be greater than zero.");
+
+            for (var x = rect.X; x < rect.Width; x += unit)
+                for (var y = rect.Y; y < rect.Height; y += unit)
+                    yield return new Point(x, y);
         }
 
         /// <summary>
