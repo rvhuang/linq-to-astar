@@ -2,7 +2,9 @@
 
 The file describes the purpose of test project.
 
-## Overview
+## Validity Test
+
+![testdiagram](testdiagram.svg)
 
 The test class covers all algorithms and consists of three test cases:
 
@@ -12,6 +14,6 @@ The test class covers all algorithms and consists of three test cases:
 
 Validity test does not verify whether the path is optimized or best solution.
 
-## Diagram
+## Expression Test
 
-![testdiagram](testdiagram.svg)
+The test class covers variations of LINQ expressions. More test cases to be added.
