@@ -9,41 +9,47 @@ namespace LinqToAStar.Core
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
+            var nc = source.NodeComparer;
+            var sc = source.StepComparer;
             var open = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
 
             if (open.Count == 0)
                 return null;
 
-            open.Sort(source.NodeComparer);
+            open.Sort(nc);
 
-            var closed = new HashSet<TStep>(source.StepComparer);
+            var closed = new HashSet<TStep>(sc);
             var sortAt = 0;
 
             while (open.Count - sortAt > 0)
             {
                 var current = open[sortAt];
-                var hasNext = false;
+                var sortAll = false;
 
-                if (source.StepComparer.Equals(current.Step, source.To))
+                if (sc.Equals(current.Step, source.To))
                     return current;
 
-                sortAt++; // open.RemoveAt(0);
+                sortAt++;
                 closed.Add(current.Step);
 
                 foreach (var next in source.Expands(current.Step, current.Level))
                 {
                     if (closed.Contains(next.Step)) continue;
-                    if (open.Find(step => source.StepComparer.Equals(next.Step, step.Step)) == null)
+                    if (open.Find(step => sc.Equals(next.Step, step.Step)) == null)
                     {
-                        Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
-
                         next.Previous = current;
+                        
+                        if (sc.Equals(next.Step, source.To))
+                            return next;
+
+                        sortAll = sortAll || nc.Compare(open[open.Count - 1], next) > 0;
                         open.Add(next);
-                        hasNext = true;
+                    
+                        Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
                     }
                 }
-                if (hasNext)
-                    open.Sort(sortAt, open.Count - sortAt, source.NodeComparer);
+                if (sortAll)
+                    open.Sort(sortAt, open.Count - sortAt, nc);
             }
             return null;
         }
