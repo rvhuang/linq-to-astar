@@ -80,8 +80,8 @@ namespace LinqToAStar.Test
             var actual = solution.ToArray();
 
             Assert.IsType<CombinedComparer<Point, Point>>(solution.NodeComparer);
-            Assert.Equal(actual.First(), queryable.To);
-            Assert.Equal(actual.Last(), queryable.From);
+            Assert.Equal(actual.First(), queryable.From);
+            Assert.Equal(actual.Last(), queryable.To);
         }
     }
 }
