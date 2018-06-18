@@ -29,6 +29,23 @@ namespace LinqToAStar.Test
         }
 
         [Fact]
+        public void SelectManyTest()
+        {
+            var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
+            var obstacles = new[] { new Point(5, 5), new Point(6, 6), new Point(7, 7), new Point(8, 8), new Point(9, 9) };
+            var solution = from step in queryable
+                           from obstacle in obstacles
+                           where step != obstacle
+                           orderby step.GetManhattanDistance(goal)
+                           select step;
+            var actual = solution.ToArray();
+
+            Assert.Empty(actual.Intersect(obstacles));
+            Assert.Equal(actual.First(), queryable.From);
+            Assert.Equal(actual.Last(), queryable.To);
+        }
+
+        [Fact]
         public void ContainsTest()
         {
             var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
