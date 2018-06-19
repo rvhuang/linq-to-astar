@@ -3,17 +3,18 @@
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) 
 [![NuGet Pre Release](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/)
 
-**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to read solution found by the algorithm. 
+**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to fetch solution found by the algorithm.
 
-Goals of the experiment are:
-
-* Better human-readability and maintainability of algorithm using.
-* Structural, object-oriented, unified programming model for various heuristic algorithms.
-* Flexible APIs that can be applied to any problem as long as the problem can be solved with the algorithm.
-
-By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
+The library defines a set of generic APIs that can be applied to any problem as long as the problem can be solved with the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
 **All feedbacks are greatly appreciated** as the experiment is growing rapidly.
+
+## Why LINQ
+
+* Great human-readability and maintainability of algorithm using.
+* Structural, object-oriented, unified programming model for various heuristic algorithms.
+* Easy to learn and use.
+* **Looking cool**. (very important!)
 
 ## Example
 
