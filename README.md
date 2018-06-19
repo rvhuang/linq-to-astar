@@ -51,7 +51,7 @@ The LINQ expression consists of following clauses:
 
 If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
-See [Expression Examples](doc/Expression-Examples.md) file for more examples.
+See [Expression Examples](docs/Expression-Examples.md) file for more examples.
 
 ### Executable Examples
 
