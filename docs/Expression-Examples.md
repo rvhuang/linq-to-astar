@@ -35,6 +35,7 @@ var solution = from step in queryable.Except(obstacles)
                orderby step.GetManhattanDistance(goal)
                select step;
 ```
+Using `Except()` is recommended when there are many positions to be eliminated.
 
 ## Contains
 
@@ -46,6 +47,7 @@ var solution = from step in queryable.Contains(boundary.GetAvailablePoints(unit)
                orderby step.GetManhattanDistance(goal)
                select step;
 ```
+Using `Contains()` is recommended when available nodes are limited such as tree or graph traversal.
 
 ## Reverse
 
