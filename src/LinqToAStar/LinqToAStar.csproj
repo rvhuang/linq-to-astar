@@ -8,14 +8,19 @@
     <Authors>Robert Vandenberg Huang</Authors>
     <Product>Linq To A*</Product>
     <PackageLicenseUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/LICENSE</PackageLicenseUrl>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.0.0-beta</Version>
     <PackageId>linq-to-astar</PackageId>
     <PackageTags>linq;astar;heuristic</PackageTags>
     <Copyright>© 2018 Robert Vandenberg Huang</Copyright>
-    <Description>LINQ to A* is an experimental library aimed to incorporate LINQ expressions into A* as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to read solution found by the algorithm.</Description>
+    <Description>LINQ to A* is an experimental library aimed to incorporate LINQ expressions into A* as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch shortest path found by the algorithm.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/favicon.ico</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
+    <PackageReleaseNotes>Improve A* Search algorithm performance.
+Improve Best-first Search algorithm performance.
+Fix a bug where Reverse() does not work.
+Fix a bug where A* Search algorithm will not end.
+The property HeuristicSearch.RegisteredAlgorithms now will contains preset algorithms.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
