@@ -105,4 +105,16 @@ namespace LinqToAStar.Core
 
         #endregion 
     }
+
+    internal struct IterativeDeepeningAStarAlgorithm : IAlgorithm
+    {
+        string IAlgorithm.AlgorithmName => nameof(IterativeDeepeningAStar);
+
+        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        {
+            Debug.WriteLine("LINQ Expression Stack: {0}", source);
+
+            return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
+        }
+    }
 }
