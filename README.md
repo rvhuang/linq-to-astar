@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) 
 [![NuGet Pre Release](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/)
 
-**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to fetch solution found by the algorithm.
+**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch shortest path found by the algorithm.
 
 The library defines a set of generic APIs that can be applied to any problem as long as the problem can be solved with the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
@@ -12,13 +12,13 @@ The library defines a set of generic APIs that can be applied to any problem as 
 ## Why LINQ
 
 * Great human-readability and maintainability of algorithm using.
-* Structural, object-oriented, unified programming model for various heuristic algorithms.
+* Structural, object-oriented, consice programming model for various heuristic algorithms.
 * Easy to learn and use.
 * **Looking cool**. (very important!)
 
 ## Example
 
-Snippet below shows the LINQ expression used to find shortest path between two positions.
+Snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example utilizes types defined in [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
 
 ```csharp
 // The path to be found between two positions.
@@ -52,7 +52,7 @@ The LINQ expression consists of following clauses:
 
 If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
 
-See [Expression Examples](docs/Expression-Examples.md) file for more examples.
+See [Expression Examples](docs/Expression-Examples.md) for more examples.
 
 ### Executable Examples
 
@@ -102,12 +102,14 @@ var solution = from step in queryable.Except(GetObstacles())
 |`Contains()`||
 |`Reverse()`|Inverts the order of solution from `start` -> `goal` to `goal` -> `start`.|
 
-### Planning LINQ Clauses
+### LINQ Clauses and Features in Development
 
-|Clause|Remarks|
+|Clause|Status|
 |----------|----------|
 |`Intersect()`|Planning|
 |`Join()`|Evaluating, may be canceled|
+|`ToArray()`|Planning|
+|`ToList()`|Planning|
 
 ## Roadmap
 
@@ -127,4 +129,8 @@ The library targets [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/
 
 ## License
 
-The library is licensed under MIT. Feel free to copy and use in your algorithm homework (grades not guaranteed).
+The MIT License (MIT)
+
+Copyright © Robert Vandenberg Huang ([rvh.omni@gmail.com](mailto:rvh.omni@gmail.com))
+
+Feel free to copy, modify and use in your computer science homework (grades not guaranteed).

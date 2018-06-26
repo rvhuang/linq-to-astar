@@ -1,6 +1,6 @@
 # Expression Examples
 
-Examples of supported LINQ expressions are listed in this file. All examples use [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/) types and share same initial conditions.
+Examples of supported LINQ expressions are listed in this file. All examples utilize [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/) types and share same initial conditions.
 
 ```csharp
 var start = new Point(2, 2);
