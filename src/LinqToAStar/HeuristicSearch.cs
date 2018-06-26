@@ -3,10 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleToAttribute("LinqToAStar.Test")]
+[assembly:InternalsVisibleTo("LinqToAStar.Test")]
 
 namespace LinqToAStar
 {
+    using Core;
+
     /// <summary>
     /// Provides a set of static methods to initialize <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with specific algorithm.
     /// </summary>
@@ -14,7 +16,23 @@ namespace LinqToAStar
     {
         #region Fields
 
-        private readonly static ConcurrentDictionary<string, Func<string, IAlgorithm>> algorithms = new ConcurrentDictionary<string, Func<string, IAlgorithm>>();
+        private readonly static ConcurrentDictionary<string, Func<string, IAlgorithm>> algorithms;
+
+        #endregion
+
+        #region Constructor
+
+        static HeuristicSearch()
+        {
+            var presets = new[]
+            {
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(AStar), (n) => new AStarAlgorithm()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(BestFirstSearch), (n) => new BestFirstSearchrAlgorithm()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(IterativeDeepeningAStar), (n) => new IterativeDeepeningAStarAlgorithm()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(RecursiveBestFirstSearch), (n) => new RecursiveBestFirstSearchAlgorithm()),
+            };
+            algorithms = new ConcurrentDictionary<string, Func<string, IAlgorithm>>(presets);
+        }
 
         #endregion
 
