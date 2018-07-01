@@ -54,10 +54,14 @@ If path is found, the enumeration returns each step in deferred execution. Other
 
 See [Expression Examples](docs/Expression-Examples.md) for more examples.
 
-### Executable Examples
+### Console Examples
 
-* [Path Finding](src/LinqToAStar.Example.PathFinding/) 
+* [Pathfinding](src/LinqToAStar.Example.PathFinding/) 
 * [Solving 8-Puzzle](src/LinqToAStar.Example.EightPuzzle/)
+
+### Playground
+
+Check out [Pathfinding Lab](https://pathfinding-lab.azurewebsites.net/) and try it out.
 
 ## Supported Algorithms
 
