@@ -91,7 +91,7 @@ var solution = from step in queryable.Except(GetObstacles())
                select step;
 ```
 
-## Supported LINQ Clauses
+## Supported LINQ Clauses and Methods
 
 |Clause|Remarks|
 |----------|----------|
@@ -106,14 +106,17 @@ var solution = from step in queryable.Except(GetObstacles())
 |`Contains()`||
 |`Reverse()`|Inverts the order of solution from `start` -> `goal` to `goal` -> `start`.|
 
+|Method|Remarks|
+|----------|----------|
+|`ToArray()`|Provides optimized performance better than `Enumerable.ToArray<T>()`.|
+|`ToList()`|Provides optimized performance better than `Enumerable.ToList<T>()`.|
+
 ### LINQ Clauses and Features in Development
 
 |Clause|Status|
 |----------|----------|
 |`Intersect()`|Planning|
 |`Join()`|Evaluating, may be canceled|
-|`ToArray()`|Planning|
-|`ToList()`|Planning|
 
 ## Roadmap
 
