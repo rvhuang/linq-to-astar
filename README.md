@@ -91,27 +91,33 @@ var solution = from step in queryable.Except(GetObstacles())
                select step;
 ```
 
-## Supported LINQ Clauses and Methods
+## Supported LINQ Clauses and Operations
 
-|Clause|Remarks|
-|----------|----------|
-|`Select()`||
-|`SelectMany()`||
-|`Where()`||
-|`OrderBy()`|Serves as heuristic function.|
-|`OrderByDescending()`|Serves as reverse heuristic function.|
-|`ThenBy()`|Serves as heuristic function but will only be referred when previous one evaluates two nodes as equal.|
-|`ThenByDescending()`|Serves as reverse heuristic function but will only be referred when previous one evaluates two nodes as equal.|
-|`Except()`||
-|`Contains()`||
-|`Reverse()`|Inverts the order of solution from `start` -> `goal` to `goal` -> `start`.|
+### Transformation
 
-|Method|Remarks|
-|----------|----------|
-|`ToArray()`|Provides optimized performance better than `Enumerable.ToArray<T>()`.|
-|`ToList()`|Provides optimized performance better than `Enumerable.ToList<T>()`.|
+* `Select()`
+* `SelectMany()`
 
-### LINQ Clauses and Features in Development
+### Condition
+
+* `Where()`
+* `Except()`
+* `Contains()`
+
+### Heuristic Function 
+
+* `OrderBy()` serves as heuristic function.
+* `OrderByDescending()` serves as reverse heuristic function.
+* `ThenBy()` serves as heuristic function but will only be referred when previous one evaluates two nodes as equal.
+* `ThenByDescending()` serves as reverse heuristic function but will only be referred when previous one evaluates two nodes as equal.
+
+### Operation
+
+* `Reverse()` inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
+* `ToArray()` provides optimized performance better than `Enumerable.ToArray<T>()`.
+* `ToList()` provides optimized performance better than `Enumerable.ToList<T>()`.
+
+### In Development
 
 |Clause|Status|
 |----------|----------|
