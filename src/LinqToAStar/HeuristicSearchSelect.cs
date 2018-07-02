@@ -49,6 +49,16 @@ namespace LinqToAStar
             return _source.AsEnumerable().Select(_selector).GetEnumerator();
         }
 
+        public sealed override TFactor[] ToArray()
+        {
+            return _source.ToArray(_selector);
+        }
+
+        public sealed override List<TFactor> ToList()
+        {
+            return _source.ToList(_selector);
+        }
+
         public override string ToString()
         {
             return string.Join(" -> ", _source.ToString(), base.ToString());

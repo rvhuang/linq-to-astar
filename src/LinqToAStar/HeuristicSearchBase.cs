@@ -99,32 +99,8 @@ namespace LinqToAStar
         /// <returns>Each step of the solution.</returns>
         public virtual IEnumerator<TFactor> GetEnumerator()
         {
-            Debug.WriteLine($"Searching path between {From} and {To} with {AlgorithmName}...");
+            var lastNode = Run(this);
 
-            var lastNode = default(Node<TFactor, TStep>);
-
-            switch (AlgorithmName)
-            {
-                case nameof(AStar):
-                    lastNode = AStar.Run(this);
-                    break;
-
-                case nameof(BestFirstSearch):
-                    lastNode = BestFirstSearch.Run(this);
-                    break;
-
-                case nameof(IterativeDeepeningAStar):
-                    lastNode = IterativeDeepeningAStar.Run(this);
-                    break;
-
-                case nameof(RecursiveBestFirstSearch):
-                    lastNode = RecursiveBestFirstSearch.Run(this);
-                    break;
-
-                default:
-                    lastNode = HeuristicSearch.RegisteredAlgorithms[AlgorithmName](AlgorithmName).Run(this);
-                    break;
-            }
             if (lastNode == null) // Solution not found
                 return Enumerable.Empty<TFactor>().GetEnumerator();
 
@@ -135,6 +111,82 @@ namespace LinqToAStar
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Creates an array that consists of the solution found by the algorithm.
+        /// </summary>
+        /// <returns>An array that consists of the solution found by the algorithm.</returns>
+        public virtual TFactor[] ToArray()
+        {
+            var lastNode = Run(this);
+
+            if (lastNode == null) // Solution not found
+                return Array.Empty<TFactor>();
+
+            var array = new TFactor[lastNode.Level + 1];
+
+            if (IsReversed)
+            {
+                foreach (var node in lastNode.EnumerateReverseNodes())
+                {
+                    array[lastNode.Level - node.Level] = node.Factor;
+                }
+            }
+            else
+            {
+                foreach (var node in lastNode.TraceBack().EnumerateNodes())
+                {
+                    array[node.Level] = node.Factor;
+                }
+            }
+            return array;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="List{T}"/> instance that consists of the solution found by the algorithm.
+        /// </summary>
+        /// <returns>An <see cref="List{T}"/> instance that consists of the solution found by the algorithm.</returns>
+        public virtual List<TFactor> ToList()
+        {
+            return new List<TFactor>(ToArray());
+        }
+
+        // Consider exposing this method in future.
+        internal TOutput[] ToArray<TOutput>(Func<TFactor, int, TOutput> converter)
+        {
+            var lastNode = Run(this);
+
+            if (lastNode == null) // Solution not found
+                return Array.Empty<TOutput>();
+
+            var array = new TOutput[lastNode.Level + 1];
+
+            if (IsReversed)
+            {
+                foreach (var node in lastNode.EnumerateReverseNodes())
+                {
+                    array[lastNode.Level - node.Level] = converter(node.Factor, node.Level);
+                }
+            }
+            else
+            {
+                foreach (var node in lastNode.TraceBack().EnumerateNodes())
+                {
+                    array[node.Level] = converter(node.Factor, node.Level);
+                }
+            }
+            return array;
+        }
+
+        // Consider exposing this method in future.
+        internal List<TOutput> ToList<TOutput>(Func<TFactor, int, TOutput> converter)
+        {
+            return new List<TOutput>(ToArray(converter));
+        }
 
         #endregion
 
@@ -181,6 +233,42 @@ namespace LinqToAStar
         {
             foreach (var r in Converter(step, level))
                 yield return new Node<TFactor, TStep>(step, r, level);
+        }
+
+        #endregion
+
+        #region Commons 
+
+        private static Node<TFactor, TStep> Run(HeuristicSearchBase<TFactor, TStep> instance)
+        {
+            Debug.WriteLine($"Searching path between {instance.From} and {instance.To} with {instance.AlgorithmName}...");
+
+            var lastNode = default(Node<TFactor, TStep>);
+
+            switch (instance.AlgorithmName)
+            {
+                case nameof(AStar):
+                    lastNode = AStar.Run(instance);
+                    break;
+
+                case nameof(BestFirstSearch):
+                    lastNode = BestFirstSearch.Run(instance);
+                    break;
+
+                case nameof(IterativeDeepeningAStar):
+                    lastNode = IterativeDeepeningAStar.Run(instance);
+                    break;
+
+                case nameof(RecursiveBestFirstSearch):
+                    lastNode = RecursiveBestFirstSearch.Run(instance);
+                    break;
+
+                default:
+                    lastNode = HeuristicSearch.RegisteredAlgorithms[instance.AlgorithmName](instance.AlgorithmName).Run(instance);
+                    break;
+            }
+
+            return lastNode;
         }
 
         #endregion

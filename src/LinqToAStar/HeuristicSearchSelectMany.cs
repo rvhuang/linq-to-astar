@@ -50,7 +50,20 @@ namespace LinqToAStar
 
         public sealed override IEnumerator<TFactor> GetEnumerator()
         {
+            // TODO: Optimize this.
             return _source.AsEnumerable().SelectMany(_collectionSelector, _factorSelector).GetEnumerator();
+        }
+
+        public sealed override TFactor[] ToArray()
+        {
+            // TODO: Optimize this.
+            return _source.AsEnumerable().SelectMany(_collectionSelector, _factorSelector).ToArray();
+        }
+
+        public sealed override List<TFactor> ToList()
+        {
+            // TODO: Optimize this.
+            return _source.AsEnumerable().SelectMany(_collectionSelector, _factorSelector).ToList();
         }
 
         public override string ToString()
@@ -104,7 +117,20 @@ namespace LinqToAStar
 
         public sealed override IEnumerator<TFactor> GetEnumerator()
         {
+            // TODO: Optimize this.
             return _source.AsEnumerable().SelectMany(_selector).GetEnumerator();
+        }
+
+        public sealed override TFactor[] ToArray()
+        {
+            // TODO: Optimize this.
+            return _source.AsEnumerable().SelectMany(_selector).ToArray();
+        }
+
+        public sealed override List<TFactor> ToList()
+        {
+            // TODO: Optimize this.
+            return _source.AsEnumerable().SelectMany(_selector).ToList();
         }
 
         public override string ToString()
