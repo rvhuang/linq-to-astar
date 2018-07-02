@@ -67,6 +67,18 @@ namespace LinqToAStar
 
         #region Methods
 
+        internal IEnumerable<Node<TFactor, TStep>> EnumerateNodes()
+        {
+            var node = this;
+
+            do
+            {
+                yield return node;
+                node = node.Next;
+            }
+            while (node != null);
+        }
+
         internal IEnumerable<TFactor> EnumerateFactors()
         {
             var node = this;
@@ -89,6 +101,21 @@ namespace LinqToAStar
                 node = node.Previous;
             }
             return node;
+        }
+
+        internal IEnumerable<Node<TFactor, TStep>> EnumerateReverseNodes()
+        {
+            var node = this;
+
+            yield return node;
+
+            while (node.Previous != null)
+            {
+                node.Previous.Next = node;
+                node = node.Previous;
+
+                yield return node;
+            }
         }
 
         internal IEnumerable<TFactor> EnumerateReverseFactors()
