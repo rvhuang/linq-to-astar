@@ -2,15 +2,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToAStar", "LinqToAStar\LinqToAStar.csproj", "{3CBF214D-8F76-4EA2-8B52-F517C4C44D5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heuristic.Linq", "Heuristic.Linq\Heuristic.Linq.csproj", "{3CBF214D-8F76-4EA2-8B52-F517C4C44D5E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToAStar.Example", "LinqToAStar.Example\LinqToAStar.Example.csproj", "{2A7970EB-AFC3-476E-83B4-EB2175AA26ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heuristic.Linq.Example", "Heuristic.Linq.Example\Heuristic.Linq.Example.csproj", "{2A7970EB-AFC3-476E-83B4-EB2175AA26ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToAStar.Test", "LinqToAStar.Test\LinqToAStar.Test.csproj", "{E13EDB71-C5DB-40B0-A097-94ACB803347B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heuristic.Linq.Test", "Heuristic.Linq.Test\Heuristic.Linq.Test.csproj", "{E13EDB71-C5DB-40B0-A097-94ACB803347B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqToAStar.Example.PathFinding", "LinqToAStar.Example.PathFinding\LinqToAStar.Example.PathFinding.csproj", "{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Heuristic.Linq.Example.PathFinding", "Heuristic.Linq.Example.PathFinding\Heuristic.Linq.Example.PathFinding.csproj", "{4A5F4997-8FCC-4DE0-8954-DC69F7AC499E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqToAStar.Example.EightPuzzle", "LinqToAStar.Example.EightPuzzle\LinqToAStar.Example.EightPuzzle.csproj", "{16307EF6-A7BB-4E54-8496-9F39CAE78D90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Heuristic.Linq.Example.EightPuzzle", "Heuristic.Linq.Example.EightPuzzle\Heuristic.Linq.Example.EightPuzzle.csproj", "{16307EF6-A7BB-4E54-8496-9F39CAE78D90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
