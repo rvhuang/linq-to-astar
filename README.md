@@ -106,23 +106,21 @@ var solution = from step in queryable.Except(GetObstacles())
 
 ### Heuristic Function 
 
-* `OrderBy()` serves as heuristic function.
-* `OrderByDescending()` serves as reverse heuristic function.
-* `ThenBy()` serves as heuristic function but will only be referred when previous one evaluates two nodes as equal.
-* `ThenByDescending()` serves as reverse heuristic function but will only be referred when previous one evaluates two nodes as equal.
+* `OrderBy()` - serves as heuristic function.
+* `OrderByDescending()` - serves as reverse heuristic function.
+* `ThenBy()` - serves as heuristic function but will only be referred when previous one evaluates two nodes as equal.
+* `ThenByDescending()` - serves as reverse heuristic function but will only be referred when previous one evaluates two nodes as equal.
 
 ### Operation
 
-* `Reverse()` inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
-* `ToArray()` provides optimized performance better than `Enumerable.ToArray<T>()`.
-* `ToList()` provides optimized performance better than `Enumerable.ToList<T>()`.
+* `Reverse()` - inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
+* `ToArray()` - provides optimized performance better than `Enumerable.ToArray<T>()`.
+* `ToList()` - provides optimized performance better than `Enumerable.ToList<T>()`.
 
 ### In Development
 
-|Clause|Status|
-|----------|----------|
-|`Intersect()`|Planning|
-|`Join()`|Evaluating, may be canceled|
+* `Intersect()` - planning
+* `Join()` - evaluating, may be canceled
 
 ## Roadmap
 
@@ -131,12 +129,9 @@ var solution = from step in queryable.Except(GetObstacles())
 |1.0.0 Preview|Q2 2018|
 |1.0.0|Q3 2018|
 
-## Platform
+## Platform and Dependencies
 
-The library targets [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/api/?view=netstandard-2.0) currently.
-
-## Dependencies
-
+* [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/api/?view=netstandard-2.0)
 * [System.Numerics.Vectors](https://www.nuget.org/packages/System.Numerics.Vectors/) (>= 4.4.0)
 * [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/) (>= 4.3.0)
 
