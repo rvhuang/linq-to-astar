@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace LinqToAStar.Example.EightPuzzle
+namespace Heuristic.Linq.Example.EightPuzzle
 {
     class Program
     {

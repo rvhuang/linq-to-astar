@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     internal class DefaultComparer<TFactor, TStep> : INodeComparer<TFactor, TStep>
     {

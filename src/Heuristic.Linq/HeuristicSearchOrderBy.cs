@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     /// <summary>
     /// Defines the instance that is applied with heuristic function.

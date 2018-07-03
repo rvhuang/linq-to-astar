@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace LinqToAStar.Test
+namespace Heuristic.Linq.Test
 {
     public static class MapData
     {

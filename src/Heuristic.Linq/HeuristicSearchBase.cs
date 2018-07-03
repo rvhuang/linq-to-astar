@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
-    using Core;
+    using Algorithms;
 
     /// <summary>
     /// Defines the instance that allows LINQ expressions to be applied to heuristic algorithms.

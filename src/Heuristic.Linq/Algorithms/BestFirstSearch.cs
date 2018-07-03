@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace LinqToAStar.Core
+namespace Heuristic.Linq.Algorithms
 {
     internal static class BestFirstSearch
     {

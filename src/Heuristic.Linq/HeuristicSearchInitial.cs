@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     internal class HeuristicSearchInitial<TStep> : HeuristicSearchBase<TStep, TStep>
     {

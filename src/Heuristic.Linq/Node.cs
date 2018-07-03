@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     /// <summary>
     /// Defines a node that represents specific step and its corresponding level of the problem.

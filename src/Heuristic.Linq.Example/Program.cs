@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace LinqToAStar.Example
+namespace Heuristic.Linq.Example
 {
     class Program
     {

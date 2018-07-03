@@ -3,11 +3,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("LinqToAStar.Test")]
+[assembly:InternalsVisibleTo("Heuristic.Linq.Test")]
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
-    using Core;
+    using Algorithms;
 
     /// <summary>
     /// Provides a set of static methods to initialize <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with specific algorithm.

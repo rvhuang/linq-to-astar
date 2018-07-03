@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-namespace LinqToAStar.Example.EightPuzzle
+namespace Heuristic.Linq.Example.EightPuzzle
 {
     sealed class BoardState : IEquatable<BoardState>
     {

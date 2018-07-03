@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     /// <summary>
     /// Defines a set of static methods for <see cref="Vector2"/> structure.

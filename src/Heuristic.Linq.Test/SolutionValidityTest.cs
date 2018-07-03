@@ -6,7 +6,7 @@ using System.Linq;
 using System.Numerics;
 using Xunit;
 
-namespace LinqToAStar.Test
+namespace Heuristic.Linq.Test
 {
     public class SolutionValidityTest
     {

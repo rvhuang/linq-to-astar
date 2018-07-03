@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     class HeuristicSearchContains<TFactor, TStep> : HeuristicSearchBase<TFactor, TStep>
     {

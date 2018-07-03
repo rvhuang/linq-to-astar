@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace LinqToAStar.Example.PathFinding
+namespace Heuristic.Linq.Example.PathFinding
 {
     class Program
     {

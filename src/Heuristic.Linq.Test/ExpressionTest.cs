@@ -2,9 +2,9 @@ using System.Drawing;
 using System.Linq;
 using Xunit;
 
-namespace LinqToAStar.Test
+namespace Heuristic.Linq.Test
 {
-    using Core;
+    using Algorithms;
 
     public class ExpressionTest
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
 
-namespace LinqToAStar.Test
+namespace Heuristic.Linq.Test
 {
     static class TestHelper
     {

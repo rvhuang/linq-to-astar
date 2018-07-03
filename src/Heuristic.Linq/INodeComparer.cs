@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     /// <summary>
     /// Defines the comparer used to compare two <see cref="Node{TFactor, TStep}"/> instances. 

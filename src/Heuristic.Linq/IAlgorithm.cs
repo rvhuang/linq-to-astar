@@ -1,4 +1,4 @@
-﻿namespace LinqToAStar
+﻿namespace Heuristic.Linq
 {
     /// <summary>
     /// Represents an algorithm.

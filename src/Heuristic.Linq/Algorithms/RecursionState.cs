@@ -1,4 +1,4 @@
-namespace LinqToAStar.Core
+namespace Heuristic.Linq.Algorithms
 {
     internal struct RecursionState<TFactor, TStep>
     {

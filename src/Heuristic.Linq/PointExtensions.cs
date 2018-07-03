@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace LinqToAStar
+namespace Heuristic.Linq
 {
     /// <summary>
     /// Defines a set of static methods for <see cref="Point"/> and <see cref="PointF"/> structures.

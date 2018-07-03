@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace LinqToAStar.Core
+namespace Heuristic.Linq.Algorithms
 {
     static class IterativeDeepeningAStar
     {
