@@ -8,8 +8,8 @@
     <Authors>Robert Vandenberg Huang</Authors>
     <Product>Linq To A*</Product>
     <PackageLicenseUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/LICENSE</PackageLicenseUrl>
-    <Version>1.0.0-beta</Version>
-    <PackageId>linq-to-astar</PackageId>
+    <Version>1.0.0</Version>
+    <PackageId>Heuristic.Linq</PackageId>
     <PackageTags>linq;astar;heuristic</PackageTags>
     <Copyright>© 2018 Robert Vandenberg Huang</Copyright>
     <Description>LINQ to A* is an experimental library aimed to incorporate LINQ expressions into A* as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch shortest path found by the algorithm.</Description>
@@ -24,7 +24,7 @@ The property HeuristicSearch.RegisteredAlgorithms now will contains preset algor
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\LinqToAStar.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\Heuristic.Linq.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

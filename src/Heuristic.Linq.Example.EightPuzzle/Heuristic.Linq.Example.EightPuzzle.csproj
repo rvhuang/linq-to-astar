@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinqToAStar\LinqToAStar.csproj" />
+    <ProjectReference Include="..\Heuristic.Linq\Heuristic.Linq.csproj" />
   </ItemGroup>
 
 </Project>
