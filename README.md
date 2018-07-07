@@ -18,7 +18,7 @@ The library defines a set of generic APIs that can be applied to any problem as 
 
 ## Example
 
-Snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example utilizes types defined in [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
+Snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example uses types defined in [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
 
 ```csharp
 // The path to be found between two positions.
@@ -56,8 +56,8 @@ See [Expression Examples](docs/Expression-Examples.md) for more examples.
 
 ### Console Examples
 
-* [Pathfinding](src/LinqToAStar.Example.PathFinding/) 
-* [Solving 8-Puzzle](src/LinqToAStar.Example.EightPuzzle/)
+* [Pathfinding](src/Heuristic.Linq.Example.PathFinding/) 
+* [Solving 8-Puzzle](src/Heuristic.Linq.Example.EightPuzzle/)
 
 ### Playground
 
