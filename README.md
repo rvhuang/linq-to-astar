@@ -32,9 +32,9 @@ var unit = 1;
 var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
 
 // See description below.
-var solution = from step in queryable.Except(GetObstacles()) // 1.
-               where boundary.Contains(step)                 // 2.
-               orderby step.GetManhattanDistance(goal)       // 3.
+var solution = from step in queryable.Except(GetMapObstacles()) // 1.
+               where boundary.Contains(step)                    // 2.
+               orderby step.GetManhattanDistance(goal)          // 3.
                select step;
 
 // Each step of the shortest path found by A* algorithm.

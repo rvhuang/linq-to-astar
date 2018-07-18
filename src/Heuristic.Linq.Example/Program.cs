@@ -13,7 +13,7 @@ namespace Heuristic.Linq.Example
             var boundary = new Rectangle(0, 0, 40, 40);
             var unit = 1;
             var queryable = HeuristicSearch.AStar(start, goal, (step, lv) => step.GetFourDirections(unit));
-            var solution = from step in queryable.Except(GetObstacles())
+            var solution = from step in queryable.Except(GetMapObstacles())
                            where boundary.Contains(step)
                            orderby step.GetManhattanDistance(goal)
                            select step;
@@ -24,7 +24,7 @@ namespace Heuristic.Linq.Example
             }
         }
 
-        static IEnumerable<Point> GetObstacles()
+        static IEnumerable<Point> GetMapObstacles()
         {
             yield return new Point(15, 10);
             yield return new Point(16, 10);
