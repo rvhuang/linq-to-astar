@@ -119,6 +119,8 @@ var solution = from step in queryable.Except(GetObstacles())
 
 ### In Development
 
+* `Count()` - planning
+* `LongCount()` - planning
 * `Intersect()` - planning
 * `Join()` - evaluating, may be canceled
 
