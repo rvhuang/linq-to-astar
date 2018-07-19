@@ -146,6 +146,23 @@ namespace Heuristic.Linq.Test
         [InlineData(nameof(BestFirstSearch))]
         [InlineData(nameof(IterativeDeepeningAStar))]
         [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void CountTest(string algorithmName)
+        {
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal), step.GetEuclideanDistance(goal)
+                           select step;
+            // Since there are no obstacles between start and goal,
+            // the total number of solution steps should be equal to their Manhattan distance + 1.
+            Assert.Equal(start.GetManhattanDistance(goal) + 1, solution.Count());
+        }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
         public void FirstTest(string algorithmName)
         {
             var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));

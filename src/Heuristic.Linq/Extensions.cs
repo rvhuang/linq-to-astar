@@ -264,7 +264,7 @@ namespace Heuristic.Linq
 
             var lastNode = source.Run();
 
-            return lastNode == null ? 0 : lastNode.Level;
+            return lastNode == null ? 0 : lastNode.Level + 1;
         }
 
         public static long LongCount<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
@@ -273,7 +273,7 @@ namespace Heuristic.Linq
 
             var lastNode = source.Run();
 
-            return lastNode == null ? 0 : lastNode.Level;
+            return lastNode == null ? 0 : lastNode.Level + 1;
         }
 
         public static TFactor First<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
