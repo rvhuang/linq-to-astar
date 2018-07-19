@@ -124,5 +124,85 @@ namespace Heuristic.Linq.Test
             Assert.Equal(actual.First(), queryable.From);
             Assert.Equal(actual.Last(), queryable.To);
         }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void AnyTest(string algorithmName)
+        {
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal), step.GetEuclideanDistance(goal)
+                           select step;
+
+            Assert.True(solution.Any());
+        }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void FirstTest(string algorithmName)
+        {
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal), step.GetEuclideanDistance(goal)
+                           select step;
+
+            Assert.Equal(solution.First(), queryable.From);
+        }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void FirstAndReverseTest(string algorithmName)
+        {
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal), step.GetEuclideanDistance(goal)
+                           select step;
+
+            Assert.Equal(solution.Reverse().First(), queryable.To);
+        }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void LastTest(string algorithmName)
+        {
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal), step.GetEuclideanDistance(goal)
+                           select step;
+
+            Assert.Equal(solution.Last(), queryable.To);
+        }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void LastAndReverseTest(string algorithmName)
+        {
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit));
+            var solution = from step in queryable
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal), step.GetEuclideanDistance(goal)
+                           select step;
+
+            Assert.Equal(solution.Reverse().Last(), queryable.From);
+        }
     }
 }

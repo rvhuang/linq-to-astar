@@ -99,7 +99,7 @@ namespace Heuristic.Linq
         /// <returns>Each step of the solution.</returns>
         public virtual IEnumerator<TFactor> GetEnumerator()
         {
-            var lastNode = Run(this);
+            var lastNode = this.Run();
 
             if (lastNode == null) // Solution not found
                 return Enumerable.Empty<TFactor>().GetEnumerator();
@@ -122,7 +122,7 @@ namespace Heuristic.Linq
         /// <returns>An array that consists of the solution found by the algorithm.</returns>
         public virtual TFactor[] ToArray()
         {
-            var lastNode = Run(this);
+            var lastNode = this.Run();
 
             if (lastNode == null) // Solution not found
                 return Array.Empty<TFactor>();
@@ -158,7 +158,7 @@ namespace Heuristic.Linq
         // Consider exposing this method in future.
         internal TOutput[] ToArray<TOutput>(Func<TFactor, int, TOutput> converter)
         {
-            var lastNode = Run(this);
+            var lastNode = this.Run();
 
             if (lastNode == null) // Solution not found
                 return Array.Empty<TOutput>();
@@ -233,42 +233,6 @@ namespace Heuristic.Linq
         {
             foreach (var r in Converter(step, level))
                 yield return new Node<TFactor, TStep>(step, r, level);
-        }
-
-        #endregion
-
-        #region Commons 
-
-        private static Node<TFactor, TStep> Run(HeuristicSearchBase<TFactor, TStep> instance)
-        {
-            Debug.WriteLine($"Searching path between {instance.From} and {instance.To} with {instance.AlgorithmName}...");
-
-            var lastNode = default(Node<TFactor, TStep>);
-
-            switch (instance.AlgorithmName)
-            {
-                case nameof(AStar):
-                    lastNode = AStar.Run(instance);
-                    break;
-
-                case nameof(BestFirstSearch):
-                    lastNode = BestFirstSearch.Run(instance);
-                    break;
-
-                case nameof(IterativeDeepeningAStar):
-                    lastNode = IterativeDeepeningAStar.Run(instance);
-                    break;
-
-                case nameof(RecursiveBestFirstSearch):
-                    lastNode = RecursiveBestFirstSearch.Run(instance);
-                    break;
-
-                default:
-                    lastNode = HeuristicSearch.RegisteredAlgorithms[instance.AlgorithmName](instance.AlgorithmName).Run(instance);
-                    break;
-            }
-
-            return lastNode;
         }
 
         #endregion

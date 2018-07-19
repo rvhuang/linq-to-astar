@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Heuristic.Linq
 {
+    using Algorithms;
+    using System.Linq;
+
     /// <summary>
     /// Provide a set of LINQ clauses to <see cref="HeuristicSearchBase{TFactor, TStep}"/> class.
     /// </summary>
@@ -246,6 +250,107 @@ namespace Heuristic.Linq
             source.IsReversed = !source.IsReversed;
 
             return source;
+        }
+        
+        public static bool Any<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            return source.Run() != null;
+        }
+
+        public static int Count<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            var lastNode = source.Run();
+
+            return lastNode == null ? 0 : lastNode.Level;
+        }
+
+        public static long LongCount<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            var lastNode = source.Run();
+
+            return lastNode == null ? 0 : lastNode.Level;
+        }
+
+        public static TFactor First<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            var lastNode = source.Run();
+
+            if (lastNode == null) throw new InvalidOperationException("Sequence contains no elements.");
+
+            return source.IsReversed ? lastNode.Factor : lastNode.TraceBack().Factor;
+        }
+
+        public static TFactor FirstOrDefault<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            var lastNode = source.Run();
+
+            if (lastNode == null) return default(TFactor);
+
+            return source.IsReversed ? lastNode.Factor : lastNode.TraceBack().Factor;
+        }
+
+        public static TFactor Last<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            var lastNode = source.Run();
+
+            if (lastNode == null) throw new InvalidOperationException("Sequence contains no elements.");
+             
+            return source.IsReversed ? lastNode.TraceBack().Factor : lastNode.Factor;
+        }
+
+        public static TFactor LastOrDefault<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+
+            var lastNode = source.Run();
+
+            if (lastNode == null) return default(TFactor);
+
+            return source.IsReversed ? lastNode.TraceBack().Factor : lastNode.Factor;
+        }
+
+        internal static Node<TFactor, TStep> Run<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> instance)
+        {
+            Debug.WriteLine($"Searching path between {instance.From} and {instance.To} with {instance.AlgorithmName}...");
+
+            var lastNode = default(Node<TFactor, TStep>);
+
+            switch (instance.AlgorithmName)
+            {
+                case nameof(AStar):
+                    lastNode = AStar.Run(instance);
+                    break;
+
+                case nameof(BestFirstSearch):
+                    lastNode = BestFirstSearch.Run(instance);
+                    break;
+
+                case nameof(IterativeDeepeningAStar):
+                    lastNode = IterativeDeepeningAStar.Run(instance);
+                    break;
+
+                case nameof(RecursiveBestFirstSearch):
+                    lastNode = RecursiveBestFirstSearch.Run(instance);
+                    break;
+
+                default:
+                    lastNode = HeuristicSearch.RegisteredAlgorithms[instance.AlgorithmName](instance.AlgorithmName).Run(instance);
+                    break;
+            }
+
+            return lastNode;
         }
     }
 }
