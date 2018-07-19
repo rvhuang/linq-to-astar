@@ -5,7 +5,6 @@ using System.Diagnostics;
 namespace Heuristic.Linq
 {
     using Algorithms;
-    using System.Linq;
 
     /// <summary>
     /// Provide a set of LINQ clauses to <see cref="HeuristicSearchBase{TFactor, TStep}"/> class.
