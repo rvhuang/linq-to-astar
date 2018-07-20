@@ -93,7 +93,7 @@ var solution = from step in queryable.Except(GetObstacles())
 
 ## Supported LINQ Clauses and Operations
 
-### Transformation
+### Projection
 
 * `Select()`
 * `SelectMany()`
@@ -116,17 +116,17 @@ var solution = from step in queryable.Except(GetObstacles())
 * `Reverse()` - inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
 * `ToArray()` - provides optimized performance better than `Enumerable.ToArray<T>()`.
 * `ToList()` - provides optimized performance better than `Enumerable.ToList<T>()`.
+* `Any()`
+* `Count()`
+* `LongCount()`
+* `First()`
+* `FirstOrDefault()`
+* `Last()`
+* `LastOrDefault()`
 
 ### In Development
 
-* `Any()` - testing
-* `Count()` - testing
-* `LongCount()` - testing
-* `First()` - testing
-* `FirstOrDefault()` - testing
-* `Last()` - testing
-* `LastOrDefault()` - testing 
-* `Intersect()` - planning
+* `Intersect()` - evaluating, may be canceled
 * `Join()` - evaluating, may be canceled
 
 ## Roadmap
