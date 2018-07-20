@@ -250,7 +250,15 @@ namespace Heuristic.Linq
 
             return source;
         }
-        
+
+        /// <summary>
+        /// Determines whether the solution can be found.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>true if the solution can be found; otherwise, false.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static bool Any<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -258,6 +266,14 @@ namespace Heuristic.Linq
             return source.Run() != null;
         }
 
+        /// <summary>
+        /// Returns the number of steps in solution.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>The number of steps in solution.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static int Count<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -267,6 +283,14 @@ namespace Heuristic.Linq
             return lastNode == null ? 0 : lastNode.Level + 1;
         }
 
+        /// <summary>
+        /// Returns the number of steps in solution, in <see cref="Int64"/>.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>The number of steps in solution.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static long LongCount<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -276,6 +300,15 @@ namespace Heuristic.Linq
             return lastNode == null ? 0 : lastNode.Level + 1;
         }
 
+        /// <summary>
+        /// Returns first step of the solution.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>The first step of the solution.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Solution is not found.</exception>
         public static TFactor First<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -287,6 +320,14 @@ namespace Heuristic.Linq
             return source.IsReversed ? lastNode.Factor : lastNode.TraceBack().Factor;
         }
 
+        /// <summary>
+        /// Returns first step of the solution, or default value of <typeparamref name="TFactor"/> if solution is not found.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>The first step of the solution.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception> 
         public static TFactor FirstOrDefault<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -298,6 +339,15 @@ namespace Heuristic.Linq
             return source.IsReversed ? lastNode.Factor : lastNode.TraceBack().Factor;
         }
 
+        /// <summary>
+        /// Returns last step of the solution.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>The last step of the solution.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">Solution is not found.</exception>
         public static TFactor Last<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -305,10 +355,18 @@ namespace Heuristic.Linq
             var lastNode = source.Run();
 
             if (lastNode == null) throw new InvalidOperationException("Sequence contains no elements.");
-             
+
             return source.IsReversed ? lastNode.TraceBack().Factor : lastNode.Factor;
         }
 
+        /// <summary>
+        /// Returns last step of the solution, or default value of <typeparamref name="TFactor"/> if solution is not found.
+        /// </summary>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="source">The current instance.</param>
+        /// <returns>The last step of the solution.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception> 
         public static TFactor LastOrDefault<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -320,32 +378,32 @@ namespace Heuristic.Linq
             return source.IsReversed ? lastNode.TraceBack().Factor : lastNode.Factor;
         }
 
-        internal static Node<TFactor, TStep> Run<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> instance)
+        internal static Node<TFactor, TStep> Run<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
-            Debug.WriteLine($"Searching path between {instance.From} and {instance.To} with {instance.AlgorithmName}...");
+            Debug.WriteLine($"Searching path between {source.From} and {source.To} with {source.AlgorithmName}...");
 
             var lastNode = default(Node<TFactor, TStep>);
 
-            switch (instance.AlgorithmName)
+            switch (source.AlgorithmName)
             {
                 case nameof(AStar):
-                    lastNode = AStar.Run(instance);
+                    lastNode = AStar.Run(source);
                     break;
 
                 case nameof(BestFirstSearch):
-                    lastNode = BestFirstSearch.Run(instance);
+                    lastNode = BestFirstSearch.Run(source);
                     break;
 
                 case nameof(IterativeDeepeningAStar):
-                    lastNode = IterativeDeepeningAStar.Run(instance);
+                    lastNode = IterativeDeepeningAStar.Run(source);
                     break;
 
                 case nameof(RecursiveBestFirstSearch):
-                    lastNode = RecursiveBestFirstSearch.Run(instance);
+                    lastNode = RecursiveBestFirstSearch.Run(source);
                     break;
 
                 default:
-                    lastNode = HeuristicSearch.RegisteredAlgorithms[instance.AlgorithmName](instance.AlgorithmName).Run(instance);
+                    lastNode = HeuristicSearch.RegisteredAlgorithms[source.AlgorithmName](source.AlgorithmName).Run(source);
                     break;
             }
 
