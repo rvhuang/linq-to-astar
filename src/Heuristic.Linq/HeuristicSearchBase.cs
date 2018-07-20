@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Heuristic.Linq
 {
-    using Algorithms;
-
     /// <summary>
     /// Defines the instance that allows LINQ expressions to be applied to heuristic algorithms.
     /// </summary>
