@@ -16,7 +16,9 @@ namespace Heuristic.Linq
 
         internal static readonly bool IsFactorComparable = typeof(IComparable<TFactor>).IsAssignableFrom(typeof(TFactor));
 
-        private readonly IEqualityComparer<TStep> _comparer;
+        private readonly string _algorithmName;
+        private readonly IEqualityComparer<TStep> _ec;
+        private readonly INodeComparer<TFactor, TStep> _nc;
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly Func<TStep, int, IEnumerable<TFactor>> _converter;
         private readonly Func<TStep, int, IEnumerable<TStep>> _expander;
@@ -38,17 +40,17 @@ namespace Heuristic.Linq
         /// <summary>
         /// Gets the comparer used to test if two <typeparamref name="TStep"/> instances are equal.
         /// </summary>
-        public IEqualityComparer<TStep> StepComparer => _comparer;
+        public IEqualityComparer<TStep> StepComparer => _ec;
 
         /// <summary>
         /// Gets the algorithm name.
         /// </summary>
-        public virtual string AlgorithmName => _source != null ? _source.AlgorithmName : string.Empty;
+        public string AlgorithmName => _algorithmName;
 
         /// <summary>
         /// Gets the comparer used to compare two <see cref="Node{TFactor, TStep}"/> instances.
         /// </summary>
-        public virtual INodeComparer<TFactor, TStep> NodeComparer => _source != null ? _source.NodeComparer : new DefaultComparer<TFactor, TStep>();
+        public INodeComparer<TFactor, TStep> NodeComparer => _nc;
 
         internal bool IsReversed { get; set; }
 
@@ -63,25 +65,22 @@ namespace Heuristic.Linq
         #region Constructors
 
         internal HeuristicSearchBase(HeuristicSearchBase<TFactor, TStep> source)
-            : this(source.From, source.To, source.StepComparer, source.Converter, source.Expander)
+            : this(source.AlgorithmName, source.From, source.To, source.StepComparer, source.NodeComparer, source.Converter, source.Expander)
         {
             _source = source;
+
             IsReversed = source.IsReversed;
-        }
+        } 
 
-        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,
-            Func<TStep, int, IEnumerable<TStep>> expander)
-            : this(from, to, comparer, null, expander)
-        {
-        }
-
-        internal HeuristicSearchBase(TStep from, TStep to, IEqualityComparer<TStep> comparer,
+        internal HeuristicSearchBase(string algorithmName, TStep from, TStep to, IEqualityComparer<TStep> ec, INodeComparer<TFactor, TStep> nc,
             Func<TStep, int, IEnumerable<TFactor>> converter, Func<TStep, int, IEnumerable<TStep>> expander)
         {
             From = from;
             To = to;
 
-            _comparer = comparer ?? EqualityComparer<TStep>.Default;
+            _algorithmName = algorithmName;
+            _ec = ec ?? EqualityComparer<TStep>.Default;
+            _nc = nc != null ? nc : (IsFactorComparable ? new DefaultComparer<TFactor, TStep>() : null);
             _converter = converter;
             _expander = expander ?? throw new ArgumentNullException(nameof(expander));
         }
