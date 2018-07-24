@@ -52,7 +52,7 @@ namespace Heuristic.Linq
         /// </summary>
         public INodeComparer<TFactor, TStep> NodeComparer => _nc;
 
-        internal bool IsReversed { get; set; }
+        internal bool IsReversed { get; set; } // Consider exposing this.
 
         internal Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
 
