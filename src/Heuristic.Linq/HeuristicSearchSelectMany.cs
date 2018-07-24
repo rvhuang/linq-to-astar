@@ -29,6 +29,8 @@ namespace Heuristic.Linq
             _source = source;
             _collectionSelector = collectionSelector;
             _factorSelector = factorSelector;
+
+            IsReversed = source.IsReversed;
         }
 
         #endregion
@@ -94,6 +96,8 @@ namespace Heuristic.Linq
         {
             _source = source;
             _selector = selector;
+
+            IsReversed = source.IsReversed;
         }
 
         #endregion

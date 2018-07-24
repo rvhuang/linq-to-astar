@@ -16,6 +16,7 @@ namespace Heuristic.Linq
         internal HeuristicSearchOrderBy(HeuristicSearchBase<TFactor, TStep> source, INodeComparer<TFactor, TStep> nodeComparer)
             : base(source.AlgorithmName, source.From, source.To, source.StepComparer, nodeComparer, source.Converter, source.Expander)
         {
+            IsReversed = source.IsReversed;
         }
 
         #endregion

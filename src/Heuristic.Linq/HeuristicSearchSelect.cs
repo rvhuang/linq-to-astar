@@ -26,6 +26,8 @@ namespace Heuristic.Linq
         {
             _source = source;
             _selector = selector;
+
+            IsReversed = source.IsReversed;
         }
 
         #endregion
