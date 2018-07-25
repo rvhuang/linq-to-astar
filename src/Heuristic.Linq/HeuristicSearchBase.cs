@@ -15,6 +15,7 @@ namespace Heuristic.Linq
         #region Fields
 
         internal static readonly bool IsFactorComparable = typeof(IComparable<TFactor>).IsAssignableFrom(typeof(TFactor));
+        internal static readonly bool IsStepComparable = typeof(IComparable<TStep>).IsAssignableFrom(typeof(TStep));
 
         private readonly string _algorithmName;
         private readonly IEqualityComparer<TStep> _ec;
@@ -93,6 +94,9 @@ namespace Heuristic.Linq
         /// Enumerates each step of the solution found by the algorithm.
         /// </summary>
         /// <returns>Each step of the solution.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public virtual IEnumerator<TFactor> GetEnumerator()
         {
             var lastNode = this.Run();
@@ -116,6 +120,9 @@ namespace Heuristic.Linq
         /// Creates an array that consists of the solution found by the algorithm.
         /// </summary>
         /// <returns>An array that consists of the solution found by the algorithm.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public virtual TFactor[] ToArray()
         {
             var lastNode = this.Run();
@@ -146,6 +153,9 @@ namespace Heuristic.Linq
         /// Creates a <see cref="List{T}"/> instance that consists of the solution found by the algorithm.
         /// </summary>
         /// <returns>An <see cref="List{T}"/> instance that consists of the solution found by the algorithm.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public virtual List<TFactor> ToList()
         {
             return new List<TFactor>(ToArray());

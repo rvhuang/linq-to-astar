@@ -259,6 +259,9 @@ namespace Heuristic.Linq
         /// <param name="source">The current instance.</param>
         /// <returns>true if the solution can be found; otherwise, false.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public static bool Any<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -274,6 +277,9 @@ namespace Heuristic.Linq
         /// <param name="source">The current instance.</param>
         /// <returns>The number of steps in solution.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public static int Count<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -291,6 +297,9 @@ namespace Heuristic.Linq
         /// <param name="source">The current instance.</param>
         /// <returns>The number of steps in solution.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public static long LongCount<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -328,6 +337,9 @@ namespace Heuristic.Linq
         /// <param name="source">The current instance.</param>
         /// <returns>The first step of the solution.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception> 
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public static TFactor FirstOrDefault<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
@@ -367,6 +379,9 @@ namespace Heuristic.Linq
         /// <param name="source">The current instance.</param>
         /// <returns>The last step of the solution.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception> 
+        /// <exception cref="InvalidOperationException">
+        /// The orderby clause is missing or <typeparamref name="TFactor"/> does not implement <see cref="IComparable{TFactor}"/> interface.
+        /// </exception>
         public static TFactor LastOrDefault<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
