@@ -14,9 +14,7 @@ namespace Heuristic.Linq
         #endregion
 
         #region Properties
-
-        public override string AlgorithmName => _source.AlgorithmName;
-
+         
         internal override Func<TStep, int, IEnumerable<TFactor>> Converter => Convert;
 
         #endregion
@@ -24,10 +22,12 @@ namespace Heuristic.Linq
         #region Constructor
 
         public HeuristicSearchSelect(HeuristicSearchBase<TSource, TStep> source, Func<TSource, int, TFactor> selector)
-            : base(source.From, source.To, source.StepComparer, source.Expander)
+            : base(source.AlgorithmName, source.From, source.To, source.StepComparer, null, null, source.Expander)
         {
             _source = source;
             _selector = selector;
+
+            IsReversed = source.IsReversed;
         }
 
         #endregion
