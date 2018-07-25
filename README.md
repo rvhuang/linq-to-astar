@@ -113,9 +113,10 @@ var solution = from step in queryable.Except(GetObstacles())
 
 ### Operation
 
-* `Reverse()` - inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
-* `ToArray()` - provides optimized performance better than `Enumerable.ToArray<T>()`.
-* `ToList()` - provides optimized performance better than `Enumerable.ToList<T>()`.
+The operations below provide optimized performance to replace `Enumerable` extensions.
+
+* `ToArray()`
+* `ToList()`
 * `Any()`
 * `Count()`
 * `LongCount()`
@@ -123,6 +124,10 @@ var solution = from step in queryable.Except(GetObstacles())
 * `FirstOrDefault()`
 * `Last()`
 * `LastOrDefault()`
+
+### Misc
+
+* `Reverse()` - inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
 
 ### In Development
 
