@@ -33,9 +33,9 @@ namespace Heuristic.Linq
 
         public int Compare(Node<TFactor, TStep> x, Node<TFactor, TStep> y)
         {
-            var r = CompareFactorOnly(x, y);
+            var r = _comparer1.Compare(x, y);
 
-            return r != 0 ? r : DistanceHelper.Int32Comparer.Compare(x.Level, y.Level);
+            return r != 0 ? r : _comparer2.Compare(x, y);
         }
 
         public int Compare(TFactor x, TFactor y)
