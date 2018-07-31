@@ -1,9 +1,8 @@
 # LINQ to A\*
 
-[![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) 
-[![NuGet Pre Release](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/)
+[![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![Build status](https://rvhuang.visualstudio.com/MyFirstProject/_apis/build/status/Heuristic.Linq)](https://rvhuang.visualstudio.com/MyFirstProject/_build/latest?definitionId=3) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/) 
 
-**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch shortest path found by the algorithm.
+**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch path found by the algorithm.
 
 The library defines a set of generic APIs that can be applied to any problem as long as the problem can be solved with the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
@@ -59,7 +58,7 @@ See [Expression Examples](docs/Expression-Examples.md) for more examples.
 * [Pathfinding](src/Heuristic.Linq.Example.PathFinding/) 
 * [Solving 8-Puzzle](src/Heuristic.Linq.Example.EightPuzzle/)
 
-### Playground
+### Live Playground
 
 Check out [Pathfinding Lab](https://pathfinding-lab.azurewebsites.net/) and try it out.
 
