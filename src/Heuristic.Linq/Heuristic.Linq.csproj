@@ -19,7 +19,8 @@
     <PackageReleaseNotes>
       Namespace renaming from LinqToAStar to Heuristic.Linq.
       Add native ToArray(), ToList(), Count(), LongCount(), First(), FirstOrDefault(), Last(), LastOrDefault() support.
-      Enable SourceLink support (GitHub).
+      Improve exception message when the algorithm is unable to evaluate nodes.
+      Fix incorrect comparison behavior when multiple heuristic functions are applied.
     </PackageReleaseNotes>
   </PropertyGroup>
 
