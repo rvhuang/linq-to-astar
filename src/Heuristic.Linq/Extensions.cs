@@ -395,8 +395,8 @@ namespace Heuristic.Linq
 
         internal static Node<TFactor, TStep> Run<TFactor, TStep>(this HeuristicSearchBase<TFactor, TStep> source)
         {
-            if (source.NodeComparer == null && !HeuristicSearchBase<TFactor, TStep>.IsFactorComparable)
-                throw new InvalidOperationException($"Unable to evaluate steps. The orderby clause is missing or {typeof(TFactor)} does not implement {typeof(IComparable<TFactor>)}.");
+            // if (source.NodeComparer == null && !HeuristicSearchBase<TFactor, TStep>.IsFactorComparable)
+            //    throw new InvalidOperationException($"Unable to evaluate steps. The orderby clause is missing or {typeof(TFactor)} does not implement {typeof(IComparable<TFactor>)}.");
 
             Debug.WriteLine($"Searching path between {source.From} and {source.To} with {source.AlgorithmName}...");
 

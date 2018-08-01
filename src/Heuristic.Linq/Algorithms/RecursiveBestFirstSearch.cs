@@ -43,7 +43,14 @@ namespace Heuristic.Linq.Algorithms
             if (inits.Length == 0)
                 return null;
 
-            Array.Sort(inits, _nodeComparer);
+            try
+            {
+                Array.Sort(inits, _nodeComparer);
+            }
+            catch (Exception error)
+            {
+                throw error.InnerException ?? error;
+            }
 
             var best = inits[0];
             var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
