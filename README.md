@@ -139,6 +139,7 @@ The operations below provide optimized performance to replace `Enumerable` exten
 |----------|----------|
 |1.0.0 Preview|Q2 2018|
 |1.0.0|Q3 2018|
+|1.1.0|Q4 2018|
 
 ## Platform and Dependencies
 
