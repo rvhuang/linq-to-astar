@@ -22,12 +22,10 @@ namespace Heuristic.Linq
 
         public DefaultComparer() : this(false) { }
 
-        public DefaultComparer(bool descending) : this(null, false) { }
-
-        public DefaultComparer(IComparer<TFactor> factorComparer, bool descending)
+        public DefaultComparer(bool descending)
         {
             _descending = descending;
-            _factorComparer = factorComparer ?? (HeuristicSearchBase<TFactor, TStep>.IsFactorComparable ? Comparer<TFactor>.Default : null);
+            _factorComparer = HeuristicSearchBase<TFactor, TStep>.IsFactorComparable ? Comparer<TFactor>.Default : null;
         }
 
         #endregion
