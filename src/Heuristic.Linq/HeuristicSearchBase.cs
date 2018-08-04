@@ -81,7 +81,7 @@ namespace Heuristic.Linq
 
             _algorithmName = algorithmName;
             _ec = ec ?? EqualityComparer<TStep>.Default;
-            _nc = nc != null ? nc : (IsFactorComparable ? new DefaultComparer<TFactor, TStep>() : null);
+            _nc = nc != null ? nc : new DefaultComparer<TFactor, TStep>();
             _converter = converter;
             _expander = expander ?? throw new ArgumentNullException(nameof(expander));
         }
