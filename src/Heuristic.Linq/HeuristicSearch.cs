@@ -173,6 +173,7 @@ namespace Heuristic.Linq
         /// <typeparam name="TAlgorithm">The type of algorithm that implements <see cref="IAlgorithm"/> interface.</typeparam>
         /// <param name="algorithmName">The name of algorithm</param>
         /// <returns>true if successfully registered. Otherwise false.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="algorithmName"/> is null.</exception>
         public static bool Register<TAlgorithm>(string algorithmName)
             where TAlgorithm : IAlgorithm, new()
         {
@@ -186,6 +187,7 @@ namespace Heuristic.Linq
         /// <param name="algorithmName">The name of algorithm</param>
         /// <param name="factory"></param>
         /// <returns>true if successfully registered. Otherwise false.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="algorithmName"/> or <paramref name="factory"/> is null.</exception>
         public static bool Register<TAlgorithm>(string algorithmName, Func<string, IAlgorithm> factory)
             where TAlgorithm : IAlgorithm
         {
