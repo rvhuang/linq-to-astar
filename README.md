@@ -6,7 +6,7 @@
 
 The library defines a set of generic APIs that can be applied to any problem as long as the problem can be solved with the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
 
-**All feedbacks are greatly appreciated** as the experiment is growing rapidly.
+**All feedbacks are greatly appreciated**.
 
 ## Why LINQ
 
@@ -127,11 +127,6 @@ The operations below provide optimized performance to replace `Enumerable` exten
 ### Misc
 
 * `Reverse()` - inverts the order of solution from `start` -> `goal` to `goal` -> `start`.
-
-### In Development
-
-* `Intersect()` - evaluating, may be canceled
-* `Join()` - evaluating, may be canceled
 
 ## Roadmap
 
