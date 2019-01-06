@@ -48,13 +48,18 @@ namespace Heuristic.Linq.Algorithms
         }
     }
 
-    internal struct BestFirstSearchrAlgorithm : IAlgorithm
+    internal struct BestFirstSearchrAlgorithm : IAlgorithm, IObservableAlgorithm
     {
         string IAlgorithm.AlgorithmName => nameof(BestFirstSearch);
 
         Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             return BestFirstSearch.Run(source);
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> inspector)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

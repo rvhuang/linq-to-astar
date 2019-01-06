@@ -110,7 +110,7 @@ namespace Heuristic.Linq.Algorithms
         #endregion 
     }
 
-    internal struct RecursiveBestFirstSearchAlgorithm : IAlgorithm
+    internal struct RecursiveBestFirstSearchAlgorithm : IAlgorithm, IObservableAlgorithm
     {
         string IAlgorithm.AlgorithmName => nameof(RecursiveBestFirstSearch);
 
@@ -119,6 +119,11 @@ namespace Heuristic.Linq.Algorithms
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
             return new RecursiveBestFirstSearch<TFactor, TStep>(source).Run();
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> inspector)
+        {
+            throw new NotImplementedException();
         }
     }
 }

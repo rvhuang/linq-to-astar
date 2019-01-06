@@ -55,13 +55,18 @@ namespace Heuristic.Linq.Algorithms
         }
     }
 
-    internal struct AStarAlgorithm : IAlgorithm
+    internal struct AStarAlgorithm : IAlgorithm, IObservableAlgorithm
     {
         string IAlgorithm.AlgorithmName => nameof(AStar);
 
         Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             return AStar.Run(source);
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> inspector)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

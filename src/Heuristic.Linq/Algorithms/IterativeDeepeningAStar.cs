@@ -106,7 +106,7 @@ namespace Heuristic.Linq.Algorithms
         #endregion 
     }
 
-    internal struct IterativeDeepeningAStarAlgorithm : IAlgorithm
+    internal struct IterativeDeepeningAStarAlgorithm : IAlgorithm, IObservableAlgorithm
     {
         string IAlgorithm.AlgorithmName => nameof(IterativeDeepeningAStar);
 
@@ -115,6 +115,11 @@ namespace Heuristic.Linq.Algorithms
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
             return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> inspector)
+        {
+            throw new NotImplementedException();
         }
     }
 }
