@@ -61,21 +61,21 @@ namespace Heuristic.Linq.Algorithms
 
             var visited = new HashSet<TStep>(sc);
             var sortAt = 0;
-            var best = nexts[sortAt]; // nexts.First();
+            var best = nexts[sortAt];
 
             while (nexts.Count - sortAt > 0)
             {
                 var sortAll = false;
 
                 best = nexts[sortAt];
+                observer.OnMovedToNextNode(nexts[sortAt], nexts.GetRange(sortAt, nexts.Count - sortAt));
 
                 if (sc.Equals(best.Step, source.To))
                 {
-                    observer.OnCompleted(best, nexts.GetRange(sortAt + 1, nexts.Count - sortAt));
+                    observer.OnCompleted(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
                     return best;
                 }
-                sortAt++; // nexts.RemoveAt(0);
-                observer.OnMovingToNextNode(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
+                sortAt++;
 
                 foreach (var next in source.Expands(best.Step, best.Level, visited.Add))
                 {
@@ -90,10 +90,9 @@ namespace Heuristic.Linq.Algorithms
                 if (sortAll)
                     nexts.Sort(sortAt, nexts.Count - sortAt, nc);
 
-                if (nexts.Count - sortAt > 0)
-                    observer.OnMovedToNextNode(nexts[sortAt], nexts.GetRange(sortAt + 1, nexts.Count - sortAt));
+                observer.OnMovingToNextNode(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
             }
-            observer.OnNotFound(best, Array.Empty<Node<TFactor, TStep>>());
+            observer.OnNotFound(Array.Empty<Node<TFactor, TStep>>());
             return null;
         }
     }

@@ -17,7 +17,7 @@ namespace Heuristic.Linq
         /// <remarks>
         /// 
         /// </remarks>
-        void OnMovingToNextNode(Node<TFactor, TStep> current, IReadOnlyList<Node<TFactor, TStep>> candidates);
+        void OnMovingToNextNode(Node<TFactor, TStep> current, IReadOnlyCollection<Node<TFactor, TStep>> candidates);
 
         /// <summary>
         /// The method that is called when the algorithm has moved to next <see cref="Node{TFactor, TStep}"/> instance.
@@ -27,20 +27,19 @@ namespace Heuristic.Linq
         /// <remarks>
         /// 
         /// </remarks>
-        void OnMovedToNextNode(Node<TFactor, TStep> current, IReadOnlyList<Node<TFactor, TStep>> candidates);
+        void OnMovedToNextNode(Node<TFactor, TStep> current, IReadOnlyCollection<Node<TFactor, TStep>> candidates);
 
         /// <summary>
         /// The method that is called when the algorithm have found the solution.
         /// </summary>
         /// <param name="current">The current node where the algorithm is at.</param>
         /// <param name="candidates">A collection that consists of remaining unvisited potential nodes.</param>
-        void OnCompleted(Node<TFactor, TStep> current, IReadOnlyList<Node<TFactor, TStep>> candidates);
+        void OnCompleted(Node<TFactor, TStep> current, IReadOnlyCollection<Node<TFactor, TStep>> candidates);
 
         /// <summary>
         /// The method that is called when no solutions are found.
         /// </summary>
-        /// <param name="current">The current node where the algorithm is at.</param>
         /// <param name="candidates">A collection that consists of remaining unvisited potential nodes.</param>
-        void OnNotFound(Node<TFactor, TStep> current, IReadOnlyList<Node<TFactor, TStep>> candidates);
+        void OnNotFound(IReadOnlyCollection<Node<TFactor, TStep>> candidates);
     }
 }

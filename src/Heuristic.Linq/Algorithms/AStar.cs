@@ -65,7 +65,7 @@ namespace Heuristic.Linq.Algorithms
 
             if (open.Count == 0)
             {
-                observer.OnNotFound(null, Array.Empty<Node<TFactor, TStep>>());
+                observer.OnNotFound( Array.Empty<Node<TFactor, TStep>>());
                 return null;
             }
             open.Sort(nc);
@@ -77,15 +77,15 @@ namespace Heuristic.Linq.Algorithms
             while (open.Count - sortAt > 0)
             {
                 current = open[sortAt];
+                observer.OnMovedToNextNode(current, open.GetRange(sortAt, open.Count - sortAt));
 
                 if (sc.Equals(current.Step, source.To))
                 {
-                    observer.OnCompleted(current, open.GetRange(sortAt + 1, open.Count - sortAt));
+                    observer.OnCompleted(current, open.GetRange(sortAt, open.Count - sortAt));
                     return current;
                 }
 
                 sortAt++;
-                observer.OnMovingToNextNode(current, open.GetRange(sortAt, open.Count - sortAt));
                 closed.Add(current.Step);
 
                 var sortAll = false;
@@ -107,10 +107,9 @@ namespace Heuristic.Linq.Algorithms
                 if (sortAll)
                     open.Sort(sortAt, open.Count - sortAt, nc);
 
-                if (open.Count - sortAt > 0)
-                    observer.OnMovedToNextNode(open[sortAt], open.GetRange(sortAt, open.Count - sortAt));
+                observer.OnMovingToNextNode(current, open.GetRange(sortAt, open.Count - sortAt));
             }
-            observer.OnNotFound(current, Array.Empty<Node<TFactor, TStep>>());
+            observer.OnNotFound(Array.Empty<Node<TFactor, TStep>>());
             return null;
         }
     }

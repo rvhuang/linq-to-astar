@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Heuristic.Linq.Algorithms
 {
     internal struct RecursionState<TFactor, TStep>
@@ -12,10 +15,23 @@ namespace Heuristic.Linq.Algorithms
             get; private set;
         }
 
+        public IReadOnlyCollection<Node<TFactor, TStep>> Candidates // Optional, for observers only
+        {
+            get; private set;
+        }
+
         public RecursionState(RecursionFlag flag, Node<TFactor, TStep> node)
         {
             Flag = flag;
             Node = node;
+            Candidates = Array.Empty<Node<TFactor, TStep>>();
+        }
+
+        public RecursionState(RecursionFlag flag, Node<TFactor, TStep> node, IReadOnlyCollection<Node<TFactor, TStep>> candidates)
+        {
+            Flag = flag;
+            Node = node;
+            Candidates = candidates;
         }
 
         public override string ToString()

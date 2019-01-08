@@ -13,6 +13,12 @@ namespace Heuristic.Linq.Algorithms
 
             return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
         }
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        {
+            Debug.WriteLine("LINQ Expression Stack: {0}", source);
+
+            return new ObservableIterativeDeepeningAStar<TFactor, TStep>(source, observer).Run();
+        }
     }
 
     class IterativeDeepeningAStar<TFactor, TStep>
@@ -145,16 +151,21 @@ namespace Heuristic.Linq.Algorithms
                 var t = Search(path, bound, new HashSet<TStep>(_source.StepComparer));
 
                 if (t.Flag == RecursionFlag.Found)
+                {
+                    _observer.OnCompleted(t.Node, path);
                     return t.Node;
+                }
                 if (t.Flag == RecursionFlag.NotFound)
+                {
+                    _observer.OnNotFound(path);
                     return null;
-
+                }
                 // In Progress
                 bound = t.Node;
                 counter++;
             }
             return null;
-        }
+        } 
 
         #endregion
 
@@ -163,6 +174,8 @@ namespace Heuristic.Linq.Algorithms
         private RecursionState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             var current = path.Peek();
+
+            _observer.OnMovedToNextNode(current, path);
 
             if (_source.NodeComparer.Compare(current, bound) > 0)
                 return new RecursionState<TFactor, TStep>(RecursionFlag.InProgress, current);
@@ -180,6 +193,8 @@ namespace Heuristic.Linq.Algorithms
             {
                 next.Previous = current;
                 path.Push(next);
+
+                _observer.OnMovingToNextNode(current, path);
 
                 var t = Search(path, bound, visited);
 
