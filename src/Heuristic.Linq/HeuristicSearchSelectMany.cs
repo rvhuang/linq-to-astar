@@ -31,6 +31,7 @@ namespace Heuristic.Linq
             _factorSelector = factorSelector;
 
             IsReversed = source.IsReversed;
+            AlgorithmObserverFactory = source.AlgorithmObserverFactory;
         }
 
         #endregion
@@ -98,6 +99,7 @@ namespace Heuristic.Linq
             _selector = selector;
 
             IsReversed = source.IsReversed;
+            AlgorithmObserverFactory = source.AlgorithmObserverFactory;
         }
 
         #endregion
