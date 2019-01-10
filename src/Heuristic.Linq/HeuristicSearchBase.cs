@@ -22,7 +22,7 @@ namespace Heuristic.Linq
         private readonly INodeComparer<TFactor, TStep> _nc;
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly Func<TStep, int, IEnumerable<TFactor>> _converter;
-        private readonly Func<TStep, int, IEnumerable<TStep>> _expander;        
+        private readonly Func<TStep, int, IEnumerable<TStep>> _expander;
 
         #endregion
 
@@ -53,10 +53,7 @@ namespace Heuristic.Linq
         /// </summary>
         public INodeComparer<TFactor, TStep> NodeComparer => _nc;
 
-        /// <summary>
-        /// Gets or sets an <see cref="IAlgorithmObserverFactory"/> instance.
-        /// </summary>
-        public IAlgorithmObserverFactory AlgorithmObserverFactory { get; set; }
+        internal IAlgorithmObserverFactory AlgorithmObserverFactory { get; set; }
 
         internal bool IsReversed { get; set; } // Consider exposing this.
 
@@ -65,7 +62,7 @@ namespace Heuristic.Linq
         internal HeuristicSearchBase<TFactor, TStep> Source => _source;
 
         internal virtual Func<TStep, int, IEnumerable<TFactor>> Converter => _converter;
-        
+
         #endregion
 
         #region Constructors
@@ -77,7 +74,7 @@ namespace Heuristic.Linq
 
             IsReversed = source.IsReversed;
             AlgorithmObserverFactory = source.AlgorithmObserverFactory;
-        } 
+        }
 
         internal HeuristicSearchBase(string algorithmName, TStep from, TStep to, IEqualityComparer<TStep> ec, INodeComparer<TFactor, TStep> nc,
             Func<TStep, int, IEnumerable<TFactor>> converter, Func<TStep, int, IEnumerable<TStep>> expander)

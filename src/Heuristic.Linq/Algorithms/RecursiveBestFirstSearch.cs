@@ -14,7 +14,7 @@ namespace Heuristic.Linq.Algorithms
             return new RecursiveBestFirstSearch<TFactor, TStep>(source).Run();
         }
 
-        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
@@ -41,7 +41,7 @@ namespace Heuristic.Linq.Algorithms
 
         #endregion
 
-        #region Override
+        #region Public Method
 
         public Node<TFactor, TStep> Run()
         {
@@ -62,30 +62,30 @@ namespace Heuristic.Linq.Algorithms
             var best = inits[0];
             var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
 
-            return state.Flag == RecursionFlag.Found ? state.Node : null;
+            return state.Flag == AlgorithmFlag.Found ? state.Node : null;
         }
 
         #endregion
 
         #region Core
 
-        private RecursionState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
+        private AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             visited.Add(current.Step);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TFactor, TStep>(RecursionFlag.Found, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.Found, current);
 
             var nexts = _source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
 
             if (nexts.Length == 0)
-                return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, current);
 
             Array.ForEach(nexts, next => next.Previous = current);
             Array.Sort(nexts, _nodeComparer);
 
             var sortAt = 0;
-            var state = default(RecursionState<TFactor, TStep>);
+            var state = default(AlgorithmState<TFactor, TStep>);
 
             while (nexts.Length - sortAt > 0)
             {
@@ -94,7 +94,7 @@ namespace Heuristic.Linq.Algorithms
                 Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
 
                 if (_nodeComparer.Compare(best, bound) > 0)
-                    return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, best);
+                    return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, best);
 
                 if (nexts.Length - sortAt < 2)
                     state = Search(best, null, visited);
@@ -103,15 +103,15 @@ namespace Heuristic.Linq.Algorithms
 
                 switch (state.Flag)
                 {
-                    case RecursionFlag.Found:
+                    case AlgorithmFlag.Found:
                         return state;
 
-                    case RecursionFlag.NotFound:
+                    case AlgorithmFlag.NotFound:
                         sortAt++; // nexts.RemoveAt(0);
                         break;
                 }
             }
-            return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, null);
+            return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, null);
         }
 
         #endregion 
@@ -122,14 +122,14 @@ namespace Heuristic.Linq.Algorithms
         #region Fields
 
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
-        private readonly IAlgorithmObserver<TFactor, TStep> _observer;
+        private readonly IProgress<AlgorithmState<TFactor, TStep>> _observer;
         private readonly IComparer<Node<TFactor, TStep>> _nodeComparer;
 
         #endregion
 
         #region Constructor
 
-        internal ObservableRecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        internal ObservableRecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             _source = source;
             _observer = observer;
@@ -138,7 +138,7 @@ namespace Heuristic.Linq.Algorithms
 
         #endregion
 
-        #region Override
+        #region Public Method
 
         public Node<TFactor, TStep> Run()
         {
@@ -159,49 +159,44 @@ namespace Heuristic.Linq.Algorithms
             var best = inits[0];
             var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
 
-            switch (state.Flag)
-            {
-                case RecursionFlag.Found:
-                    _observer.OnCompleted(state.Node, state.Candidates);
-                    return state.Node;
-                default:
-                    _observer.OnNotFound(state.Candidates);
-                    return null;
-            }
+            return state.Flag == AlgorithmFlag.Found ? _observer.ReportAndReturn(state).Node : _observer.NotFound();
         }
 
         #endregion
 
         #region Core
 
-        private RecursionState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
+        private AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
+            /*
+             * Important Note: 
+             * Only the status AlgorithmFlag.InProgress should be reported from this method
+             * because either AlgorithmFlag.Found or AlgorithmFlag.NotFound should only occur once.
+             */
             visited.Add(current.Step);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TFactor, TStep>(RecursionFlag.Found, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.Found, current);
 
             var nexts = _source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
 
-            _observer.OnMovingToNextNode(current, nexts);
-
             if (nexts.Length == 0)
-                return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, current);
 
             Array.ForEach(nexts, next => next.Previous = current);
             Array.Sort(nexts, _nodeComparer);
 
             var sortAt = 0;
-            var state = default(RecursionState<TFactor, TStep>);
+            var state = default(AlgorithmState<TFactor, TStep>);
 
             while (nexts.Length - sortAt > 0)
             {
-                var best = nexts[sortAt]; // nexts.First();
+                var best = _observer.InProgress(nexts[sortAt], new ArraySegment<Node<TFactor, TStep>>(nexts, sortAt, nexts.Length - sortAt)); // nexts.First();
 
-                _observer.OnMovedToNextNode(best, nexts);
-                
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
+
                 if (_nodeComparer.Compare(best, bound) > 0)
-                    return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, best, nexts);
+                    return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, best);
 
                 if (nexts.Length - sortAt < 2)
                     state = Search(best, null, visited);
@@ -210,15 +205,15 @@ namespace Heuristic.Linq.Algorithms
 
                 switch (state.Flag)
                 {
-                    case RecursionFlag.Found:
+                    case AlgorithmFlag.Found:
                         return state;
 
-                    case RecursionFlag.NotFound:
+                    case AlgorithmFlag.NotFound:
                         sortAt++; // nexts.RemoveAt(0);
                         break;
                 }
             }
-            return new RecursionState<TFactor, TStep>(RecursionFlag.NotFound, null, nexts);
+            return AlgorithmState<TFactor, TStep>.NotFound;
         }
 
         #endregion 
@@ -236,7 +231,7 @@ namespace Heuristic.Linq.Algorithms
             return new RecursiveBestFirstSearch<TFactor, TStep>(source).Run();
         }
 
-        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 

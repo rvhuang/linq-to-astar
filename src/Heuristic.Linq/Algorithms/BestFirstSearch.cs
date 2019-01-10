@@ -48,7 +48,7 @@ namespace Heuristic.Linq.Algorithms
             return null;
         }
 
-        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
@@ -57,43 +57,37 @@ namespace Heuristic.Linq.Algorithms
             var nexts = new List<Node<TFactor, TStep>>(source.ConvertToNodes(source.From, 0));
 
             if (nexts.Count == 0)
-                return null;
+                return observer.NotFound();
 
             var visited = new HashSet<TStep>(sc);
             var sortAt = 0;
-            var best = nexts[sortAt];
 
             while (nexts.Count - sortAt > 0)
             {
+                var best = observer.InProgress(nexts[sortAt], nexts.GetRange(sortAt, nexts.Count - sortAt)); // nexts.First();
                 var sortAll = false;
 
-                best = nexts[sortAt];
-                observer.OnMovedToNextNode(nexts[sortAt], nexts.GetRange(sortAt, nexts.Count - sortAt));
-
                 if (sc.Equals(best.Step, source.To))
-                {
-                    observer.OnCompleted(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
-                    return best;
-                }
-                sortAt++;
+                    return observer.Found(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
+
+                sortAt++; // nexts.RemoveAt(0);
 
                 foreach (var next in source.Expands(best.Step, best.Level, visited.Add))
                 {
                     next.Previous = best;
 
                     if (sc.Equals(next.Step, source.To))
-                        return next;
+                        return observer.Found(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
 
                     sortAll = sortAll || nc.Compare(nexts[nexts.Count - 1], next) > 0;
                     nexts.Add(next);
+
+                    Debug.WriteLine($"{best.Step}\t{best.Level} -> {next.Step}\t{next.Level}");
                 }
                 if (sortAll)
                     nexts.Sort(sortAt, nexts.Count - sortAt, nc);
-
-                observer.OnMovingToNextNode(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
             }
-            observer.OnNotFound(Array.Empty<Node<TFactor, TStep>>());
-            return null;
+            return observer.NotFound();
         }
     }
 
@@ -106,7 +100,7 @@ namespace Heuristic.Linq.Algorithms
             return BestFirstSearch.Run(source);
         }
 
-        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             return BestFirstSearch.Run(source, observer);
         }

@@ -13,7 +13,8 @@ namespace Heuristic.Linq.Algorithms
 
             return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
         }
-        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+
+        public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
@@ -45,7 +46,7 @@ namespace Heuristic.Linq.Algorithms
 
         #endregion
 
-        #region Override
+        #region Public Methods
 
         public Node<TFactor, TStep> Run()
         {
@@ -57,9 +58,9 @@ namespace Heuristic.Linq.Algorithms
             {
                 var t = Search(path, bound, new HashSet<TStep>(_source.StepComparer));
 
-                if (t.Flag == RecursionFlag.Found)
+                if (t.Flag == AlgorithmFlag.Found)
                     return t.Node;
-                if (t.Flag == RecursionFlag.NotFound)
+                if (t.Flag == AlgorithmFlag.NotFound)
                     return null;
 
                 // In Progress
@@ -73,15 +74,15 @@ namespace Heuristic.Linq.Algorithms
 
         #region Core
 
-        private RecursionState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited)
+        private AlgorithmState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             var current = path.Peek();
 
             if (_source.NodeComparer.Compare(current, bound) > 0)
-                return new RecursionState<TFactor, TStep>(RecursionFlag.InProgress, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.InProgress, current);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TFactor, TStep>(RecursionFlag.Found, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.Found, current);
 
             var min = default(Node<TFactor, TStep>);
             var hasMin = false;
@@ -98,7 +99,7 @@ namespace Heuristic.Linq.Algorithms
 
                 var t = Search(path, bound, visited);
 
-                if (t.Flag == RecursionFlag.Found) return t;
+                if (t.Flag == AlgorithmFlag.Found) return t;
                 if (!hasMin || _source.NodeComparer.Compare(t.Node, min) < 0)
                 {
                     min = t.Node;
@@ -106,18 +107,18 @@ namespace Heuristic.Linq.Algorithms
                 }
                 path.Pop();
             }
-            return new RecursionState<TFactor, TStep>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
+            return new AlgorithmState<TFactor, TStep>(hasMin ? AlgorithmFlag.InProgress : AlgorithmFlag.NotFound, min);
         }
 
         #endregion 
     }
-    
+
     class ObservableIterativeDeepeningAStar<TFactor, TStep>
     {
         #region Fields
 
         private readonly HeuristicSearchBase<TFactor, TStep> _source;
-        private readonly IAlgorithmObserver<TFactor, TStep> _observer;
+        private readonly IProgress<AlgorithmState<TFactor, TStep>> _observer;
         private readonly int _max = 1024;
 
         #endregion
@@ -130,7 +131,7 @@ namespace Heuristic.Linq.Algorithms
 
         #region Constructor
 
-        internal ObservableIterativeDeepeningAStar(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        internal ObservableIterativeDeepeningAStar(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             _source = source;
             _observer = observer;
@@ -138,7 +139,7 @@ namespace Heuristic.Linq.Algorithms
 
         #endregion
 
-        #region Override
+        #region Public Methods
 
         public Node<TFactor, TStep> Run()
         {
@@ -150,38 +151,36 @@ namespace Heuristic.Linq.Algorithms
             {
                 var t = Search(path, bound, new HashSet<TStep>(_source.StepComparer));
 
-                if (t.Flag == RecursionFlag.Found)
-                {
-                    _observer.OnCompleted(t.Node, path);
-                    return t.Node;
-                }
-                if (t.Flag == RecursionFlag.NotFound)
-                {
-                    _observer.OnNotFound(path);
-                    return null;
-                }
+                if (t.Flag == AlgorithmFlag.Found)
+                    return _observer.ReportAndReturn(t).Node;
+                if (t.Flag == AlgorithmFlag.NotFound)
+                    return _observer.NotFound();
+
                 // In Progress
                 bound = t.Node;
                 counter++;
             }
-            return null;
-        } 
+            return _observer.NotFound();
+        }
 
         #endregion
 
         #region Core
 
-        private RecursionState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited)
+        private AlgorithmState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
+            /*
+             * Important Note: 
+             * Only the status AlgorithmFlag.InProgress should be reported from this method
+             * because either AlgorithmFlag.Found or AlgorithmFlag.NotFound should only occur once.
+             */
             var current = path.Peek();
 
-            _observer.OnMovedToNextNode(current, path);
-
             if (_source.NodeComparer.Compare(current, bound) > 0)
-                return new RecursionState<TFactor, TStep>(RecursionFlag.InProgress, current);
+                return _observer.ReportAndReturn(AlgorithmFlag.InProgress, current);
 
             if (_source.StepComparer.Equals(current.Step, _source.To))
-                return new RecursionState<TFactor, TStep>(RecursionFlag.Found, current);
+                return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.Found, current);
 
             var min = default(Node<TFactor, TStep>);
             var hasMin = false;
@@ -191,14 +190,14 @@ namespace Heuristic.Linq.Algorithms
 
             foreach (var next in nexts)
             {
+                Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
+
                 next.Previous = current;
                 path.Push(next);
 
-                _observer.OnMovingToNextNode(current, path);
-
                 var t = Search(path, bound, visited);
 
-                if (t.Flag == RecursionFlag.Found) return t;
+                if (t.Flag == AlgorithmFlag.Found) return t;
                 if (!hasMin || _source.NodeComparer.Compare(t.Node, min) < 0)
                 {
                     min = t.Node;
@@ -206,7 +205,7 @@ namespace Heuristic.Linq.Algorithms
                 }
                 path.Pop();
             }
-            return new RecursionState<TFactor, TStep>(hasMin ? RecursionFlag.InProgress : RecursionFlag.NotFound, min);
+            return hasMin ? _observer.ReportAndReturn(AlgorithmFlag.InProgress, current, path) : new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, min, path);
         }
 
         #endregion 
@@ -224,7 +223,7 @@ namespace Heuristic.Linq.Algorithms
             return new IterativeDeepeningAStar<TFactor, TStep>(source).Run();
         }
 
-        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IAlgorithmObserver<TFactor, TStep> observer)
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
 
