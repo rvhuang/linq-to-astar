@@ -1,6 +1,6 @@
 language: csharp
 solution: Heuristic.Linq.sln
-dist: trusty
+dist: xenial
 mono: none
 sudo: required
 dotnet: 2.2
