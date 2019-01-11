@@ -64,12 +64,13 @@ Check out [Pathfinding Lab](http://pathfinding-lab.australiaeast.azurecontainer.
 
 ## Supported Algorithms
 
-|Algorithm|Factory Method|
-|----------|----------|
-|[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`|
-|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`|
-|[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`|
-|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`|
+|Algorithm|Factory Method|Remarks|
+|----------|----------|----------|
+|[A\*](https://en.wikipedia.org/wiki/A*_search_algorithm)|`AStar<TStep>()`||
+|[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`||
+|[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`||
+|[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`||
+|[Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)|`AStar<TStep>()`|Without `orderby` clause.|
 
 ### User-defined Algorithm
 
@@ -88,6 +89,28 @@ var solution = from step in queryable.Except(GetObstacles())
                where boundary.Contains(step)
                orderby step.GetManhattanDistance(goal)
                select step;
+```
+
+### Algorithm Observation
+
+Since version 1.2.0-beta, the solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory` and passing its instance the new signature of the factory method. The observed algorithm will: 
+
+1. Create an `IProgress<T>` object with the `IAlgorithmObserverFactory` instance, where `T` is `AlgorithmState<TFactor, TStep>`.
+2. Report the progress by creating `AlgorithmState<TFactor, TStep>` objects and passing to `IProgress<T>.Report()`.
+
+The following snippet shows how to observe A\* algorithm.
+
+```csharp
+// Implementing IAlgorithmObserverFactory interface.
+var factory = new MyAlgorithmObserverFactory();
+var queryable = HeuristicSearch.AStar(start, goal, getFourDirections, null, factory);
+var solution = from step in queryable.Except(GetObstacles())
+               where boundary.Contains(step)
+               orderby step.GetManhattanDistance(goal)
+               select step;
+
+// The algorithm starts finding the solution while reporting the progress.
+var array = solution.ToArray();
 ```
 
 ## Supported LINQ Clauses and Operations
@@ -135,6 +158,7 @@ The operations below provide optimized performance to replace `Enumerable` exten
 |1.0.0 Preview|Q2 2018|
 |1.0.0|Q3 2018|
 |1.1.0|Q4 2018|
+|1.2.0|Q1 2018|
 
 ## Platform and Dependencies
 
