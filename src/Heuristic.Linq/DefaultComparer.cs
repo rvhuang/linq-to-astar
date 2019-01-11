@@ -9,12 +9,18 @@ namespace Heuristic.Linq
 
         private readonly bool _descending;
         private readonly IComparer<TFactor> _factorComparer;
+        private readonly IComparer<Node<TFactor, TStep>> _factorOnlyComparer;
 
         #endregion
 
         #region Properties
 
-        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer => Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
+        public static DefaultComparer<TFactor, TStep> Default { get; } = new DefaultComparer<TFactor, TStep>();
+
+        public IComparer<Node<TFactor, TStep>> FactorOnlyComparer
+        {
+            get { return _factorOnlyComparer; }
+        }
 
         #endregion
 
@@ -26,6 +32,7 @@ namespace Heuristic.Linq
         {
             _descending = descending;
             _factorComparer = HeuristicSearchBase<TFactor, TStep>.IsFactorComparable ? Comparer<TFactor>.Default : null;
+            _factorOnlyComparer = Comparer<Node<TFactor, TStep>>.Create(CompareFactorOnly);
         }
 
         #endregion

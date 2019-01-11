@@ -17,6 +17,7 @@ namespace Heuristic.Linq
             : base(source.AlgorithmName, source.From, source.To, source.StepComparer, nodeComparer, source.Converter, source.Expander)
         {
             IsReversed = source.IsReversed;
+            AlgorithmObserverFactory = source.AlgorithmObserverFactory;
         }
 
         #endregion

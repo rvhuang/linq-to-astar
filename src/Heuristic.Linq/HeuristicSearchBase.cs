@@ -53,6 +53,8 @@ namespace Heuristic.Linq
         /// </summary>
         public INodeComparer<TFactor, TStep> NodeComparer => _nc;
 
+        internal IAlgorithmObserverFactory AlgorithmObserverFactory { get; set; }
+
         internal bool IsReversed { get; set; } // Consider exposing this.
 
         internal Func<TStep, int, IEnumerable<TStep>> Expander => _expander;
@@ -71,7 +73,8 @@ namespace Heuristic.Linq
             _source = source;
 
             IsReversed = source.IsReversed;
-        } 
+            AlgorithmObserverFactory = source.AlgorithmObserverFactory;
+        }
 
         internal HeuristicSearchBase(string algorithmName, TStep from, TStep to, IEqualityComparer<TStep> ec, INodeComparer<TFactor, TStep> nc,
             Func<TStep, int, IEnumerable<TFactor>> converter, Func<TStep, int, IEnumerable<TStep>> expander)
@@ -81,7 +84,7 @@ namespace Heuristic.Linq
 
             _algorithmName = algorithmName;
             _ec = ec ?? EqualityComparer<TStep>.Default;
-            _nc = nc != null ? nc : new DefaultComparer<TFactor, TStep>();
+            _nc = nc ?? DefaultComparer<TFactor, TStep>.Default;
             _converter = converter;
             _expander = expander ?? throw new ArgumentNullException(nameof(expander));
         }

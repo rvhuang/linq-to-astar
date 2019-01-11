@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("Heuristic.Linq.Test")]
+[assembly: InternalsVisibleTo("Heuristic.Linq.Test")]
 
 namespace Heuristic.Linq
 {
@@ -26,10 +26,10 @@ namespace Heuristic.Linq
         {
             var presets = new[]
             {
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(AStar), (n) => new AStarAlgorithm()),
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(BestFirstSearch), (n) => new BestFirstSearchrAlgorithm()),
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(IterativeDeepeningAStar), (n) => new IterativeDeepeningAStarAlgorithm()),
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(RecursiveBestFirstSearch), (n) => new RecursiveBestFirstSearchAlgorithm()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(AStar), (n) => new AStar()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(BestFirstSearch), (n) => new BestFirstSearch()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(IterativeDeepeningAStar), (n) => new IterativeDeepeningAStar()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(RecursiveBestFirstSearch), (n) => new RecursiveBestFirstSearch()),
             };
             algorithms = new ConcurrentDictionary<string, Func<string, IAlgorithm>>(presets);
         }
@@ -68,12 +68,28 @@ namespace Heuristic.Linq
         /// <param name="from">The initial step of the problem.</param>
         /// <param name="to">The goal step of the problem.</param>
         /// <param name="expander">The callback that expands specific step to available next steps.</param>
-        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instance.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
         /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
         public static HeuristicSearchBase<TStep, TStep> AStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
             return new HeuristicSearchInitial<TStep>(nameof(AStar), from, to, comparer, expander);
+        }
+
+        /// <summary>
+        /// Initialize and observe an <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with A* search algorithm.
+        /// </summary>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="from">The initial step of the problem.</param>
+        /// <param name="to">The goal step of the problem.</param>
+        /// <param name="expander">The callback that expands specific step to available next steps.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
+        /// <param name="observerFactory">The object that is able to create <see cref="IProgress{T}"/> instances.</param>
+        /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
+        public static HeuristicSearchBase<TStep, TStep> AStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer, IAlgorithmObserverFactory observerFactory)
+        {
+            return new HeuristicSearchInitial<TStep>(nameof(AStar), from, to, comparer, expander) { AlgorithmObserverFactory = observerFactory };
         }
 
         /// <summary>
@@ -97,12 +113,28 @@ namespace Heuristic.Linq
         /// <param name="from">The initial step of the problem.</param>
         /// <param name="to">The goal step of the problem.</param>
         /// <param name="expander">The callback that expands specific step to available next steps.</param>
-        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instance.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
         /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
         public static HeuristicSearchBase<TStep, TStep> BestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
             return new HeuristicSearchInitial<TStep>(nameof(BestFirstSearch), from, to, comparer, expander);
+        }
+
+        /// <summary>
+        /// Initialize and observe an <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with Best-first Search (BFS) algorithm.
+        /// </summary>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="from">The initial step of the problem.</param>
+        /// <param name="to">The goal step of the problem.</param>
+        /// <param name="expander">The callback that expands specific step to available next steps.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instance.</param>
+        /// <param name="observerFactory">The object that is able to create <see cref="IProgress{T}"/> instances.</param>
+        /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
+        public static HeuristicSearchBase<TStep, TStep> BestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer, IAlgorithmObserverFactory observerFactory)
+        {
+            return new HeuristicSearchInitial<TStep>(nameof(BestFirstSearch), from, to, comparer, expander) { AlgorithmObserverFactory = observerFactory };
         }
 
         /// <summary>
@@ -126,12 +158,28 @@ namespace Heuristic.Linq
         /// <param name="from">The initial step of the problem.</param>
         /// <param name="to">The goal step of the problem.</param>
         /// <param name="expander">The callback that expands specific step to available next steps.</param>
-        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instance.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
         /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
         public static HeuristicSearchBase<TStep, TStep> RecursiveBestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
             return new HeuristicSearchInitial<TStep>(nameof(RecursiveBestFirstSearch), from, to, comparer, expander);
+        }
+
+        /// <summary>
+        /// Initialize and observe an <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with Recursive Best-first Search (RBFS) algorithm.
+        /// </summary>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="from">The initial step of the problem.</param>
+        /// <param name="to">The goal step of the problem.</param>
+        /// <param name="expander">The callback that expands specific step to available next steps.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
+        /// <param name="observerFactory">The object that is able to create <see cref="IProgress{T}"/> instances.</param>
+        /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
+        public static HeuristicSearchBase<TStep, TStep> RecursiveBestFirstSearch<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer, IAlgorithmObserverFactory observerFactory)
+        {
+            return new HeuristicSearchInitial<TStep>(nameof(RecursiveBestFirstSearch), from, to, comparer, expander) { AlgorithmObserverFactory = observerFactory };
         }
 
         /// <summary>
@@ -155,12 +203,28 @@ namespace Heuristic.Linq
         /// <param name="from">The initial step of the problem.</param>
         /// <param name="to">The goal step of the problem.</param>
         /// <param name="expander">The callback that expands specific step to available next steps.</param>
-        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instance.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
         /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
         public static HeuristicSearchBase<TStep, TStep> IterativeDeepeningAStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer)
         {
             return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar), from, to, comparer, expander);
+        }
+
+        /// <summary>
+        /// Initialize and observe an <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with Iterative Deepening A* (IDA*) algorithm.
+        /// </summary>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="from">The initial step of the problem.</param>
+        /// <param name="to">The goal step of the problem.</param>
+        /// <param name="expander">The callback that expands specific step to available next steps.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
+        /// <param name="observerFactory">The object that is able to create <see cref="IProgress{T}"/> instances.</param>
+        /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="expander"/> is null.</exception>
+        public static HeuristicSearchBase<TStep, TStep> IterativeDeepeningAStar<TStep>(TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer, IAlgorithmObserverFactory observerFactory)
+        {
+            return new HeuristicSearchInitial<TStep>(nameof(IterativeDeepeningAStar), from, to, comparer, expander) { AlgorithmObserverFactory = observerFactory };
         }
 
         #endregion
@@ -225,7 +289,7 @@ namespace Heuristic.Linq
         /// <param name="from">The initial step of the problem.</param>
         /// <param name="to">The goal step of the problem.</param>
         /// <param name="expander">The callback that expands specific step to available next steps.</param>
-        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instance.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
         /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="algorithmName"/> or <paramref name="expander"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="algorithmName"/> cannot be found.</exception>
@@ -240,6 +304,33 @@ namespace Heuristic.Linq
                 throw new ArgumentNullException(nameof(algorithmName), e);
             }
             return new HeuristicSearchInitial<TStep>(algorithmName, from, to, comparer, expander);
+        }
+
+
+        /// <summary>
+        /// Initialize and observe an <see cref="HeuristicSearchBase{TFactor, TStep}"/> instance with user-defined algorithm.
+        /// </summary>
+        /// <typeparam name="TStep">The type of step of the problem.</typeparam>
+        /// <param name="algorithmName">The name of algorithm</param>
+        /// <param name="from">The initial step of the problem.</param>
+        /// <param name="to">The goal step of the problem.</param>
+        /// <param name="expander">The callback that expands specific step to available next steps.</param>
+        /// <param name="comparer">The comparer to test equality of two <typeparamref name="TStep"/> instances.</param>
+        /// <param name="observerFactory">The object that is able to create <see cref="IProgress{T}"/> instances.</param>
+        /// <returns>The instance that is ready to be applied with LINQ expressions.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="algorithmName"/> or <paramref name="expander"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="algorithmName"/> cannot be found.</exception>
+        public static HeuristicSearchBase<TStep, TStep> Use<TStep>(string algorithmName, TStep from, TStep to, Func<TStep, int, IEnumerable<TStep>> expander, IEqualityComparer<TStep> comparer, IAlgorithmObserverFactory observerFactory)
+        {
+            try
+            {
+                if (!algorithms.ContainsKey(algorithmName)) throw new ArgumentException(nameof(algorithmName));
+            }
+            catch (ArgumentNullException e)
+            {
+                throw new ArgumentNullException(nameof(algorithmName), e);
+            }
+            return new HeuristicSearchInitial<TStep>(algorithmName, from, to, comparer, expander) { AlgorithmObserverFactory = observerFactory };
         }
 
         #endregion

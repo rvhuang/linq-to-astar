@@ -398,27 +398,34 @@ namespace Heuristic.Linq
             Debug.WriteLine($"Searching path between {source.From} and {source.To} with {source.AlgorithmName}...");
 
             var lastNode = default(Node<TFactor, TStep>);
+            var observerFactory = source.AlgorithmObserverFactory;
+            var observer = observerFactory != null ? observerFactory.Create(source) : null;
 
             switch (source.AlgorithmName)
             {
                 case nameof(AStar):
-                    lastNode = AStar.Run(source);
+                    lastNode = observer == null ? AStar.Run(source) : AStar.Run(source, observer);
                     break;
 
                 case nameof(BestFirstSearch):
-                    lastNode = BestFirstSearch.Run(source);
+                    lastNode = observer == null ? BestFirstSearch.Run(source) : BestFirstSearch.Run(source, observer);
                     break;
 
                 case nameof(IterativeDeepeningAStar):
-                    lastNode = IterativeDeepeningAStar.Run(source);
+                    lastNode = observer == null ? IterativeDeepeningAStar.Run(source) : IterativeDeepeningAStar.Run(source, observer);
                     break;
 
                 case nameof(RecursiveBestFirstSearch):
-                    lastNode = RecursiveBestFirstSearch.Run(source);
+                    lastNode = observer == null ? RecursiveBestFirstSearch.Run(source) : RecursiveBestFirstSearch.Run(source, observer);
                     break;
 
                 default:
-                    lastNode = HeuristicSearch.RegisteredAlgorithms[source.AlgorithmName](source.AlgorithmName).Run(source);
+                    var algorithm = HeuristicSearch.RegisteredAlgorithms[source.AlgorithmName](source.AlgorithmName);
+
+                    if (algorithm is IObservableAlgorithm && observer != null)
+                        lastNode = (algorithm as IObservableAlgorithm).Run(source, observer);
+                    else
+                        lastNode = algorithm.Run(source);
                     break;
             }
 
