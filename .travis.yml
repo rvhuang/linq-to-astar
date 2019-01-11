@@ -2,6 +2,7 @@ language: csharp
 solution: Heuristic.Linq.sln
 dist: trusty
 mono: none
+sudo: required
 dotnet: 2.2
 
 install:
