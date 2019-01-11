@@ -93,7 +93,7 @@ var solution = from step in queryable.Except(GetObstacles())
 
 ### Algorithm Observation
 
-Since version 1.2.0-beta, the solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory` and passing its instance the new signature of the factory method. The observed algorithm will: 
+Since version 1.2.0-beta, the solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory` and passing its instance to the new signature of the factory method. The observed algorithm will: 
 
 1. Create an `IProgress<T>` object with the `IAlgorithmObserverFactory` instance, where `T` is `AlgorithmState<TFactor, TStep>`.
 2. Report the progress by creating `AlgorithmState<TFactor, TStep>` objects and passing to `IProgress<T>.Report()`.
