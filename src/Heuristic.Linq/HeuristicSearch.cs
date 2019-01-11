@@ -26,10 +26,10 @@ namespace Heuristic.Linq
         {
             var presets = new[]
             {
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(AStar), (n) => new AStarAlgorithm()),
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(BestFirstSearch), (n) => new BestFirstSearchrAlgorithm()),
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(IterativeDeepeningAStar), (n) => new IterativeDeepeningAStarAlgorithm()),
-                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(RecursiveBestFirstSearch), (n) => new RecursiveBestFirstSearchAlgorithm()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(AStar), (n) => new AStar()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(BestFirstSearch), (n) => new BestFirstSearch()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(IterativeDeepeningAStar), (n) => new IterativeDeepeningAStar()),
+                new KeyValuePair<string, Func<string, IAlgorithm>>(nameof(RecursiveBestFirstSearch), (n) => new RecursiveBestFirstSearch()),
             };
             algorithms = new ConcurrentDictionary<string, Func<string, IAlgorithm>>(presets);
         }

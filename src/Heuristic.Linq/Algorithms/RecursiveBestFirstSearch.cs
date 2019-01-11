@@ -5,8 +5,24 @@ using System.Linq;
 
 namespace Heuristic.Linq.Algorithms
 {
-    static class RecursiveBestFirstSearch
+    class RecursiveBestFirstSearch : IAlgorithm, IObservableAlgorithm
     {
+        string IAlgorithm.AlgorithmName => nameof(RecursiveBestFirstSearch);
+
+        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        {
+            Debug.WriteLine("LINQ Expression Stack: {0}", source);
+
+            return new RecursiveBestFirstSearch<TFactor, TStep>(source).Run();
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
+        {
+            Debug.WriteLine("LINQ Expression Stack: {0}", source);
+
+            return new ObservableRecursiveBestFirstSearch<TFactor, TStep>(source, observer).Run();
+        }
+
         public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
@@ -22,37 +38,58 @@ namespace Heuristic.Linq.Algorithms
         }
     }
 
-    class RecursiveBestFirstSearch<TFactor, TStep>
+    abstract class RecursiveBestFirstSearchBase<TFactor, TStep>
     {
-        #region Fields
+        #region Properties 
 
-        private readonly HeuristicSearchBase<TFactor, TStep> _source;
-        private readonly IComparer<Node<TFactor, TStep>> _nodeComparer;
+        protected HeuristicSearchBase<TFactor, TStep> Source { get; private set; }
+
+        protected IComparer<Node<TFactor, TStep>> NodeComparer { get; private set; }
 
         #endregion
 
         #region Constructor
 
-        internal RecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source)
+        internal RecursiveBestFirstSearchBase(HeuristicSearchBase<TFactor, TStep> source)
         {
-            _source = source;
-            _nodeComparer = source.NodeComparer.FactorOnlyComparer;
+            Source = source;
+            NodeComparer = source.NodeComparer.FactorOnlyComparer;
         }
 
         #endregion
 
-        #region Public Method
+        #region Methods
 
-        public Node<TFactor, TStep> Run()
+        public abstract Node<TFactor, TStep> Run();
+
+        protected abstract AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited);
+
+        #endregion
+    }
+
+    class RecursiveBestFirstSearch<TFactor, TStep> : RecursiveBestFirstSearchBase<TFactor, TStep>
+    {
+        #region Constructor
+
+        internal RecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source)
+            : base(source)
         {
-            var inits = _source.ConvertToNodes(_source.From, 0).ToArray();
+        }
+
+        #endregion
+
+        #region Method
+
+        public override Node<TFactor, TStep> Run()
+        {
+            var inits = Source.ConvertToNodes(Source.From, 0).ToArray();
 
             if (inits.Length == 0)
                 return null;
 
             try
             {
-                Array.Sort(inits, _nodeComparer);
+                Array.Sort(inits, NodeComparer);
             }
             catch (Exception error)
             {
@@ -60,29 +97,25 @@ namespace Heuristic.Linq.Algorithms
             }
 
             var best = inits[0];
-            var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
+            var state = Search(best, null, new HashSet<TStep>(Source.StepComparer));
 
             return state.Flag == AlgorithmFlag.Found ? state.Node : null;
         }
 
-        #endregion
-
-        #region Core
-
-        private AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
+        protected override AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             visited.Add(current.Step);
 
-            if (_source.StepComparer.Equals(current.Step, _source.To))
+            if (Source.StepComparer.Equals(current.Step, Source.To))
                 return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.Found, current);
 
-            var nexts = _source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
+            var nexts = Source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
 
             if (nexts.Length == 0)
                 return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, current);
 
             Array.ForEach(nexts, next => next.Previous = current);
-            Array.Sort(nexts, _nodeComparer);
+            Array.Sort(nexts, NodeComparer);
 
             var sortAt = 0;
             var state = default(AlgorithmState<TFactor, TStep>);
@@ -93,13 +126,13 @@ namespace Heuristic.Linq.Algorithms
 
                 Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
 
-                if (_nodeComparer.Compare(best, bound) > 0)
+                if (NodeComparer.Compare(best, bound) > 0)
                     return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, best);
 
                 if (nexts.Length - sortAt < 2)
                     state = Search(best, null, visited);
                 else
-                    state = Search(best, _nodeComparer.Min(nexts[sortAt + 1], bound), visited);
+                    state = Search(best, NodeComparer.Min(nexts[sortAt + 1], bound), visited);
 
                 switch (state.Flag)
                 {
@@ -117,39 +150,36 @@ namespace Heuristic.Linq.Algorithms
         #endregion 
     }
 
-    class ObservableRecursiveBestFirstSearch<TFactor, TStep>
+    class ObservableRecursiveBestFirstSearch<TFactor, TStep> : RecursiveBestFirstSearchBase<TFactor, TStep>
     {
         #region Fields
 
-        private readonly HeuristicSearchBase<TFactor, TStep> _source;
         private readonly IProgress<AlgorithmState<TFactor, TStep>> _observer;
-        private readonly IComparer<Node<TFactor, TStep>> _nodeComparer;
 
         #endregion
 
         #region Constructor
 
         internal ObservableRecursiveBestFirstSearch(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
+            : base(source)
         {
-            _source = source;
             _observer = observer;
-            _nodeComparer = source.NodeComparer.FactorOnlyComparer;
         }
 
         #endregion
 
-        #region Public Method
+        #region Methods
 
-        public Node<TFactor, TStep> Run()
+        public override Node<TFactor, TStep> Run()
         {
-            var inits = _source.ConvertToNodes(_source.From, 0).ToArray();
+            var inits = Source.ConvertToNodes(Source.From, 0).ToArray();
 
             if (inits.Length == 0)
                 return null;
 
             try
             {
-                Array.Sort(inits, _nodeComparer);
+                Array.Sort(inits, NodeComparer);
             }
             catch (Exception error)
             {
@@ -157,16 +187,12 @@ namespace Heuristic.Linq.Algorithms
             }
 
             var best = inits[0];
-            var state = Search(best, null, new HashSet<TStep>(_source.StepComparer));
+            var state = Search(best, null, new HashSet<TStep>(Source.StepComparer));
 
             return state.Flag == AlgorithmFlag.Found ? _observer.ReportAndReturn(state).Node : _observer.NotFound();
         }
 
-        #endregion
-
-        #region Core
-
-        private AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
+        protected override AlgorithmState<TFactor, TStep> Search(Node<TFactor, TStep> current, Node<TFactor, TStep> bound, ISet<TStep> visited)
         {
             /*
              * Important Note: 
@@ -175,16 +201,16 @@ namespace Heuristic.Linq.Algorithms
              */
             visited.Add(current.Step);
 
-            if (_source.StepComparer.Equals(current.Step, _source.To))
+            if (Source.StepComparer.Equals(current.Step, Source.To))
                 return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.Found, current);
 
-            var nexts = _source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
+            var nexts = Source.Expands(current.Step, current.Level, step => !visited.Contains(step)).ToArray();
 
             if (nexts.Length == 0)
                 return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, current);
 
             Array.ForEach(nexts, next => next.Previous = current);
-            Array.Sort(nexts, _nodeComparer);
+            Array.Sort(nexts, NodeComparer);
 
             var sortAt = 0;
             var state = default(AlgorithmState<TFactor, TStep>);
@@ -195,13 +221,13 @@ namespace Heuristic.Linq.Algorithms
 
                 Debug.WriteLine($"{current.Step}\t{current.Level} -> {best.Step}\t{best.Level}");
 
-                if (_nodeComparer.Compare(best, bound) > 0)
+                if (NodeComparer.Compare(best, bound) > 0)
                     return new AlgorithmState<TFactor, TStep>(AlgorithmFlag.NotFound, best);
 
                 if (nexts.Length - sortAt < 2)
                     state = Search(best, null, visited);
                 else
-                    state = Search(best, _nodeComparer.Min(nexts[sortAt + 1], bound), visited);
+                    state = Search(best, NodeComparer.Min(nexts[sortAt + 1], bound), visited);
 
                 switch (state.Flag)
                 {
@@ -217,25 +243,5 @@ namespace Heuristic.Linq.Algorithms
         }
 
         #endregion 
-    }
-
-
-    internal struct RecursiveBestFirstSearchAlgorithm : IAlgorithm, IObservableAlgorithm
-    {
-        string IAlgorithm.AlgorithmName => nameof(RecursiveBestFirstSearch);
-
-        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
-        {
-            Debug.WriteLine("LINQ Expression Stack: {0}", source);
-
-            return new RecursiveBestFirstSearch<TFactor, TStep>(source).Run();
-        }
-
-        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
-        {
-            Debug.WriteLine("LINQ Expression Stack: {0}", source);
-
-            return new ObservableRecursiveBestFirstSearch<TFactor, TStep>(source, observer).Run();
-        }
     }
 }

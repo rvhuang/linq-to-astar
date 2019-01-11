@@ -4,8 +4,20 @@ using System.Diagnostics;
 
 namespace Heuristic.Linq.Algorithms
 {
-    internal static class BestFirstSearch
+    internal class BestFirstSearch : IAlgorithm, IObservableAlgorithm
     {
+        string IAlgorithm.AlgorithmName => nameof(BestFirstSearch);
+
+        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        {
+            return Run(source);
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
+        {
+            return Run(source, observer);
+        }
+
         public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
@@ -88,21 +100,6 @@ namespace Heuristic.Linq.Algorithms
                     nexts.Sort(sortAt, nexts.Count - sortAt, nc);
             }
             return observer.NotFound();
-        }
-    }
-
-    internal struct BestFirstSearchrAlgorithm : IAlgorithm, IObservableAlgorithm
-    {
-        string IAlgorithm.AlgorithmName => nameof(BestFirstSearch);
-
-        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
-        {
-            return BestFirstSearch.Run(source);
-        }
-
-        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
-        {
-            return BestFirstSearch.Run(source, observer);
         }
     }
 }

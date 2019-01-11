@@ -4,8 +4,20 @@ using System.Diagnostics;
 
 namespace Heuristic.Linq.Algorithms
 {
-    internal static class AStar
+    internal class AStar : IAlgorithm, IObservableAlgorithm
     {
+        string IAlgorithm.AlgorithmName => nameof(AStar);
+
+        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
+        {
+            return Run(source);
+        }
+
+        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
+        {
+            return Run(source, observer);
+        }
+
         public static Node<TFactor, TStep> Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
         {
             Debug.WriteLine("LINQ Expression Stack: {0}", source);
@@ -90,7 +102,7 @@ namespace Heuristic.Linq.Algorithms
                         next.Previous = current;
 
                         if (sc.Equals(next.Step, source.To))
-                            return next;
+                            return observer.Found(next, open.GetRange(sortAt, open.Count - sortAt));
 
                         sortAll = sortAll || nc.Compare(open[open.Count - 1], next) > 0;
                         open.Add(next);
@@ -102,21 +114,6 @@ namespace Heuristic.Linq.Algorithms
                     open.Sort(sortAt, open.Count - sortAt, nc);
             }
             return observer.NotFound();
-        }
-    }
-
-    internal struct AStarAlgorithm : IAlgorithm, IObservableAlgorithm
-    {
-        string IAlgorithm.AlgorithmName => nameof(AStar);
-
-        Node<TFactor, TStep> IAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source)
-        {
-            return AStar.Run(source);
-        }
-
-        Node<TFactor, TStep> IObservableAlgorithm.Run<TFactor, TStep>(HeuristicSearchBase<TFactor, TStep> source, IProgress<AlgorithmState<TFactor, TStep>> observer)
-        {
-            return AStar.Run(source, observer);
         }
     }
 }
