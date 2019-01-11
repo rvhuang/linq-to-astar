@@ -60,7 +60,7 @@ See [Expression Examples](docs/Expression-Examples.md) for more examples.
 
 ### Live Playground
 
-Check out [Pathfinding Lab](http://pathfinding-lab.australiaeast.azurecontainer.io/) and play with the library.
+Check out [Pathfinding Lab](https://pathfinding-lab.codedwith.fun/) and play with the library.
 
 ## Supported Algorithms
 
