@@ -58,10 +58,22 @@ namespace Heuristic.Linq.Algorithms
         #endregion
 
         #region Methods
-
+        
         public abstract Node<TFactor, TStep> Run();
 
         protected abstract AlgorithmState<TFactor, TStep> Search(Stack<Node<TFactor, TStep>> path, Node<TFactor, TStep> bound, ISet<TStep> visited);
+
+        protected Stack<Node<TFactor, TStep>> GetInitialStack()
+        {
+            try
+            {
+                return new Stack<Node<TFactor, TStep>>(Source.ConvertToNodes(Source.From, 0).OrderBy(n => n.Factor, Source.NodeComparer));
+            }
+            catch (Exception error)
+            {
+                throw error.InnerException ?? error;
+            }
+        }
 
         #endregion
     }
@@ -82,8 +94,8 @@ namespace Heuristic.Linq.Algorithms
         public override Node<TFactor, TStep> Run()
         {
             var counter = 0;
-            var path = new Stack<Node<TFactor, TStep>>(Source.ConvertToNodes(Source.From, 0).OrderBy(n => n.Factor, Source.NodeComparer));
-            var bound = path.Peek(); 
+            var path = GetInitialStack();
+            var bound = path.Peek();
 
             while (counter <= IterativeDeepeningAStar.MaxNumberOfLoops)
             {
@@ -163,11 +175,11 @@ namespace Heuristic.Linq.Algorithms
         public override Node<TFactor, TStep> Run()
         {
             var counter = 0;
-            var path = new Stack<Node<TFactor, TStep>>(Source.ConvertToNodes(Source.From, 0).OrderBy(n => n.Factor, Source.NodeComparer));
-            var bound = path.Peek(); 
+            var path = GetInitialStack();
+            var bound = path.Peek();
 
             while (counter <= IterativeDeepeningAStar.MaxNumberOfLoops)
-            { 
+            {
                 var t = Search(path, bound, new HashSet<TStep>(Source.StepComparer));
 
                 if (t.Flag == AlgorithmFlag.Found)
@@ -177,7 +189,7 @@ namespace Heuristic.Linq.Algorithms
 
                 // In Progress
                 bound = t.Node;
-                counter++; 
+                counter++;
             }
             return _observer.NotFound();
         }
