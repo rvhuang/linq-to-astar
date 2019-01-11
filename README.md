@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![Build status](https://rvhuang.visualstudio.com/_apis/public/build/definitions/31750fb1-11f7-41f3-9a90-66f5a70f0bc6/3/badge)](https://rvhuang.visualstudio.com/MyFirstProject/_build/latest?definitionId=3) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/) 
 
-**LINQ to A\*** is an experimental library aimed to incorporate LINQ expressions into [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch path found by the algorithm.
+**LINQ to A\*** is a [POC](https://www.oxfordlearnersdictionaries.com/definition/english/proof-of-concept) aimed to bring LINQ to [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) and other heuristic search algorithms. The library enable LINQ to be used as the query expression to fetch the solution found by the algorithm.
 
-The library defines a set of generic APIs that can be applied to any problem as long as the problem can be solved with the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing in C#, but also giving new ability and flexibility to the algorithms.
+The library defines a set of generic APIs that can be applied to any problem, as long as the problem suits the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing the algorithms in C#, but also giving new ability and flexibility to the algorithms.
 
 **All feedbacks are greatly appreciated**.
 
@@ -13,7 +13,7 @@ The library defines a set of generic APIs that can be applied to any problem as 
 * Great human-readability and maintainability of algorithm using.
 * Structural, object-oriented, consice programming model for various heuristic algorithms.
 * Easy to learn and use.
-* **Looking cool**. (very important!)
+* **Looking cool**. (very important)
 
 ## Example
 
@@ -43,13 +43,13 @@ foreach (var step in solution)
 }
 ```
 
-The LINQ expression consists of following clauses:
+The LINQ expression consists of the following clauses:
 
 1. The `Except()` eliminates invalid steps during the process.
 2. The `where` clause sets up the boundary but can also be used for checking invalid steps.
-3. The `orderby` clause serves as *h(n)* (aka [Heuristic](https://en.wikipedia.org/wiki/Heuristic)) that estimates the cost of the cheapest path from *n* (current step) to the goal.
+3. The `orderby` clause serves as *h(n)* (aka [Heuristic](https://en.wikipedia.org/wiki/Heuristic)) that estimates the cost of the cheapest path from *n* (the current step) to the goal.
 
-If path is found, the enumeration returns each step in deferred execution. Otherwise, no step is returned.
+If a solution is found, the enumeration returns each step in deferred execution. Otherwise, an empty collection is returned.
 
 See [Expression Examples](docs/Expression-Examples.md) for more examples.
 
@@ -70,15 +70,15 @@ Check out [Pathfinding Lab](https://pathfinding-lab.codedwith.fun/) and play wit
 |[Best-first Search](https://en.wikipedia.org/wiki/Best-first_search)|`BestFirstSearch<TStep>()`||
 |[Recursive Best-first Search](http://cs.gettysburg.edu/~tneller/papers/talks/RBFS_Example.htm)|`RecursiveBestFirstSearch<TStep>()`||
 |[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`||
-|[Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)|`AStar<TStep>()`|Without `orderby` clause.|
+|[Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)|`AStar<TStep>()`|Without `orderby` clause. (v1.1.0)|
 
-### User-defined Algorithm
+### User-defined Algorithm 
 
-You are able to implement and use your customized algorithm with following steps:
+You are able to implement and use your customized algorithm with the following steps:
 
 1. Create a type that implements `IAlgorithm` interface.
 2. Register the type and name of the algorithm with `HeuristicSearch.Register<TAlgorithm>()`.
-3. Apply LINQ expressions to your algorithm by calling `HeuristicSearch.Use()` method.
+3. Apply LINQ expressions to your algorithm with `HeuristicSearch.Use()`.
 
 ```csharp
 // MyAlgorithmClass has to implement IAlgorithm interface.
@@ -91,9 +91,9 @@ var solution = from step in queryable.Except(GetObstacles())
                select step;
 ```
 
-### Algorithm Observation
+### Algorithm Observation (v1.2.0-beta)
 
-Since version 1.2.0-beta, the solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory` and passing its instance to the new signature of the factory method. The observed algorithm will: 
+The solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory` and passing its instance to the new signature of the factory method. The observed algorithm will: 
 
 1. Create an `IProgress<T>` object with the `IAlgorithmObserverFactory` instance, where `T` is `AlgorithmState<TFactor, TStep>`.
 2. Report the progress by creating `AlgorithmState<TFactor, TStep>` objects and passing to `IProgress<T>.Report()`.
