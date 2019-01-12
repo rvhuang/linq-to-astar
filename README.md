@@ -17,7 +17,7 @@ The library defines a set of generic APIs that can be applied to any problem, as
 
 ## Example
 
-Snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example uses types defined in [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
+The snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example uses types defined in [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
 
 ```csharp
 // The path to be found between two positions.
@@ -62,7 +62,8 @@ See [Expression Examples](docs/Expression-Examples.md) for more examples.
 
 Check out [Pathfinding Lab](https://pathfinding-lab.codedwith.fun/) and play with the library.
 
-## Supported Algorithms
+## Algorithms
+### Built-in Algorithms
 
 |Algorithm|Factory Method|Remarks|
 |----------|----------|----------|
