@@ -11,7 +11,7 @@
     <Version>1.2.0-beta</Version>
     <PackageId>linq-to-astar</PackageId>
     <PackageTags>linq;astar;heuristic</PackageTags>
-    <Copyright>© 2018 Robert Vandenberg Huang</Copyright>
+    <Copyright>© 2019 Robert Vandenberg Huang</Copyright>
     <Description>LINQ to A* is a POC aimed to incorporate LINQ into A* as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch shortest path found by the algorithm.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/favicon.ico</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
