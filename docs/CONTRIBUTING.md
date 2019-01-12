@@ -4,18 +4,17 @@ Contributing rules and guideline are listed below.
 
 ## General
 
-* Please follows [C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions) in your code.
-* Algorithms and supported LINQ clauses must be listed in [README.md](../README.md) file.
+* Code follows the official [C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions).
+* Algorithms and supported LINQ clauses have to be listed in [README.md](../README.md) file.
+* Algorithms are implemented under `Heuristic.Linq.Algorithms` namespace.
+* The `IAlgorithmObserverFactory` interface is a nice-to-have but not mandatory for built-in algorithms to implement.
 
-## Implementing New Algorithm
+## Bug Report
 
-1. Add new class to [Core](../src/LinqToAStar/Core) folder with following behaviors:
-    * The class must implement `IEnumerable(T)` interface.
-    * The solution must be produced in [deferred execution](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/query-execution). That is, the path is returned by `GetEnumerator()` method.
-2. Add corresponding `case` section to `HeuristicSearchOrderBy<TFactor, TStep>.GetEnumerator()` method.
-3. Add corresponding validity test class.
-4. Send a pull request which includes algorithm description or reference link (such as [Wiki page](https://en.wikipedia.org/wiki/Main_Page)).
+Please log an issue in the repository. No specific format is required but the following information are needed:
 
-Please refer to [A\*](../src/LinqToAStar/Core/AStar.cs) as example.
+* Steps to reproduce 
+* Code snippet
+* Version information
 
-Thank you for considering contributing to the project. 
+**Thank you for considering contributing to the project.**
