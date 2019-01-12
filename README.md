@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![Build status](https://rvhuang.visualstudio.com/_apis/public/build/definitions/31750fb1-11f7-41f3-9a90-66f5a70f0bc6/3/badge)](https://rvhuang.visualstudio.com/MyFirstProject/_build/latest?definitionId=3) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/) 
 
-**LINQ to A\*** is a [POC](https://www.oxfordlearnersdictionaries.com/definition/english/proof-of-concept) aimed to bring LINQ to [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) and other heuristic search algorithms. The library enable LINQ to be used as the query expression to fetch the solution found by the algorithm.
+**LINQ to A\*** is a [POC](https://www.oxfordlearnersdictionaries.com/definition/english/proof-of-concept) aimed to bring LINQ to [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) and other heuristic search algorithms. The library enables LINQ to be used as the query expression to the algorithm.
 
 The library defines a set of generic APIs that can be applied to any problem, as long as the problem suits the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing the algorithms in C#, but also giving new ability and flexibility to the algorithms.
 
@@ -172,4 +172,4 @@ The MIT License (MIT)
 
 Copyright © Robert Vandenberg Huang ([rvh.omni@gmail.com](mailto:rvh.omni@gmail.com))
 
-Feel free to copy, modify and use in your computer science homework (grades not guaranteed).
+Feel free to copy, modify and use the source code in your computer science homework (grades not guaranteed).
