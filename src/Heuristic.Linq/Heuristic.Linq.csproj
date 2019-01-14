@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,17 +8,17 @@
     <Authors>Robert Vandenberg Huang</Authors>
     <Product>Linq To A*</Product>
     <PackageLicenseUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/LICENSE</PackageLicenseUrl>
-    <Version>1.2.0-beta</Version>
+    <Version>1.2.0-beta2</Version>
     <PackageId>linq-to-astar</PackageId>
     <PackageTags>linq;astar;heuristic</PackageTags>
     <Copyright>© 2019 Robert Vandenberg Huang</Copyright>
-    <Description>LINQ to A* is a POC aimed to incorporate LINQ into A* as well as other heuristic search algorithms. With the library, LINQ can now be used as query expression to state conditions and fetch shortest path found by the algorithm.</Description>
+    <Description>LINQ to A* is a POC aimed to bring LINQ to A* and other heuristic search algorithms. The library enables LINQ to be used as the query expression to the algorithm.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/favicon.ico</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
-    <PackageReleaseNotes>1. New interface IAlgorithmObserverFactory and a set of APIs have been added to support algorithm observation.
-2. All built-in algorithms now can be observed.
-3. Fix incorrect documentation comments.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. The interface IAlgorithmObserverFactory has been redesigned for easier use.
+2. All APIs that accept IAlgorithmObserverFactory arguments have been changed.
+3. Fix grammatical errors in documentation comments.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
