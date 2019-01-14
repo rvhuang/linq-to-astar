@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Heuristic.Linq\Heuristic.Linq.csproj" />
+    <PackageReference Include="linq-to-astar" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>

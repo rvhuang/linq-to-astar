@@ -7,7 +7,9 @@ dotnet: 2.2
 
 install:
 - dotnet restore src/Heuristic.Linq.sln
+- dotnet restore src/Heuristic.Linq.Example.sln
 
 script:
 - dotnet build src/Heuristic.Linq.sln
+- dotnet build src/Heuristic.Linq.Example.sln
 - dotnet test src/Heuristic.Linq.Test/Heuristic.Linq.Test.csproj -c Release
