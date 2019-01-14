@@ -1,5 +1,6 @@
 ﻿using Moq;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using Xunit;
@@ -22,9 +23,11 @@ namespace Heuristic.Linq.Test
         [InlineData(nameof(RecursiveBestFirstSearch))]
         public void TestIProgressOnlyCreatedOnce(string algorithmName)
         {
-            var factory = new Mock<IAlgorithmObserverFactory>();
+            var factory = new Mock<IAlgorithmObserverFactory<Point>>();
+            var progress = new Progress<AlgorithmState<Point, Point>>();
 
-            factory.Setup(f => f.Create(It.IsAny<HeuristicSearchBase<Point, Point>>())).Returns(() => new Progress<AlgorithmState<Point, Point>>());
+            progress.ProgressChanged += (o, e) => Debug.WriteLine("{0}\t{1} ({2})", e.Node.Step, e.Node.Level, nameof(progress.ProgressChanged));
+            factory.Setup(f => f.Create(It.IsAny<HeuristicSearchBase<Point, Point>>())).Returns(() => progress);
 
             var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit), null, factory.Object);
             var obstacles = new[] { new Point(5, 5), new Point(6, 6), new Point(7, 7), new Point(8, 8), new Point(9, 9) };
@@ -44,7 +47,7 @@ namespace Heuristic.Linq.Test
         [InlineData(nameof(RecursiveBestFirstSearch))]
         public void TestLastFlagFound(string algorithmName)
         {
-            var factory = new Mock<IAlgorithmObserverFactory>();
+            var factory = new Mock<IAlgorithmObserverFactory<Point>>();
             var progress = new Mock<IProgress<AlgorithmState<Point, Point>>>();
             var actual = default(AlgorithmFlag?);
             var expected = (AlgorithmFlag?)AlgorithmFlag.Found;
@@ -73,7 +76,7 @@ namespace Heuristic.Linq.Test
         [InlineData(nameof(RecursiveBestFirstSearch))]
         public void TestLastFlagNotFound(string algorithmName)
         {
-            var factory = new Mock<IAlgorithmObserverFactory>();
+            var factory = new Mock<IAlgorithmObserverFactory<Point>>();
             var progress = new Mock<IProgress<AlgorithmState<Point, Point>>>();
             var actual = default(AlgorithmFlag?);
             var expected = (AlgorithmFlag?)AlgorithmFlag.NotFound;

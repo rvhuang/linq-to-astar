@@ -53,7 +53,7 @@ namespace Heuristic.Linq
         /// </summary>
         public INodeComparer<TFactor, TStep> NodeComparer => _nc;
 
-        internal IAlgorithmObserverFactory AlgorithmObserverFactory { get; set; }
+        internal IAlgorithmObserverFactory<TStep> AlgorithmObserverFactory { get; set; }
 
         internal bool IsReversed { get; set; } // Consider exposing this.
 
