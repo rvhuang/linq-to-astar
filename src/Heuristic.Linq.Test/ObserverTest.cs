@@ -1,5 +1,6 @@
 ﻿using Moq;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using Xunit;
@@ -7,7 +8,6 @@ using Xunit;
 namespace Heuristic.Linq.Test
 {
     using Algorithms;
-    using System.Diagnostics;
 
     public class ObserverTest
     {
