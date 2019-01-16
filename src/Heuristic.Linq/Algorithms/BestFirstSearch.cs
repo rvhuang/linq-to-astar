@@ -89,7 +89,7 @@ namespace Heuristic.Linq.Algorithms
                     next.Previous = best;
 
                     if (sc.Equals(next.Step, source.To))
-                        return observer.Found(best, nexts.GetRange(sortAt, nexts.Count - sortAt));
+                        return observer.Found(next, nexts.GetRange(sortAt, nexts.Count - sortAt));
 
                     sortAll = sortAll || nc.Compare(nexts[nexts.Count - 1], next) > 0;
                     nexts.Add(next);

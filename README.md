@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.org/rvhuang/linq-to-astar.svg?branch=master)](https://travis-ci.org/rvhuang/linq-to-astar) [![Build status](https://rvhuang.visualstudio.com/_apis/public/build/definitions/31750fb1-11f7-41f3-9a90-66f5a70f0bc6/3/badge)](https://rvhuang.visualstudio.com/MyFirstProject/_build/latest?definitionId=3) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/vpre/linq-to-astar.svg)](https://www.nuget.org/packages/linq-to-astar/) 
 
-**LINQ to A\*** is a [POC](https://www.oxfordlearnersdictionaries.com/definition/english/proof-of-concept) aimed to bring LINQ to [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) and other heuristic search algorithms. The library enables LINQ to be used as the query expression to the algorithm.
+**LINQ to A\*** is a [POC](https://www.oxfordlearnersdictionaries.com/definition/english/proof-of-concept) aimed to bring LINQ to [A\*](https://en.wikipedia.org/wiki/A*_search_algorithm) and other heuristic search algorithms. The library enables LINQ to be used as the query expression to the algorithm. To put it simply , **A\* written in C#, used with LINQ**.
 
 The library defines a set of generic APIs that can be applied to any problem, as long as the problem suits the algorithm. By taking advantage of the power of LINQ, the library is not only about re-implementing the algorithms in C#, but also giving new ability and flexibility to the algorithms.
-
-**All feedbacks are greatly appreciated**.
 
 ## Why LINQ
 
@@ -15,12 +13,11 @@ The library defines a set of generic APIs that can be applied to any problem, as
 * Easy to learn and use.
 * **Looking cool**. (very important)
 
-## Example
+## Getting Started
 
-The snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example uses types defined in [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
+The snippet below shows the LINQ expression used to find shortest path between `start` and `goal` on a 40 \* 40 map. The example utilizes the types defined in the package [System.Drawing.Primitives](https://www.nuget.org/packages/System.Drawing.Primitives/). 
 
 ```csharp
-// The path to be found between two positions.
 var start = new Point(5, 5);
 var goal = new Point(35, 35);
 var boundary = new Rectangle(0, 0, 40, 40);
@@ -51,7 +48,7 @@ The LINQ expression consists of the following clauses:
 
 If a solution is found, the enumeration returns each step in deferred execution. Otherwise, an empty collection is returned.
 
-See [Expression Examples](docs/Expression-Examples.md) for more examples.
+See the document [Expression Examples](docs/Expression-Examples.md) for more examples.
 
 ### Console Examples
 
@@ -64,6 +61,8 @@ Check out [Pathfinding Lab](https://pathfinding-lab.codedwith.fun/) and play wit
 
 ## Algorithms
 ### Built-in Algorithms
+
+The following algorithms are shipped with the library.
 
 |Algorithm|Factory Method|Remarks|
 |----------|----------|----------|
@@ -94,15 +93,15 @@ var solution = from step in queryable.Except(GetObstacles())
 
 ### Algorithm Observation (v1.2.0-beta)
 
-The solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory` and passing its instance to the new signature of the factory method. The observed algorithm will: 
+The solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory<TStep>` and passing its instance to the new signature of the factory method. The observed algorithm will: 
 
-1. Create an `IProgress<T>` object with the `IAlgorithmObserverFactory` instance, where `T` is `AlgorithmState<TFactor, TStep>`.
+1. Create an `IProgress<T>` object with the `IAlgorithmObserverFactory<TStep>` instance, where `T` is `AlgorithmState<TFactor, TStep>`.
 2. Report the progress by creating `AlgorithmState<TFactor, TStep>` objects and passing to `IProgress<T>.Report()`.
 
 The following snippet shows how to observe A\* algorithm.
 
 ```csharp
-// Implementing IAlgorithmObserverFactory interface.
+// Implementing IAlgorithmObserverFactory<TStep> interface.
 var factory = new MyAlgorithmObserverFactory();
 var queryable = HeuristicSearch.AStar(start, goal, getFourDirections, null, factory);
 var solution = from step in queryable.Except(GetObstacles())
@@ -169,8 +168,6 @@ The operations below provide optimized performance to replace `Enumerable` exten
 
 ## License
 
-The MIT License (MIT)
+The MIT License (MIT) - feel free to copy, modify and use the source code in your computer science homework (grades not guaranteed though).
 
 Copyright © Robert Vandenberg Huang ([rvh.omni@gmail.com](mailto:rvh.omni@gmail.com))
-
-Feel free to copy, modify and use the source code in your computer science homework (grades not guaranteed).
