@@ -11,9 +11,9 @@ namespace Heuristic.Linq.Test
 
     public class ObserverTest
     {
-        private readonly Point start = new Point(0, 0);
-        private readonly Point goal = new Point(10, 10);
-        private readonly Rectangle boundary = new Rectangle(0, 0, 20, 20);
+        private static readonly Point start = new Point(0, 0);
+        private static readonly Point goal = new Point(10, 10);
+        private static readonly Rectangle boundary = new Rectangle(0, 0, 20, 20);
         private const int unit = 1;
 
         [Theory]
@@ -35,9 +35,35 @@ namespace Heuristic.Linq.Test
                            where !obstacles.Contains(step)
                            orderby step.GetManhattanDistance(goal)
                            select step;
-            var list = solution.ToList();
+
+            Assert.NotEmpty(solution);
 
             factory.Verify(f => f.Create(It.IsAny<HeuristicSearchBase<Point, Point>>()), Times.Once);
+        }
+
+        [Theory]
+        [InlineData(nameof(AStar))]
+        [InlineData(nameof(BestFirstSearch))]
+        [InlineData(nameof(IterativeDeepeningAStar))]
+        [InlineData(nameof(RecursiveBestFirstSearch))]
+        public void TestFirstStateEqualToStart(string algorithmName)
+        {
+            var factory = new Mock<IAlgorithmObserverFactory<Point>>();
+            var progress = new Mock<IProgress<AlgorithmState<Point, Point>>>();
+
+            factory.Setup(f => f.Create(It.IsAny<HeuristicSearchBase<Point, Point>>())).Returns(() => progress.Object);
+            progress.Setup(p => p.Report(It.IsAny<AlgorithmState<Point, Point>>()));
+
+            var queryable = HeuristicSearch.Use(algorithmName, start, goal, (step, lv) => step.GetFourDirections(unit), null, factory.Object);
+            var obstacles = new[] { new Point(5, 5), new Point(6, 6), new Point(7, 7), new Point(8, 8), new Point(9, 9) };
+            var solution = from step in queryable.Except(obstacles)
+                           where boundary.Contains(step)
+                           orderby step.GetManhattanDistance(goal)
+                           select step;
+
+            Assert.NotEmpty(solution);
+
+            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Node.Step == start && s.Node.Level == 0 && s.Flag == AlgorithmFlag.InProgress)), Times.Once);
         }
 
         [Theory]
@@ -65,8 +91,7 @@ namespace Heuristic.Linq.Test
             Assert.NotEmpty(solution);
             Assert.Equal(expected, actual);
 
-            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Flag == AlgorithmFlag.InProgress)), Times.AtLeastOnce);
-            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Flag == expected)), Times.Once);
+            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Flag == expected && s.Node.Step == goal)), Times.Once);
         }
 
         [Theory]
@@ -96,8 +121,7 @@ namespace Heuristic.Linq.Test
             Assert.Empty(solution);
             Assert.Equal(expected, actual);
 
-            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Flag == AlgorithmFlag.InProgress)), Times.AtLeastOnce);
-            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Flag == expected)), Times.Once);
+            progress.Verify(p => p.Report(It.Is<AlgorithmState<Point, Point>>(s => s.Flag == expected && s.Node == null)), Times.Once);
         }
     }
 }

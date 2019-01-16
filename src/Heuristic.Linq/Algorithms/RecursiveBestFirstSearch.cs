@@ -78,7 +78,7 @@ namespace Heuristic.Linq.Algorithms
 
         #endregion
 
-        #region Method
+        #region Methods
 
         public override Node<TFactor, TStep> Run()
         {
@@ -175,7 +175,7 @@ namespace Heuristic.Linq.Algorithms
             var inits = Source.ConvertToNodes(Source.From, 0).ToArray();
 
             if (inits.Length == 0)
-                return null;
+                return _observer.NotFound();
 
             try
             {
@@ -186,7 +186,7 @@ namespace Heuristic.Linq.Algorithms
                 throw error.InnerException ?? error;
             }
 
-            var best = inits[0];
+            var best = _observer.InProgress(inits[0], inits);
             var state = Search(best, null, new HashSet<TStep>(Source.StepComparer));
 
             return state.Flag == AlgorithmFlag.Found ? _observer.ReportAndReturn(state).Node : _observer.NotFound();
