@@ -8,17 +8,17 @@
     <Authors>Robert Vandenberg Huang</Authors>
     <Product>Linq To A*</Product>
     <PackageLicenseUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/LICENSE</PackageLicenseUrl>
-    <Version>1.2.0-beta2</Version>
+    <Version>1.2.0</Version>
     <PackageId>linq-to-astar</PackageId>
     <PackageTags>linq;astar;heuristic</PackageTags>
     <Copyright>© 2019 Robert Vandenberg Huang</Copyright>
-    <Description>LINQ to A* is a POC aimed to bring LINQ to A* and other heuristic search algorithms. The library enables LINQ to be used as the query expression to the algorithm.</Description>
+    <Description>A* algorithm written in C#, used with LINQ expressions.</Description>
     <PackageIconUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/favicon.ico</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
-    <PackageReleaseNotes>1. The interface IAlgorithmObserverFactory has been redesigned for easier use.
-2. All APIs that accept IAlgorithmObserverFactory arguments have been changed.
-3. Fix grammatical errors in documentation comments.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. New interface IAlgorithmObserverFactory{T} and a set of APIs have been added to support algorithm observation.
+2. All built-in algorithms now can be observed with the new APIs.
+3. Fix incorrect documentation comments and grammatical errors.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,7 +26,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\Heuristic.Linq.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Heuristic.Linq.xml</DocumentationFile>
   </PropertyGroup>
   
   <ItemGroup>
