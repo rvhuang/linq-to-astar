@@ -8,12 +8,12 @@ namespace Heuristic.Linq
     /// </summary>
     /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
     /// <typeparam name="TStep">The type of step of the problem.</typeparam>
-    public class Node<TFactor, TStep>
+    public class Node<TFactor, TStep> : INode<TStep>
     {
         #region Properties
 
         /// <summary>
-        /// Gets previous node of current instance.
+        /// Gets or sets the previous node of current instance.
         /// </summary>
         public Node<TFactor, TStep> Previous
         {
@@ -21,7 +21,7 @@ namespace Heuristic.Linq
         }
 
         /// <summary>
-        /// Gets next node of current instance.
+        /// Gets or sets the next node of current instance.
         /// </summary>
         public Node<TFactor, TStep> Next
         {
@@ -29,7 +29,7 @@ namespace Heuristic.Linq
         }
 
         /// <summary>
-        /// Gets the step.
+        /// Gets the step of current node.
         /// </summary>
         public TStep Step
         {
@@ -37,7 +37,7 @@ namespace Heuristic.Linq
         }
 
         /// <summary>
-        /// Gets corresponding level of <see cref="Step"/>.
+        /// Gets the corresponding level of <see cref="Step"/>.
         /// </summary>
         public int Level
         {
@@ -51,6 +51,10 @@ namespace Heuristic.Linq
         {
             get; private set;
         }
+
+        INode<TStep> INode<TStep>.Previous => Previous;
+
+        INode<TStep> INode<TStep>.Next => Next; 
 
         #endregion
 

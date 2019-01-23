@@ -8,7 +8,7 @@ namespace Heuristic.Linq.Algorithms
     /// </summary>
     /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
     /// <typeparam name="TStep">The type of step of the problem.</typeparam>
-    public struct AlgorithmState<TFactor, TStep>
+    public struct AlgorithmState<TFactor, TStep> : IAlgorithmState<TStep>
     {
         /// <summary>
         /// Gets the default instance that represents the status where solution is not found. 
@@ -38,6 +38,10 @@ namespace Heuristic.Linq.Algorithms
         {
             get; private set;
         }
+
+        INode<TStep> IAlgorithmState<TStep>.Node => Node;
+
+        IReadOnlyCollection<INode<TStep>> IAlgorithmState<TStep>.Candidates => Candidates;
 
         /// <summary>
         /// Creates an instance of the structure.
