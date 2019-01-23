@@ -17,8 +17,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
     <PackageReleaseNotes>1. New interface IAlgorithmObserverFactory{T} and a set of APIs have been added to support algorithm observation.
-2. All built-in algorithms now can be observed with the new APIs.
-3. Fix incorrect documentation comments and grammatical errors.</PackageReleaseNotes>
+2. New interfaces INode{T} and IAlgorithmState{T} that provide abstract views of node and state information.
+3. All built-in algorithms now can be observed with the new APIs.
+4. Fix incorrect documentation comments and grammatical errors.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
