@@ -52,8 +52,8 @@ See the document [Expression Examples](docs/Expression-Examples.md) for more exa
 
 ### Console Examples
 
-* [Pathfinding](src/Heuristic.Linq.Example.PathFinding/) 
-* [Solving 8-Puzzle](src/Heuristic.Linq.Example.EightPuzzle/)
+* [Classic Pathfinding](examples/Heuristic.Linq.Example.PathFinding/) 
+* [8-Puzzle Solving](examples/Heuristic.Linq.Example.EightPuzzle/)
 
 ### Live Playground
 
