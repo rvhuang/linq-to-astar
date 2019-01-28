@@ -57,7 +57,7 @@ See the document [Expression Examples](docs/Expression-Examples.md) for more exa
 
 ### Live Playground
 
-Check out [Pathfinding Lab](https://pathfinding-lab.codedwith.fun/) and play with the library.
+Check out [Pathfinding Laboratory](https://pathfinding-lab.codedwith.fun/) and play with the library.
 
 ## Algorithms
 ### Built-in Algorithms
@@ -72,9 +72,9 @@ The following algorithms are shipped with the library.
 |[Iterative Deepening A\*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)|`IterativeDeepeningAStar<TStep>()`||
 |[Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)|`AStar<TStep>()`|Without `orderby` clause. (v1.1.0)|
 
-### User-defined Algorithm 
+### User-defined Algorithms
 
-You are able to implement and use your customized algorithm with the following steps:
+You are able to implement and use your customized algorithms with the following steps:
 
 1. Create a type that implements `IAlgorithm` interface.
 2. Register the type and name of the algorithm with `HeuristicSearch.Register<TAlgorithm>()`.
@@ -91,7 +91,7 @@ var solution = from step in queryable.Except(GetObstacles())
                select step;
 ```
 
-### Algorithm Observation (v1.2.0-beta)
+### Algorithm Observation (v1.2.0)
 
 The solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory<TStep>` and passing its instance to the new signature of the factory method. The observed algorithm will: 
 
@@ -159,6 +159,7 @@ The operations below provide optimized performance to replace `Enumerable` exten
 |1.0.0|Q3 2018|
 |1.1.0|Q4 2018|
 |1.2.0|Q1 2019|
+|1.3.0|Q2 2019|
 
 ## Platform and Dependencies
 
