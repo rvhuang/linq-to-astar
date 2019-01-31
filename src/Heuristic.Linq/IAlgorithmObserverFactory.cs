@@ -15,6 +15,9 @@ namespace Heuristic.Linq
         /// </summary>
         /// <param name="source">The instance that allows LINQ expressions to be applied to.</param>
         /// <returns>An <see cref="IProgress{T}"/> instance.</returns>
+        /// <remarks>
+        /// Mo 
+        /// <remarks>
         IProgress<AlgorithmState<TFactor, TStep>> Create<TFactor>(HeuristicSearchBase<TFactor, TStep> source);
     }
 }

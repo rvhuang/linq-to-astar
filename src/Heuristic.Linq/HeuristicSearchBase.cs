@@ -8,7 +8,7 @@ namespace Heuristic.Linq
     /// <summary>
     /// Defines the instance that allows LINQ expressions to be applied to heuristic algorithms.
     /// </summary>
-    /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+    /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
     /// <typeparam name="TStep">The type of step of the problem.</typeparam>
     public abstract class HeuristicSearchBase<TFactor, TStep> : IEnumerable<TFactor>
     {
