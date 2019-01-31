@@ -13,7 +13,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Invoked when a new <see cref="AlgorithmProgress{TStep}"/> instance is created.
         /// </summary>
-        public readonly EventHandler<AlgorithmProgress<TStep>> Created;
+        public event EventHandler<AlgorithmProgress<TStep>> Created;
 
         /// <summary>
         /// Initializes a new instance of current class.

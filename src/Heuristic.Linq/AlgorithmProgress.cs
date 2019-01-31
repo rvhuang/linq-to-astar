@@ -13,7 +13,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Invoked when the progress of an algorithm has changed.
         /// </summary>
-        public EventHandler<IAlgorithmState<TStep>> ProgressChanged;
+        public event EventHandler<IAlgorithmState<TStep>> ProgressChanged;
 
         void IProgress<IAlgorithmState<TStep>>.Report(IAlgorithmState<TStep> value)
         {
