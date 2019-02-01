@@ -8,7 +8,7 @@
     <Authors>Robert Vandenberg Huang</Authors>
     <Product>Linq To A*</Product>
     <PackageLicenseUrl>https://github.com/rvhuang/linq-to-astar/blob/master/LICENSE</PackageLicenseUrl>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <PackageId>linq-to-astar</PackageId>
     <PackageTags>linq;astar;heuristic</PackageTags>
     <Copyright>© 2019 Robert Vandenberg Huang</Copyright>
@@ -16,10 +16,9 @@
     <PackageIconUrl>https://raw.githubusercontent.com/rvhuang/linq-to-astar/master/favicon.ico</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>false</SignAssembly>
-    <PackageReleaseNotes>1. New interface IAlgorithmObserverFactory{T} and a set of APIs have been added to support algorithm observation.
-2. New interfaces INode{T} and IAlgorithmState{T} that provide abstract views of node and state information have been added for simpler algorithm observation.
-3. All built-in algorithms now can be observed with the new APIs.
-4. Fix incorrect documentation comments and grammatical errors.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Fix missing event modifier on AlgorithmProgress.ProgressChanged.
+2. Fix missing event modifier on AlgorithmObserverFactory(T).Created.
+3. Update documentation comments.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
