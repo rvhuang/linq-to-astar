@@ -6,7 +6,7 @@ namespace Heuristic.Linq.Algorithms
     /// <summary>
     /// Represents the state of an algorithm.
     /// </summary>
-    /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+    /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
     /// <typeparam name="TStep">The type of step of the problem.</typeparam>
     public struct AlgorithmState<TFactor, TStep> : IAlgorithmState<TStep>
     {

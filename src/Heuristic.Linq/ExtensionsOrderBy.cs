@@ -10,7 +10,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Single"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -27,7 +27,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Double"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -44,7 +44,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Decimal"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -61,7 +61,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Byte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -78,7 +78,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="SByte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -95,7 +95,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Int16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -112,7 +112,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="UInt16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -129,7 +129,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Int32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -146,7 +146,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="UInt32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -163,7 +163,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="Int64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -180,7 +180,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <see cref="UInt64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -197,7 +197,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -215,7 +215,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -238,7 +238,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Single"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -255,7 +255,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Double"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -272,7 +272,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Decimal"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -289,7 +289,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Byte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -306,7 +306,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="SByte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -323,7 +323,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Int16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -340,7 +340,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="UInt16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -357,7 +357,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Int32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -374,7 +374,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="UInt32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -391,7 +391,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="Int64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -408,7 +408,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <see cref="UInt64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -425,7 +425,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -440,7 +440,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies descending heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -463,7 +463,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Single"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -479,7 +479,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Double"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -495,7 +495,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Decimal"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -511,7 +511,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Byte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -527,7 +527,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="SByte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -543,7 +543,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Int16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -559,7 +559,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="UInt16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -575,7 +575,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Int32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -591,7 +591,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="UInt32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -607,7 +607,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="Int64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -623,7 +623,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <see cref="UInt64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -639,7 +639,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -654,7 +654,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -676,7 +676,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Single"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -692,7 +692,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Double"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -708,7 +708,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Decimal"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -724,7 +724,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Byte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -740,7 +740,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="SByte"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -756,7 +756,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Int16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -772,7 +772,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="UInt16"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -788,7 +788,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Int32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -804,7 +804,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="UInt32"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -820,7 +820,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="Int64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -836,7 +836,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <see cref="UInt64"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
         /// <param name="keySelector">The heuristic function to estimate and compare <typeparamref name="TFactor"/>.</param>
@@ -852,7 +852,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <param name="source">The current instance.</param>
@@ -867,7 +867,7 @@ namespace Heuristic.Linq
         /// <summary>
         /// Applies a subsequent descending heuristic function to current instance. The return type is <typeparamref name="TKey"/>.
         /// </summary>
-        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function.</typeparam>
+        /// <typeparam name="TFactor">The type of factor used to evaluate with heuristic function. The type is projected from <typeparamref name="TStep"/>.</typeparam>
         /// <typeparam name="TKey">The return type of heuristic function.</typeparam>
         /// <typeparam name="TStep">The type of step of the problem.</typeparam>
         /// <param name="source">The current instance.</param>
