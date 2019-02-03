@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="linq-to-astar" Version="1.2.0" />
+    <PackageReference Include="linq-to-astar" Version="1.2.1" />
   </ItemGroup>
 </Project>
