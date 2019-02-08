@@ -96,7 +96,7 @@ var solution = from step in queryable.Except(GetObstacles())
 The solution finding process of an algorithm can be observed by implementing the interface `IAlgorithmObserverFactory<TStep>` and passing its instance to the new signature of the factory method. The observed algorithm will: 
 
 1. Create an `IProgress<T>` object with the `IAlgorithmObserverFactory<TStep>` instance, where `T` is `AlgorithmState<TFactor, TStep>`.
-2. Report the progress by creating `AlgorithmState<TFactor, TStep>` objects and passing to `IProgress<T>.Report()`.
+2. Report the progress by creating a series of `AlgorithmState<TFactor, TStep>` instances and passing each of them to `IProgress<T>.Report()`.
 
 The following snippet shows how to observe A\* algorithm.
 
@@ -112,6 +112,8 @@ var solution = from step in queryable.Except(GetObstacles())
 // The algorithm starts finding the solution while reporting the progress.
 var array = solution.ToArray();
 ```
+
+The Open List Analysis of [Pathfinding Laboratory](https://pathfinding-lab.codedwith.fun/) largely relies on this feature.
 
 ## Supported LINQ Clauses and Operations
 
