@@ -59,17 +59,21 @@ namespace Heuristic.Linq.Algorithms
 #else
                     if (open.FindLastIndex(sortAt - 1, step => sc.Equals(next.Step, step.Step)) != -1) continue;
 #endif
-                    if (open.FindIndex(sortAt, step => sc.Equals(next.Step, step.Step)) == -1)
+                    next.Previous = current;
+
+                    if (sc.Equals(next.Step, source.To))
+                        return next;
+
+                    var index = open.FindIndex(sortAt, step => sc.Equals(next.Step, step.Step));
+                    if (index == -1)
                     {
-                        next.Previous = current;
-
-                        if (sc.Equals(next.Step, source.To))
-                            return next;
-
                         sortAll = sortAll || nc.Compare(open[open.Count - 1], next) > 0;
                         open.Add(next);
-
-                        Debug.WriteLine($"{current.Step}\t{current.Level} -> {next.Step}\t{next.Level}");
+                    }
+                    else if (nc.Compare(next, open[index]) < 0)
+                    {
+                        sortAll = true;
+                        open[index] = next;
                     }
                 }
                 if (sortAll)
